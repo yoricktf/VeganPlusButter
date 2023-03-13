@@ -1,11 +1,23 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-
-const inter = Inter({ subsets: ['latin'] })
+import Card from '../../components/Card'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
+  const [posts, setPosts] = useState([])
+
+
+  useEffect(() => {
+    const getAllPosts = async () => {
+      const response = await fetch('/api')
+      const allPosts = await response.json()
+      setPosts(allPosts)
+    }
+
+    getAllPosts()
+  }, [])
+
+  console.log(posts)
+
   return (
     <>
       <Head>
@@ -14,7 +26,14 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <h1>posts</h1>
+      <ul>
+        {posts.map(post => {
+          if (post.featured) {
+            return <li key={post._id}>{post.title}</li>
+          }
+        })}
+      </ul>
     </>
   )
 }
