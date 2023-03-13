@@ -12,11 +12,8 @@ export default function Home() {
       const allPosts = await response.json()
       setPosts(allPosts)
     }
-
     getAllPosts()
   }, [])
-
-  console.log(posts)
 
   return (
     <>
@@ -30,7 +27,7 @@ export default function Home() {
       <ul>
         {posts.map(post => {
           if (post.featured) {
-            return <li key={post._id}>{post.title}</li>
+            return <Card key={post._id} title={post.title} image={post.images[0]} tags={post.tags} />
           }
         })}
       </ul>
