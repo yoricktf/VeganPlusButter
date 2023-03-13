@@ -2,8 +2,12 @@ import Head from 'next/head'
 import Card from '../../components/Card'
 import { useEffect, useState } from 'react'
 
+const MONGODB_URI = process.env.MONGODB_URI;
 export default function Home() {
   const [posts, setPosts] = useState([])
+
+
+  console.log('-----------------------MONGODB', MONGODB_URI)
 
 
   useEffect(() => {
