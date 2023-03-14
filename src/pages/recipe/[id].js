@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-const showPage = () => {
+const ShowPage = () => {
   const router = useRouter()
   const [specficPost, setSpecficPost] = useState()
   const { id } = router.query;
@@ -50,4 +50,4 @@ const showPage = () => {
   )
 }
 
-export default showPage
+export default ShowPage
