@@ -11,9 +11,7 @@ const Card = ({ title, image, tags, postId }) => {
       />
       <h2>{title}</h2>
       <div className="tags">
-        {tags.map(tag => {
-          return (<p key={tag} className={`tag ${tag}`}>{tag}</p>)
-        })}
+        {tags.map(tag => (<p key={tag} className={`tag ${tag}`}>{tag}</p>))}
       </div>
     </Link>
   )
