@@ -1,7 +1,8 @@
 import Image from "next/image"
-const Card = ({ title, image, tags }) => {
+import Link from "next/link"
+const Card = ({ title, image, tags, postId }) => {
   return (
-    <div className="card">
+    <Link href={`recipe/${postId}`} className="card">
       <Image
         src={image}
         alt="recipe image"
@@ -10,11 +11,11 @@ const Card = ({ title, image, tags }) => {
       />
       <h2>{title}</h2>
       <div className="tags">
-        {tags.map((tag, index) => {
-          return (<p key={index} className="tag">{tag}</p>)
+        {tags.map(tag => {
+          return (<p key={tag} className={`tag ${tag}`}>{tag}</p>)
         })}
       </div>
-    </div>
+    </Link>
   )
 }
 
