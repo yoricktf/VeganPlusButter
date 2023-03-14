@@ -1,16 +1,12 @@
 import LargeCard from "../../components/LargeCard"
 import { useState } from 'react'
 
-
 const Search = ({ posts }) => {
   const [searchQuery, setSearchQuery] = useState()
-
-  console.log(posts)
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value.toLowerCase())
   }
-
 
   return (
     <>

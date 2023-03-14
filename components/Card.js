@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import Tag from "./Tag"
 const Card = ({ title, image, tags, postId }) => {
   return (
     <Link href={`recipe/${postId}`} className="card">
@@ -11,7 +12,7 @@ const Card = ({ title, image, tags, postId }) => {
       />
       <h2>{title}</h2>
       <div className="tags">
-        {tags.map(tag => (<p key={tag} className={`tag ${tag}`}>{tag}</p>))}
+        {tags.map(tag => <Tag key={tag} tag={tag} />)}
       </div>
     </Link>
   )
