@@ -33,7 +33,7 @@ export default function Home() {
       <ul>
         {posts.map(post => {
           if (post.featured) {
-            return <Card key={post._id} title={post.title} image={post.images[0]} tags={post.tags} />
+            return <Card key={post._id} title={post.title} image={post.images[0]} tags={post.tags} postId={post._id} />
           }
         })}
       </ul>

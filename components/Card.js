@@ -1,7 +1,8 @@
 import Image from "next/image"
-const Card = ({ title, image, tags }) => {
+import Link from "next/link"
+const Card = ({ title, image, tags, postId }) => {
   return (
-    <div className="card">
+    <Link href={`recipe/${postId}`} className="card">
       <Image
         src={image}
         alt="recipe image"
@@ -14,7 +15,7 @@ const Card = ({ title, image, tags }) => {
           return (<p key={index} className="tag">{tag}</p>)
         })}
       </div>
-    </div>
+    </Link>
   )
 }
 
