@@ -21,8 +21,13 @@ const id = () => {
     const { title, method, ingredients, date, description, prepTime, cookTime, tags, images, servingSize } = specficPost
     return (
       <>
-        <Image src={images[0]} width={200} height={200} />
+        <Image src={images[0]} alt={`image of ${title}`} width={200} height={200} />
         <h1>{title}</h1>
+        <ul className='tags'>
+          {tags.map(tag => {
+            return <li className={`tag ${tag}`} key={tag}>{tag}</li>
+          })}
+        </ul>
         <p>{description}</p>
         <ul>
           {ingredients.map((ingredient, index) => {
