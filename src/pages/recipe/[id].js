@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Tag from '../../../components/Tag';
 
 const ShowPage = () => {
   const router = useRouter()
@@ -23,11 +24,9 @@ const ShowPage = () => {
       <>
         <Image src={images[0]} alt={`image of ${title}`} width={200} height={200} />
         <h1>{title}</h1>
-        <ul className='tags'>
-          {tags.map(tag => {
-            return <li className={`tag ${tag}`} key={tag}>{tag}</li>
-          })}
-        </ul>
+        <div className='tags'>
+          {tags.map(tag => <Tag key={tag} tag={tag} />)}
+        </div>
         <p>{description}</p>
         <ul>
           {ingredients.map((ingredient, index) => {
