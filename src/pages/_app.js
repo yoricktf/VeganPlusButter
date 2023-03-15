@@ -1,6 +1,8 @@
 // import '@/styles/globals.css'
 import { SessionProvider } from "next-auth/react"
 import { useEffect, useState } from 'react'
+import Layout from "../../components/Layout"
+
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const [posts, setPosts] = useState([])
@@ -17,7 +19,9 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
 
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} posts={posts} />
+      <Layout>
+        <Component {...pageProps} posts={posts} />
+      </Layout>
     </SessionProvider>
   )
 }
