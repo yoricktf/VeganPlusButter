@@ -2,10 +2,10 @@ import Head from 'next/head'
 import Card from '../../components/Card'
 import Component from '../../components/Login-btn'
 // import { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
+// import { useSession } from 'next-auth/react'
 
 export default function Home({ posts }) {
-  const { data: session, status } = useSession()
+  // const { data: session, status } = useSession()
 
   return (
     <>
@@ -15,7 +15,6 @@ export default function Home({ posts }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Component />
       <h1>posts</h1>
       <ul>
         {posts.map(post => {
