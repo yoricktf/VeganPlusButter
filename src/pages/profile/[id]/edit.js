@@ -40,7 +40,7 @@ const EditProfile = (
     return (
       <>
         <Image className='largeProfile' src={specificUser.image} width={96} height={96} alt={`${specificUser.name}'s profile picture`} />
-        <h1>{specificUser.name}'s Profile</h1>
+        <h1>{specificUser.name}`&apos;`s Profile</h1>
 
         <p>email: {specificUser.email}</p>
 
