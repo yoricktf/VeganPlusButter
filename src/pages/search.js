@@ -7,6 +7,7 @@ const Search = ({ posts }) => {
   const handleSearch = (event) => {
     setSearchQuery(event.target.value.toLowerCase())
   }
+
   if (!!posts) {
     return (
       <>

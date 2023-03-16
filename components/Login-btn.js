@@ -1,10 +1,44 @@
 import { useSession, signIn, signOut } from "next-auth/react"
+import Image from "next/image"
+import { useEffect } from "react"
+import { useRouter } from 'next/router'
 
-export default function Component() {
+
+
+
+export default function LoginComponent() {
   const { data: session } = useSession()
+  const router = useRouter()
+
+
+
+
+  useEffect(() => {
+    try {
+      const checkUser = async () => {
+        if (session) {
+          const response = await fetch('/api/users', {
+            method: 'POST',
+            body: JSON.stringify(session.user),
+          })
+          const user = await response.json()
+
+          if (!!user._id) {
+            router.push(`/profile/${user._id}/edit`)
+          }
+        }
+      }
+      checkUser()
+    } catch (error) {
+      console.log(error)
+    }
+  }, [session])
+
+
   if (session) {
     return (
       <>
+        <Image className="profile" src={session.user.image} height={20} width={20} alt={`profile picture for ${session.user.name}`} />
         Signed in as {session.user.email} <br />
         <button onClick={() => signOut()}>Sign out</button>
       </>
@@ -12,7 +46,7 @@ export default function Component() {
   }
   return (
     <>
-      Not signed in <br />
+      sign in <br />
       <button onClick={() => signIn()}>Sign in</button>
     </>
   )
