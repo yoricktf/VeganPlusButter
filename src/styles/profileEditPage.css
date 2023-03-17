@@ -1,0 +1,36 @@
+.profileForm {
+  padding: 20px;
+}
+.profileData {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#largeProfile {
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.userForm {
+  display: flex;
+  flex-direction: column;
+  /* padding: 20px; */
+}
+
+.userForm > button {
+  margin: 20px;
+  padding: 10px;
+  width: 150px;
+  align-self: center;
+}
+
+.userForm > input,
+.userForm > textarea {
+  margin-bottom: 10px;
+  padding: 5px;
+  font-family: sans-serif;
+}
+
+::placeholder {
+  font-family: sans-serif;
+}
