@@ -47,7 +47,6 @@ export default function LoginComponent() {
   }
   return (
     <div className="loginOptions">
-      sign in <br />
       <button onClick={() => signIn()}>Sign in</button>
     </div>
   )

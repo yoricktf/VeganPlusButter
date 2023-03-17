@@ -1,0 +1,26 @@
+#recipeShowImageContainer {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#recipeShowImageContainer > h1 {
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+#recipeShowImage {
+  z-index: -1;
+}
+
+#showPageBody {
+  padding: 20px;
+}
+
+.tags {
+  display: flex;
+}

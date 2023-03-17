@@ -26,7 +26,7 @@ const EditProfile = (
     try {
       const response = await fetch(`/api/user/${id}`, {
         // const response = await fetch(`/api/user/${specificUser._id}`, {
-        method: 'POST',
+        method: 'PUT',
         body: JSON.stringify(specificUser)
       })
     } catch (error) {
@@ -51,8 +51,6 @@ const EditProfile = (
           <textarea name="bio" id="bio" cols="30" rows="10" onChange={(e) => setSpecificUser({ ...specificUser, bio: e.target.value })} value={specificUser.bio}></textarea>
           <button>Edit Your Profile</button>
         </form>
-
-
       </>
     )
   }

@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     res.status(200).json(user)
   }
 
-  if (req.method === 'POST') {
+  if (req.method === 'PUT') {
     const userObject = JSON.parse(req.body)
     await User.findByIdAndUpdate(id, userObject)
     res.status(200).json('user updated')

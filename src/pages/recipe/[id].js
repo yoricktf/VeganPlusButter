@@ -22,22 +22,37 @@ const ShowPage = () => {
     const { title, method, ingredients, date, description, prepTime, cookTime, tags, images, servingSize } = specficPost
     return (
       <>
-        <Image src={images[0]} alt={`image of ${title}`} width={200} height={200} />
-        <h1>{title}</h1>
-        <div className='tags'>
-          {tags.map(tag => <Tag key={tag} tag={tag} />)}
+        <div id='recipeShowImageContainer'>
+          <h1>{title}</h1>
+          <Image
+            id='recipeShowImage'
+            src={images[0]}
+            alt={`image of ${title}`}
+            // width={200}
+            // height={200}
+            fill
+            sizes="100%"
+            style={{ objectFit: 'cover' }}
+          />
         </div>
-        <p>{description}</p>
-        <ul>
-          {ingredients.map((ingredient, index) => {
-            return <li key={index}>{ingredient}</li>
-          })}
-        </ul>
-        <ol>
-          {method.map((step, index) => {
-            return <li key={index}>{step}</li>
-          })}
-        </ol>
+        <section id='showPageBody'>
+          <div className='tags'>
+            {tags.map(tag => <Tag key={tag} tag={tag} />)}
+          </div>
+          <p>{description}</p>
+          <h2>Ingredients</h2>
+          <ul>
+            {ingredients.map((ingredient, index) => {
+              return <li key={index}>{ingredient}</li>
+            })}
+          </ul>
+          <h2>Method</h2>
+          <ol>
+            {method.map((step, index) => {
+              return <li key={index}>{step}</li>
+            })}
+          </ol>
+        </section>
       </>
     )
   }

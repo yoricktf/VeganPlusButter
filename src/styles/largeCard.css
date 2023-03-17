@@ -1,0 +1,27 @@
+.largeCard {
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+  margin: 30px;
+  box-shadow: 0px 0px 40px -20px rgb(0, 0, 0);
+}
+
+.largeCardDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.largeCardDetails > h2 {
+  margin: 0;
+}
+
+.largeCardTags {
+  display: flex;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+}
