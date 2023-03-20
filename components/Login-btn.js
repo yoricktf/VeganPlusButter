@@ -38,17 +38,16 @@ export default function LoginComponent() {
 
   if (session) {
     return (
-      <>
-        <Image className="profile" src={session.user.image} height={20} width={20} alt={`profile picture for ${session.user.name}`} />
-        Signed in as {session.user.email} <br />
+      <div className="loginOptions">
+        {/* Signed in as {session.user.email} <br /> */}
         <button onClick={() => signOut()}>Sign out</button>
-      </>
+        <Image className="profile" src={session.user.image} height={30} width={30} alt={`profile picture for ${session.user.name}`} />
+      </div>
     )
   }
   return (
-    <>
-      sign in <br />
+    <div className="loginOptions">
       <button onClick={() => signIn()}>Sign in</button>
-    </>
+    </div>
   )
 }

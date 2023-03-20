@@ -11,9 +11,11 @@ const Search = ({ posts }) => {
   if (!!posts) {
     return (
       <>
-        <h1>Search</h1>
-        <input type="text" onChange={handleSearch} placeholder="cookies, healthy, butter" />
-        <p className="detail">Search through recipe titles, tags or ingredients</p>
+        <section id="searchSection">
+          <h1>Search</h1>
+          <input type="text" id="search" onChange={handleSearch} placeholder="cookies, healthy, butter" />
+          <p className="detail">Search through recipe titles, tags or ingredients</p>
+        </section>
         {posts.filter(post => {
           return (post.title.toLowerCase()).includes(searchQuery)
             || (post.tags.map(tag => tag.toLowerCase())).includes(searchQuery)

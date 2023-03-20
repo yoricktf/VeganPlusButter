@@ -1,0 +1,20 @@
+#searchSection {
+  width: 100vw;
+  text-align: center;
+  padding-top: 20px;
+}
+
+#searchSection > h1 {
+  margin: 2px;
+}
+
+#search {
+  width: 90%;
+  text-align: center;
+}
+
+.detail {
+  color: rgb(138, 138, 138);
+  font-size: 0.7rem;
+  margin: 5px;
+}
