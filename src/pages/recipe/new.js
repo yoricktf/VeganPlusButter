@@ -1,7 +1,9 @@
 import { useSession } from "next-auth/react"
 import { useState } from 'react'
+import { useRouter } from "next/router"
 
 const NewRecipe = () => {
+  const router = useRouter()
   const { data: session } = useSession()
   const [tags, setTags] = useState([])
   const [ingredients, setIngredients] = useState([''])
@@ -16,11 +18,16 @@ const NewRecipe = () => {
 
     const formData = new FormData(event.target);
     const productData = Object.fromEntries(formData);
+    const wholePost = { ...productData, date: formattedDate, author: session.user.email, tags, method: methodSteps, ingredients }
 
     const response = await fetch('/api/posts', {
       method: 'POST',
-      body: JSON.stringify({ ...productData, date: formattedDate, author: session.user.email, tags, method: methodSteps, ingredients })
+      body: JSON.stringify(wholePost)
     })
+    const data = await response.json()
+    console.log(data)
+
+    router.push(`/recipe/${data._id}`)
   }
 
   const addIngredient = () => {

@@ -12,13 +12,18 @@ export default async function handler(req, res) {
 
     const user = await User.find({ email: postObject.author })
 
+    const PostObjectWithAuthorId = { ...postObject, author: user[0]._id }
+
     //the recipe data and adding the specfic users id
-    console.log({ ...postObject, author: user[0]._id })
+    console.log('--------------', postObject)
+    console.log('=========with id', PostObjectWithAuthorId)
 
 
 
 
-    // const reponse = await Post.create(postObject)
+    const response = await Post.create(PostObjectWithAuthorId)
+    res.status(200).json(response)
+    console.log('$$$$$$$$$$$$response: ', response)
   }
 
 
