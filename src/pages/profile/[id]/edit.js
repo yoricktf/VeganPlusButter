@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react';
-import { useSession, signIn, signOut } from "next-auth/react"
-
+import { useSession } from "next-auth/react"
+import NotAuthorized from '../../../../components/NotAuthorized';
 
 const EditProfile = (
   // {handleFetchSpecificUser}
@@ -60,7 +60,7 @@ const EditProfile = (
       </section>
     )
   }
-  return <h1>You need to be signed in to see this page</h1>
+  return <NotAuthorized />
 
 }
 

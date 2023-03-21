@@ -1,13 +1,18 @@
 import { useSession } from "next-auth/react"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from "next/router"
+import NotAuthorized from "../../../components/NotAuthorized"
+
 
 const NewRecipe = () => {
+
   const router = useRouter()
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
+  const [confirmedUser, setConfirmedUser] = useState()
   const [tags, setTags] = useState([])
   const [ingredients, setIngredients] = useState([''])
   const [methodSteps, setMethodSteps] = useState([''])
+  const tagOptions = ['easy', 'intermediate', 'hard', 'vegan', 'vegetarian', 'healthy', 'quick', 'breakfast', 'lunch', 'snack', 'dinner', 'dessert', 'baking', 'nut-free']
 
 
   const handleSubmit = async (event) => {
@@ -55,83 +60,95 @@ const NewRecipe = () => {
     setMethodSteps(copy)
   }
 
-  return (
-    <form className="postForm" onSubmit={handleSubmit}>
-      <h1>NewRecipe</h1>
-      <label htmlFor="title">Title:</label>
-      <input type="text" name="title" id="title" />
-      <label htmlFor="description">Description:</label>
-      <textarea name="description" id="description" cols="30" rows="10"></textarea>
-      <fieldset> <legend>Ingredients</legend>
-        <ul>
-          {ingredients.map((input, index) => {
-            return (
-              <li key={index}>
-                <input type="text" name="ingredient" onChange={e => updateIngredient(e.target.value, index)} />
-              </li>
-            )
-          })}
-        </ul>
-        <button type="button" onClick={addIngredient}>add another ingredient</button>
-      </fieldset>
+  useEffect(() => {
+    try {
+      const checkIfAdmin = async () => {
+        if (session) {
+          const response = await fetch('/api/users', {
+            method: 'POST',
+            body: JSON.stringify(session.user),
+          })
+          const user = await response.json()
+          console.log('this is the user-------------', user[0])
+          setConfirmedUser(user[0])
+        }
+      }
+      checkIfAdmin()
+    } catch (error) {
+      console.log(error)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session])
 
-      <fieldset><legend>Method</legend>
-        <ol>
-          {methodSteps.map((input, index) => {
-            return (
-              <li key={index}>
-                <textarea name="method" onChange={e => updateMethod(e.target.value, index)} />
-              </li>
-            )
-          })}
-        </ol>
-        <button type="button" onClick={addMethodStep}>add another method step</button>
-      </fieldset>
-      <fieldset> <legend>tags</legend>
-        <input onChange={(e) => setTags([...tags, e.target.value])} value='easy' type="checkbox" />
-        <label htmlFor="easy">easy</label>
-        <input onChange={(e) => setTags([...tags, e.target.value])} value='intermediate' type="checkbox" />
-        <label htmlFor="intermediate">intermediate</label>
-        <input onChange={(e) => setTags([...tags, e.target.value])} value='difficult' type="checkbox" />
-        <label htmlFor="difficult">difficult</label>
-        <input onChange={(e) => setTags([...tags, e.target.value])} value='vegan' type="checkbox" name="" id="" />
-        <label htmlFor="">vegan</label>
-        <input onChange={(e) => setTags([...tags, e.target.value])} value='vegetarian' type="checkbox" name="" id="" />
-        <label htmlFor="">vegetarian</label>
-        <input onChange={(e) => setTags([...tags, e.target.value])} value='healthy' type="checkbox" name="" id="" />
-        <label htmlFor="">healthy</label>
-        <input onChange={(e) => setTags([...tags, e.target.value])} value='quick' type="checkbox" name="" id="" />
-        <label htmlFor="">quick</label>
-        <input onChange={(e) => setTags([...tags, e.target.value])} value='breakfast' type="checkbox" name="" id="" />
-        <label htmlFor="">breakfast</label>
-        <input onChange={(e) => setTags([...tags, e.target.value])} value='lunch' type="checkbox" name="" id="" />
-        <label htmlFor="">lunch</label>
-        <input onChange={(e) => setTags([...tags, e.target.value])} value='snack' type="checkbox" name="" id="" />
-        <label htmlFor="">snack</label>
-        <input onChange={(e) => setTags([...tags, e.target.value])} value='dinner' type="checkbox" name="" id="" />
-        <label htmlFor="">dinner</label>
-        <input onChange={(e) => setTags([...tags, e.target.value])} value='dessert' type="checkbox" name="" id="" />
-        <label htmlFor="">dessert</label>
-        <input onChange={(e) => setTags([...tags, e.target.value])} value='baking' type="checkbox" name="" id="" />
-        <label htmlFor="">baking</label>
-        <input onChange={(e) => setTags([...tags, e.target.value])} value='nut-free' type="checkbox" name="" id="" />
-        <label htmlFor="">nut-free</label>
-      </fieldset>
-      <label htmlFor="difficulty">difficulty:</label>
-      <input type="number" name="difficulty" id="difficulty" placeholder="1(easy)-5(hardest)" />
-      <label htmlFor="prepTime">Prep Time:</label>
-      <input type="number" name="prepTime" id="prepTime" placeholder="the amount of time it takes to prep this dish" />
-      <label htmlFor="cookTime">Cook Time:</label>
-      <input type="number" name="cookTime" id="cookTime" placeholder="the amount of time it takes to Cook this dish" />
-      <label htmlFor="servingSize">Serving Size:</label>
-      <input type="number" name="servingSize" id="servingSize" placeholder="Number of people this dish can serve" />
-      <div>
-        <label htmlFor="featured"> Featured</label>
-        <input type="checkbox" name="featured" id="featured" value />
-      </div>
-      <button>Submit</button>
-    </form>
-  )
+
+  if (!!confirmedUser) {
+    if (status === 'authenticated' && confirmedUser.admin === true) {
+      return (
+        <form className="postForm" onSubmit={handleSubmit}>
+          <h1>NewRecipe</h1>
+          <label htmlFor="title">Title:</label>
+          <input type="text" name="title" id="title" />
+          <label htmlFor="description">Description:</label>
+          <textarea name="description" id="description" cols="30" rows="10"></textarea>
+          <fieldset> <legend>Ingredients</legend>
+            <ul>
+              {ingredients.map((input, index) => {
+                return (
+                  <li key={index}>
+                    <input type="text" name="ingredient" onChange={e => updateIngredient(e.target.value, index)} />
+                  </li>
+                )
+              })}
+            </ul>
+            <button type="button" onClick={addIngredient}>add another ingredient</button>
+          </fieldset>
+
+          <fieldset><legend>Method</legend>
+            <ol>
+              {methodSteps.map((input, index) => {
+                return (
+                  <li key={index}>
+                    <textarea name="method" onChange={e => updateMethod(e.target.value, index)} />
+                  </li>
+                )
+              })}
+            </ol>
+            <button type="button" onClick={addMethodStep}>add another method step</button>
+          </fieldset>
+
+
+
+          <fieldset> <legend>tags</legend>
+
+            {tagOptions.map((tag, index) => {
+              return (
+
+                <>
+                  <input onChange={(e) => setTags([...tags, e.target.value])} value={tag} type="checkbox" />
+                  <label htmlFor={tag}>{tag}</label>
+                </>
+              )
+            })}
+          </fieldset>
+          <label htmlFor="difficulty">difficulty:</label>
+          <input type="number" name="difficulty" id="difficulty" placeholder="1(easy)-5(hardest)" />
+          <label htmlFor="prepTime">Prep Time:</label>
+          <input type="number" name="prepTime" id="prepTime" placeholder="the amount of time it takes to prep this dish" />
+          <label htmlFor="cookTime">Cook Time:</label>
+          <input type="number" name="cookTime" id="cookTime" placeholder="the amount of time it takes to Cook this dish" />
+          <label htmlFor="servingSize">Serving Size:</label>
+          <input type="number" name="servingSize" id="servingSize" placeholder="Number of people this dish can serve" />
+          <div>
+            <label htmlFor="featured"> Featured</label>
+            <input type="checkbox" name="featured" id="featured" value />
+          </div>
+          <button>Submit</button>
+        </form>
+      )
+    }
+
+  }
+  return <NotAuthorized />
 }
 
 export default NewRecipe

@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import Link from 'next/link';
+import NotAuthorized from '../../../../components/NotAuthorized';
 
 
 const Index = (
@@ -53,7 +54,8 @@ const Index = (
       )
     } else {
       return (
-        <h1>you need to be signed in to see a profile page</h1>
+
+        <NotAuthorized />
       )
     }
   }

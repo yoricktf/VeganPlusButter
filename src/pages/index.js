@@ -10,7 +10,6 @@ export default function Home({ posts }) {
   return (
     <>
 
-      <h1>posts</h1>
       <ul>
         {posts.map(post => {
           if (post.featured) { return <Card key={post._id} title={post.title} image={post.images[0]} tags={post.tags} postId={post._id} /> }
