@@ -33,7 +33,7 @@ const Index = (
         <>
           <Image className='largeProfile' src={specificUser.image} width={96} height={96} alt={`${specificUser.name}'s profile picture`} />
           <h1>{specificUser.name}&apos;s Profile</h1>
-          {specificUser.email === session.user.email ? <Link href={`/profile/${specificUser._id}/edit`}>Edit your Profile</Link> : <p>DON'T SHOW ANYTHING</p>}
+          {specificUser.email === session.user.email ? <Link href={`/profile/${specificUser._id}/edit`}>Edit your Profile</Link> : ''}
 
           <p>Bio: {specificUser.bio}</p>
 
