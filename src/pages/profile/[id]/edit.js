@@ -1,11 +1,13 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react';
-
+import { useSession } from "next-auth/react"
+import NotAuthorized from '../../../../components/NotAuthorized';
 
 const EditProfile = (
   // {handleFetchSpecificUser}
 ) => {
+  const { data: session, status } = useSession()
   const router = useRouter()
   const { id } = router.query;
   const [specificUser, setSpecificUser] = useState()
@@ -36,7 +38,7 @@ const EditProfile = (
   }
 
 
-  if (!!specificUser) {
+  if (!!specificUser && status === 'authenticated' && specificUser.email === session.user.email) {
     return (
       <section className='profileForm'>
         <div className='profileData'>
@@ -58,7 +60,7 @@ const EditProfile = (
       </section>
     )
   }
-  return <h1>Loading</h1>
+  return <NotAuthorized />
 
 }
 

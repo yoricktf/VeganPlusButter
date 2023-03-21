@@ -1,12 +1,13 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import Image from "next/image"
-import { useEffect } from "react"
+import Link from 'next/link'
+import { useEffect, useState } from "react"
 import { useRouter } from 'next/router'
 
 export default function LoginComponent() {
-  const { data: session } = useSession()
-  const router = useRouter()
+  const [loggedInUser, setLoggedInUser] = useState()
 
+  const { data: session } = useSession()
   useEffect(() => {
     try {
       const checkUser = async () => {
@@ -16,10 +17,7 @@ export default function LoginComponent() {
             body: JSON.stringify(session.user),
           })
           const user = await response.json()
-
-          if (!!user._id) {
-            router.push(`/profile/${user._id}/edit`)
-          }
+          setLoggedInUser(user[0])
         }
       }
       checkUser()
@@ -29,13 +27,14 @@ export default function LoginComponent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session])
 
-
-  if (session) {
+  if (session && loggedInUser) {
     return (
       <div className="loginOptions">
-        {/* Signed in as {session.user.email} <br /> */}
         <button onClick={() => signOut()}>Sign out</button>
-        <Image className="profile" src={session.user.image} height={30} width={30} alt={`profile picture for ${session.user.name}`} />
+        <Link href={`/profile/${loggedInUser._id}`}>
+
+          <Image className="profile" src={session.user.image} height={30} width={30} alt={`profile picture for ${session.user.name}`} />
+        </Link>
       </div>
     )
   }
