@@ -2,11 +2,18 @@ import LargeCard from "../../components/LargeCard"
 import { useState } from 'react'
 
 const Search = ({ posts }) => {
-  const [searchQuery, setSearchQuery] = useState()
+  const [searchQuery, setSearchQuery] = useState('')
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value.toLowerCase())
   }
+
+  const filteredPosts = searchQuery.length > 0
+    ? posts.filter(post => {
+      return (post.title.toLowerCase()).includes(searchQuery)
+        || (post.tags.map(tag => tag.toLowerCase())).includes(searchQuery)
+        || (post.ingredients.map(ingredient => ingredient.toLowerCase())).includes(searchQuery)
+    }) : []
 
   if (!!posts) {
     return (
@@ -16,11 +23,7 @@ const Search = ({ posts }) => {
           <input type="text" id="search" onChange={handleSearch} placeholder="cookies, healthy, butter" />
           <p className="detail">Search through recipe titles, tags or ingredients</p>
         </section>
-        {posts.filter(post => {
-          return (post.title.toLowerCase()).includes(searchQuery)
-            || (post.tags.map(tag => tag.toLowerCase())).includes(searchQuery)
-            || (post.ingredients.map(ingredient => ingredient.toLowerCase())).includes(searchQuery)
-        }).map(foundPost => {
+        {filteredPosts.map(foundPost => {
           return (
             <LargeCard key={foundPost._id} recipeInfo={foundPost} />
           )
