@@ -7,7 +7,10 @@ import { useRouter } from 'next/router'
 export default function LoginComponent() {
   const [loggedInUser, setLoggedInUser] = useState()
 
+
+
   const { data: session } = useSession()
+
   useEffect(() => {
     try {
       const checkUser = async () => {
