@@ -20,7 +20,7 @@ const Search = ({ posts }) => {
       <>
         <section id="searchSection">
           <h1>Search</h1>
-          <input type="text" id="search" onChange={handleSearch} placeholder="cookies, healthy, butter" />
+          <input type="text" id="search" onChange={handleSearch} placeholder="cookies, healthy, butter" autoFocus />
           <p className="detail">Search through recipe titles, tags or ingredients</p>
         </section>
         {filteredPosts.map(foundPost => {

@@ -14,19 +14,49 @@ const NewRecipe = () => {
   const [ingredients, setIngredients] = useState([''])
   const [methodSteps, setMethodSteps] = useState([''])
   const tagOptions = ['easy', 'intermediate', 'hard', 'vegan', 'vegetarian', 'healthy', 'quick', 'breakfast', 'lunch', 'snack', 'dinner', 'dessert', 'baking', 'nut-free']
+  const images = []
 
 
 
+  function handleImageChange(e) {
 
-  function handleImageChange(changeEvent) {
-    const reader = new FileReader();
-    reader.onload = function (onLoadEvent) {
-      setImageSrc(onLoadEvent.target.result);
-      setUploadData(undefined);
+    // const reader = new FileReader();
+    // reader.onload = function (onLoadEvent) {
+
+    //   setImageSrc(onLoadEvent.target.result);
+    //   setUploadData(undefined);
+    // }
+    // console.log(changeEvent.target.files)
+    // reader.readAsDataURL(changeEvent.target.files[0]);
+
+
+    // const reader = new FileReader();
+
+
+    // 🚨 This only works for one file
+
+    // reader.onload = function (onLoadEvent) {
+    //   setImageSrc(onLoadEvent.target.result);
+    //   setUploadData(undefined);
+    // };
+
+    // reader.readAsDataURL(changeEvent.target.files[0]);
+    // console.log(changeEvent.target.files);
+
+    // console.log(e.target.files)
+    for (const file of e.target.files) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImageSrc((imgs) => [...imgs, reader.result]);
+      };
+      reader.onerror = () => {
+        console.log(reader.error);
+      };
     }
-    reader.readAsDataURL(changeEvent.target.files[0]);
   }
 
+  // console.log(test)
 
   async function handleImageSubmit(event) {
     event.preventDefault();
@@ -34,8 +64,6 @@ const NewRecipe = () => {
     const fileInput = document.querySelector("[type=file]").files;
 
     const formData = new FormData();
-
-    const images = []
 
     for (let i = 0; i < fileInput.length; i++) {
       let file = fileInput[i];
@@ -47,12 +75,13 @@ const NewRecipe = () => {
         body: formData
       }).then(r => r.json());
 
-
       images.push(data.secure_url)
       setUploadData(data);
     }
     setImageSrc(images);
   }
+
+
 
 
   const handleSubmit = async (event) => {
@@ -76,7 +105,6 @@ const NewRecipe = () => {
   }
 
   const addIngredient = () => {
-
     setIngredients([...ingredients, ''])
   }
 
@@ -123,7 +151,13 @@ const NewRecipe = () => {
       return (
         <>
           <h1>NewRecipe</h1>
-          <ImageUpload setUploadData={setUploadData} uploadData={uploadData} setImageSrc={setImageSrc} imageSrc={imageSrc} onImageSubmit={handleImageSubmit} onImageChange={handleImageChange} />
+          <ImageUpload
+            uploadData={uploadData}
+            imageSrc={imageSrc}
+            onImageSubmit={handleImageSubmit}
+            onImageChange={handleImageChange}
+          // images={images}
+          />
           <form className="postForm" onSubmit={handleSubmit}>
             <label htmlFor="title">Title:</label>
             <input type="text" name="title" id="title" />
@@ -141,7 +175,6 @@ const NewRecipe = () => {
               </ul>
               <button type="button" onClick={addIngredient}>add another ingredient</button>
             </fieldset>
-
             <fieldset><legend>Method</legend>
               <ol>
                 {methodSteps.map((input, index) => {
@@ -154,18 +187,14 @@ const NewRecipe = () => {
               </ol>
               <button type="button" onClick={addMethodStep}>add another method step</button>
             </fieldset>
-
-
-
             <fieldset> <legend>tags</legend>
-
               {tagOptions.map((tag, index) => {
                 return (
 
-                  <>
+                  <div key={index}>
                     <input onChange={(e) => setTags([...tags, e.target.value])} value={tag} type="checkbox" />
                     <label htmlFor={tag}>{tag}</label>
-                  </>
+                  </div>
                 )
               })}
             </fieldset>
@@ -181,7 +210,6 @@ const NewRecipe = () => {
               <label htmlFor="featured"> Featured</label>
               <input type="checkbox" name="featured" id="featured" value />
             </div>
-
             <button>Submit</button>
           </form>
         </>

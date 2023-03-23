@@ -1,44 +1,33 @@
 import { useState } from 'react';
 import Head from 'next/head'
+import Image from 'next/image';
 
-const ImageUpload = ({ onImageSubmit, onImageChange, imageSrc, uploadData }) => {
+const ImageUpload = ({ onImageSubmit, onImageChange, imageSrc, uploadData, images }) => {
 
   return (
-    <div >
-      <Head>
-        <title>Image Uploader</title>
-        <meta name="description" content="Upload your image to Cloudinary!" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <fieldset > <legend>Image Uploader</legend>
+      <p>Select the images you want to upload</p>
 
-      <main >
-        <h1 >
-          Image Uploader
-        </h1>
-
+      <form method="post" onChange={onImageChange} onSubmit={onImageSubmit}>
         <p>
-          Upload your image to Cloudinary!
+          <input type="file" name="file" multiple />
         </p>
 
-        <form method="post" onChange={onImageChange} onSubmit={onImageSubmit}>
+        {imageSrc.map((link, index) => (
+          <Image key={index} alt={`image to upload number ${index}`} src={link} width="150" height="auto" />
+        ))}
+
+        {imageSrc && !uploadData && (
           <p>
-            <input type="file" name="file" multiple />
+            <button>Upload Files</button>
           </p>
+        )}
 
-          <img src={imageSrc} width='200px' height='auto' />
-
-          {imageSrc && !uploadData && (
-            <p>
-              <button>Upload Files</button>
-            </p>
-          )}
-
-          {uploadData && (
-            <p>Your Image has been uploaded</p>
-          )}
-        </form>
-      </main>
-    </div>
+        {uploadData && (
+          <p>Your Image has been uploaded</p>
+        )}
+      </form>
+    </fieldset>
   )
 }
 
