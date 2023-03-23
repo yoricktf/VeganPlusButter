@@ -1,6 +1,7 @@
-import { useState } from "react"
+
 
 const CommentForm = ({ recipeId, userId }) => {
+
 
   const addComment = async (event) => {
     event.preventDefault()
@@ -15,14 +16,14 @@ const CommentForm = ({ recipeId, userId }) => {
     })
 
     const comment = await response.json()
-  }
 
+  }
 
   return (
     <form className='commentForm' onSubmit={addComment}>
-      <label htmlFor="">Leave a comment</label>
+      <label htmlFor="">Leave a comment:</label>
       <textarea name="comment" id="commentInput" cols="50" rows="5"></textarea>
-      <button>Submit Your Comment</button>
+      <button className="commentButton">Submit Your Comment</button>
     </form>
   )
 }
