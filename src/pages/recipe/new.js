@@ -7,6 +7,7 @@ import ImageUpload from "../../../components/ImageUpload"
 const NewRecipe = () => {
   const [imageSrc, setImageSrc] = useState([]);
   const [uploadData, setUploadData] = useState();
+  const images = []
   const router = useRouter()
   const { data: session, status } = useSession()
   const [confirmedUser, setConfirmedUser] = useState()
@@ -14,7 +15,6 @@ const NewRecipe = () => {
   const [ingredients, setIngredients] = useState([''])
   const [methodSteps, setMethodSteps] = useState([''])
   const tagOptions = ['easy', 'intermediate', 'hard', 'vegan', 'vegetarian', 'healthy', 'quick', 'breakfast', 'lunch', 'snack', 'dinner', 'dessert', 'baking', 'nut-free']
-  const images = []
 
   function handleImageChange(e) {
     for (const file of e.target.files) {

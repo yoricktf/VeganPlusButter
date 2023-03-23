@@ -14,7 +14,7 @@ const ImageUpload = ({ onImageSubmit, onImageChange, imageSrc, uploadData, image
         </p>
 
         {imageSrc.map((link, index) => (
-          <Image key={index} alt={`image to upload number ${index}`} src={link} width="150" height="auto" />
+          <Image key={index} alt={`image to upload number ${index}`} src={link} width="150" height="150" />
         ))}
 
         {imageSrc && !uploadData && (

@@ -2,8 +2,11 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Tag from '../../../components/Tag';
+import CommentForm from '../../../components/CommentForm';
+import { useSession } from "next-auth/react"
 
 const ShowPage = () => {
+  const { data: session, status } = useSession()
   const router = useRouter()
   const [specficPost, setSpecficPost] = useState()
   const { id } = router.query;
@@ -13,7 +16,6 @@ const ShowPage = () => {
       const response = await fetch(`/api/post/${id}`)
       const specficPost = await response.json()
       setSpecficPost(specficPost)
-      console.log(specficPost)
     }
     fetchSpecficRecipe()
   }, [id])
@@ -52,6 +54,11 @@ const ShowPage = () => {
               return <li key={index}>{step}</li>
             })}
           </ol>
+        </section>
+
+        {status === 'authenticated' ? <CommentForm recipeId={id} userId={session.user.id} /> : <p>Sign in to leave comments</p>}
+        <section className='comments'>
+
         </section>
       </>
     )
