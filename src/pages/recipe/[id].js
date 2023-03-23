@@ -5,6 +5,8 @@ import Tag from '../../../components/Tag';
 import CommentForm from '../../../components/CommentForm';
 import { useSession } from "next-auth/react"
 import Comment from '../../../components/Comment';
+import starOutline from '../../../public/starOutline.png'
+
 
 const ShowPage = () => {
   const { data: session, status } = useSession()
@@ -25,13 +27,27 @@ const ShowPage = () => {
   }, [])
 
   useEffect(() => {
-    const fetchSpecficRecipe = async () => {
-      const response = await fetch(`/api/post/${id}`)
-      const specficPost = await response.json()
-      setSpecficPost(specficPost)
+    if (!!id) {
+      const fetchSpecficRecipe = async () => {
+        const response = await fetch(`/api/post/${id}`)
+        const specficPost = await response.json()
+        setSpecficPost(specficPost)
+      }
+      fetchSpecficRecipe()
     }
-    fetchSpecficRecipe()
   }, [id])
+
+  const toggleFavorite = async () => {
+    console.log('first')
+    const favoritesInfo = { userId: session.user.id, postId: id }
+
+    const response = await fetch('/api/favorite', {
+      method: 'POST',
+      body: JSON.stringify(favoritesInfo)
+    })
+
+
+  }
 
 
   if (!!specficPost) {
@@ -50,6 +66,10 @@ const ShowPage = () => {
           />
         </div>
         <section id='showPageBody'>
+          {status === 'authenticated' ?
+            <Image onClick={toggleFavorite} src={starOutline} width={20} height={20} alt='outline of a star' />
+            : ''}
+
           <div className='tags'>
             {tags.map(tag => <Tag key={tag} tag={tag} />)}
           </div>
