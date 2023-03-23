@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react"
 import { useState, useEffect } from 'react'
 import { useRouter } from "next/router"
 import NotAuthorized from "../../../components/NotAuthorized"
-import ImageUpload from "../../../components/imageUpload"
+import ImageUpload from "../../../components/ImageUpload"
 
 const NewRecipe = () => {
   const [imageSrc, setImageSrc] = useState([]);
@@ -16,34 +16,7 @@ const NewRecipe = () => {
   const tagOptions = ['easy', 'intermediate', 'hard', 'vegan', 'vegetarian', 'healthy', 'quick', 'breakfast', 'lunch', 'snack', 'dinner', 'dessert', 'baking', 'nut-free']
   const images = []
 
-
-
   function handleImageChange(e) {
-
-    // const reader = new FileReader();
-    // reader.onload = function (onLoadEvent) {
-
-    //   setImageSrc(onLoadEvent.target.result);
-    //   setUploadData(undefined);
-    // }
-    // console.log(changeEvent.target.files)
-    // reader.readAsDataURL(changeEvent.target.files[0]);
-
-
-    // const reader = new FileReader();
-
-
-    // 🚨 This only works for one file
-
-    // reader.onload = function (onLoadEvent) {
-    //   setImageSrc(onLoadEvent.target.result);
-    //   setUploadData(undefined);
-    // };
-
-    // reader.readAsDataURL(changeEvent.target.files[0]);
-    // console.log(changeEvent.target.files);
-
-    // console.log(e.target.files)
     for (const file of e.target.files) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -55,8 +28,6 @@ const NewRecipe = () => {
       };
     }
   }
-
-  // console.log(test)
 
   async function handleImageSubmit(event) {
     event.preventDefault();
@@ -82,8 +53,6 @@ const NewRecipe = () => {
   }
 
 
-
-
   const handleSubmit = async (event) => {
     event.preventDefault()
 
@@ -100,7 +69,6 @@ const NewRecipe = () => {
     })
     const data = await response.json()
 
-
     router.push(`/recipe/${data._id}`)
   }
 
@@ -116,8 +84,6 @@ const NewRecipe = () => {
 
 
   const addMethodStep = () => {
-
-
     setMethodSteps([...methodSteps, ''])
   }
 
