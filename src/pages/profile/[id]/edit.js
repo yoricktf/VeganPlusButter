@@ -37,8 +37,7 @@ const EditProfile = (
     router.push(`/profile/${id}`)
   }
 
-
-  if (!!specificUser && status === 'authenticated' && specificUser.email === session.user.email) {
+  if (!!specificUser && status === 'authenticated' && id === session.user.id) {
     return (
       <section className='profileForm'>
         <div className='profileData'>
@@ -46,7 +45,6 @@ const EditProfile = (
           <div>
             <h1>{specificUser.name}&apos;s Profile</h1>
             <p>email: {specificUser.email}</p>
-
           </div>
         </div>
 
