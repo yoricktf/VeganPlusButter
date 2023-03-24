@@ -6,20 +6,22 @@ import CommentForm from '../../../components/CommentForm';
 import { useSession } from "next-auth/react"
 import Comment from '../../../components/Comment';
 import starOutline from '../../../public/starOutline.png'
-
+import starFilled from '../../../public/starFilled.png'
 
 const ShowPage = () => {
   const { data: session, status } = useSession()
   const router = useRouter()
   const [specficPost, setSpecficPost] = useState()
   const [comments, setComments] = useState([])
+  const [userFavorites, setUserFavorites] = useState()
   const { id } = router.query;
+
+  console.log('----------------USERFAVORITES+++===', userFavorites)
 
   useEffect(() => {
     const fetchComments = async () => {
       const response = await fetch('/api/comments')
       const comments = await response.json()
-      console.log(comments)
       const filteredComments = comments.filter(comment => comment.post === id)
       setComments(filteredComments)
     }
@@ -37,16 +39,32 @@ const ShowPage = () => {
     }
   }, [id])
 
+  useEffect(() => {
+    if (session) {
+      const checkFavorites = async () => {
+        const response = await fetch('/api/favorite', {
+          method: 'POST',
+          body: session.user.id
+        })
+        const favorites = await response.json()
+        console.log(favorites)
+        setUserFavorites(favorites)
+      }
+      checkFavorites()
+    }
+  }, [session])
+
   const toggleFavorite = async () => {
     console.log('first')
     const favoritesInfo = { userId: session.user.id, postId: id }
 
     const response = await fetch('/api/favorite', {
-      method: 'POST',
+      method: 'PATCH',
       body: JSON.stringify(favoritesInfo)
     })
-
-
+    const userFavorites = await response.json()
+    setUserFavorites(userFavorites)
+    console.log('=============USERFAVORITES', userFavorites)
   }
 
 
@@ -66,8 +84,13 @@ const ShowPage = () => {
           />
         </div>
         <section id='showPageBody'>
-          {status === 'authenticated' ?
-            <Image onClick={toggleFavorite} src={starOutline} width={20} height={20} alt='outline of a star' />
+          {status === 'authenticated' && userFavorites ?
+
+            userFavorites.includes(id) ?
+              <Image onClick={toggleFavorite} src={starFilled} width={20} height={20} alt='outline of a star' />
+              :
+              <Image onClick={toggleFavorite} src={starOutline} width={20} height={20} alt='outline of a star' />
+
             : ''}
 
           <div className='tags'>
