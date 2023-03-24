@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const { id } = req.query
 
   if (req.method === "GET") {
-    const user = await User.findById(id)
+    const user = await User.findById(id).populate('favorites')
     res.status(200).json(user)
   }
 
