@@ -11,7 +11,7 @@ const NewRecipe = () => {
   const [confirmedUser, setConfirmedUser] = useState()
   const router = useRouter()
 
-  const handleSubmit = async (event, tags, author, method, ingredients, images) => {
+  const handleRecipeSubmit = async (event, tags, author, method, ingredients, images) => {
     event.preventDefault()
 
     const date = new Date
@@ -53,7 +53,7 @@ const NewRecipe = () => {
   if (!!confirmedUser) {
     if (status === 'authenticated' && confirmedUser.admin === true) {
       return (
-        <RecipeForm onSubmit={handleSubmit} />
+        <RecipeForm onSubmit={handleRecipeSubmit} />
       )
     }
   }

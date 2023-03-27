@@ -17,7 +17,7 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
   const [methodSteps, setMethodSteps] = useState([''])
   const tagOptions = ['easy', 'intermediate', 'hard', 'vegan', 'vegetarian', 'healthy', 'quick', 'breakfast', 'lunch', 'snack', 'dinner', 'dessert', 'baking']
 
-  console.log('here is the recipe', recipe)
+  // console.log('here is the recipe', recipe)
 
 
   function handleImageChange(e) {
@@ -117,7 +117,7 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
             {ingredients.map((input, index) => {
               return (
                 <li key={index}>
-                  <input type="text" name="ingredient" onChange={e => updateIngredient(e.target.value, index)} />
+                  <input type="text" onChange={e => updateIngredient(e.target.value, index)} />
                 </li>
               )
             })}
