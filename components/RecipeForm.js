@@ -12,7 +12,6 @@ const RecipeForm = ({ onSubmit, value, editMode }) => {
   const images = []
   const router = useRouter()
   const { data: session, status } = useSession()
-  const [confirmedUser, setConfirmedUser] = useState()
   const [tags, setTags] = useState([])
   const [ingredients, setIngredients] = useState([''])
   const [methodSteps, setMethodSteps] = useState([''])
@@ -94,24 +93,6 @@ const RecipeForm = ({ onSubmit, value, editMode }) => {
     setMethodSteps(copy)
   }
 
-  useEffect(() => {
-    try {
-      const checkIfAdmin = async () => {
-        if (session) {
-          const response = await fetch('/api/users', {
-            method: 'POST',
-            body: JSON.stringify(session.user),
-          })
-          const user = await response.json()
-          setConfirmedUser(user[0])
-        }
-      }
-      checkIfAdmin()
-    } catch (error) {
-      console.log(error)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session])
 
   return (
     <>

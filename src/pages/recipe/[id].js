@@ -65,7 +65,6 @@ const ShowPage = () => {
     })
     const userFavorites = await response.json()
     setUserFavorites(userFavorites)
-    console.log('=============USERFAVORITES', userFavorites)
   }
 
   useEffect(() => {
@@ -88,8 +87,6 @@ const ShowPage = () => {
     })
     router.push('/')
   }
-
-
 
   if (!!specficPost) {
     const { title, method, ingredients, date, description, prepTime, cookTime, tags, images, servingSize } = specficPost
