@@ -5,9 +5,31 @@ import NotAuthorized from "../../../components/NotAuthorized"
 import ImageUpload from "../../../components/ImageUpload"
 import RecipeForm from "../../../components/RecipeForm"
 
+
 const NewRecipe = () => {
   const { data: session, status } = useSession()
   const [confirmedUser, setConfirmedUser] = useState()
+  const router = useRouter()
+
+  const handleSubmit = async (event, tags, author, method, ingredients, images) => {
+    event.preventDefault()
+
+    const date = new Date
+    const formattedDate = date.toLocaleString()
+
+    const formData = new FormData(event.target);
+    const productData = Object.fromEntries(formData);
+
+    const wholePost = { ...productData, date: formattedDate, author, tags, method, ingredients, images }
+
+    const response = await fetch('/api/posts', {
+      method: 'POST',
+      body: JSON.stringify(wholePost)
+    })
+    const data = await response.json()
+
+    router.push(`/recipe/${data._id}`)
+  }
 
   useEffect(() => {
     try {
@@ -31,10 +53,9 @@ const NewRecipe = () => {
   if (!!confirmedUser) {
     if (status === 'authenticated' && confirmedUser.admin === true) {
       return (
-        <RecipeForm />
+        <RecipeForm onSubmit={handleSubmit} />
       )
     }
-
   }
   return <NotAuthorized />
 }

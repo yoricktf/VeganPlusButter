@@ -5,8 +5,8 @@ import NotAuthorized from "./NotAuthorized"
 import ImageUpload from "./ImageUpload"
 
 
-const RecipeForm = ({ onSubmit, value, editMode }) => {
-  const [recipe, setRecipe] = useState(value)
+const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
+  const [recipe, setRecipe] = useState(recipeValue)
   const [uploadData, setUploadData] = useState();
   const [imageSrc, setImageSrc] = useState([]);
   const images = []
@@ -16,6 +16,9 @@ const RecipeForm = ({ onSubmit, value, editMode }) => {
   const [ingredients, setIngredients] = useState([''])
   const [methodSteps, setMethodSteps] = useState([''])
   const tagOptions = ['easy', 'intermediate', 'hard', 'vegan', 'vegetarian', 'healthy', 'quick', 'breakfast', 'lunch', 'snack', 'dinner', 'dessert', 'baking']
+
+  console.log('here is the recipe', recipe)
+
 
   function handleImageChange(e) {
     for (const file of e.target.files) {
@@ -53,24 +56,24 @@ const RecipeForm = ({ onSubmit, value, editMode }) => {
     setImageSrc(images);
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault()
 
-    const date = new Date
-    const formattedDate = date.toLocaleString()
+  //   const date = new Date
+  //   const formattedDate = date.toLocaleString()
 
-    const formData = new FormData(event.target);
-    const productData = Object.fromEntries(formData);
-    const wholePost = { ...productData, date: formattedDate, author: session.user.email, tags, method: methodSteps, ingredients, images: imageSrc }
+  //   const formData = new FormData(event.target);
+  //   const productData = Object.fromEntries(formData);
+  //   const wholePost = { ...productData, date: formattedDate, author: session.user.email, tags, method: methodSteps, ingredients, images: imageSrc }
 
-    const response = await fetch('/api/posts', {
-      method: 'POST',
-      body: JSON.stringify(wholePost)
-    })
-    const data = await response.json()
+  //   const response = await fetch('/api/posts', {
+  //     method: 'POST',
+  //     body: JSON.stringify(wholePost)
+  //   })
+  //   const data = await response.json()
 
-    router.push(`/recipe/${data._id}`)
-  }
+  //   router.push(`/recipe/${data._id}`)
+  // }
 
   const addIngredient = () => {
     setIngredients([...ingredients, ''])
@@ -97,15 +100,14 @@ const RecipeForm = ({ onSubmit, value, editMode }) => {
   return (
     <>
       {!!editMode ? <h1>EditRecipe</h1> : <h1>NewRecipe</h1>}
-      <h1>NewRecipe</h1>
       <ImageUpload
         uploadData={uploadData}
         imageSrc={imageSrc}
         onImageSubmit={handleImageSubmit}
         onImageChange={handleImageChange}
-      // images={images}
       />
-      <form className="postForm" onSubmit={handleSubmit}>
+      <form className="postForm" onSubmit={e => onSubmit(e, tags, session.user.email, methodSteps, ingredients, imageSrc)}>
+        {/* <form className="postForm" onSubmit={handleSubmit}> */}
         <label htmlFor="title">Title:</label>
         <input type="text" name="title" id="title" />
         <label htmlFor="description">Description:</label>
