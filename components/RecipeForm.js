@@ -5,7 +5,8 @@ import NotAuthorized from "./NotAuthorized"
 import ImageUpload from "./ImageUpload"
 
 
-const RecipeForm = () => {
+const RecipeForm = ({ onSubmit, value, editMode }) => {
+  const [recipe, setRecipe] = useState(value)
   const [uploadData, setUploadData] = useState();
   const [imageSrc, setImageSrc] = useState([]);
   const images = []
@@ -114,6 +115,7 @@ const RecipeForm = () => {
 
   return (
     <>
+      {!!editMode ? <h1>EditRecipe</h1> : <h1>NewRecipe</h1>}
       <h1>NewRecipe</h1>
       <ImageUpload
         uploadData={uploadData}
@@ -174,7 +176,9 @@ const RecipeForm = () => {
           <label htmlFor="featured"> Featured</label>
           <input type="checkbox" name="featured" id="featured" value />
         </div>
-        <button>Submit</button>
+        <button>
+          {editMode ? "Edit Recipe" : "Submit Recipe"}
+        </button>
       </form>
     </>
   )
