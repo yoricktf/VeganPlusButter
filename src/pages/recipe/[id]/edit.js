@@ -20,9 +20,19 @@ const Edit = () => {
     }
   }, [id])
 
-  const editRecipe = async (event) => {
+  const editRecipe = async (event, tags, author, method, ingredients, images) => {
     event.preventDefault()
     console.log('EDIT RECIPE BUTTON CLICKED')
+    const date = new Date
+    const formattedDate = date.toLocaleString()
+
+    const formData = new FormData(event.target);
+    const productData = Object.fromEntries(formData);
+
+    const wholePost = { ...productData, date: formattedDate, author, tags, method, ingredients, images }
+
+    console.log('WHOLE EDITED OBJECT INFO-------------------', wholePost)
+
   }
 
 
