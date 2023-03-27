@@ -9,4 +9,9 @@ export default async function handler(req, res) {
     const post = await Post.findById(id)
     res.status(200).json(post)
   }
+
+  if (req.method === "POST") {
+    const post = await Post.findByIdAndDelete(id)
+    res.status(200).json('Post has been deleted')
+  }
 }

@@ -6,7 +6,7 @@ const LargeCard = ({ recipeInfo }) => {
   const { title, images, tags, _id, numberOfComments, numberOfFavorites } = recipeInfo
 
   return (
-    <Link href={`recipe/${_id}`} className="largeCardLink">
+    <Link href={`/recipe/${_id}`} className="largeCardLink">
       <article className="largeCard">
         <Image src={images[0]} alt={`image of ${title}`} width={150} height={150} />
         <div className="largeCardDetails">

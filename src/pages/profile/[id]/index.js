@@ -4,6 +4,9 @@ import Image from 'next/image';
 import { useSession } from "next-auth/react"
 import Link from 'next/link';
 import NotAuthorized from '../../../../components/NotAuthorized';
+import LargeCard from '../../../../components/LargeCard';
+import Comment from '../../../../components/Comment';
+
 
 
 const Index = (
@@ -13,6 +16,7 @@ const Index = (
   const router = useRouter()
   const { id } = router.query;
   const [specificUser, setSpecificUser] = useState()
+  const [filteredComments, setFilteredComments] = useState([])
 
   // useEffect(() => {
   // setSpecificUser(handleFetchSpecificUser(id))
@@ -24,8 +28,22 @@ const Index = (
       const user = await response.json()
       setSpecificUser(user)
     }
+
+    const fetchUsersComments = async () => {
+      const response = await fetch('/api/comments')
+      const comments = await response.json()
+      console.log(comments)
+      const filteredComments = comments.filter(comment => comment.author._id === id)
+
+      setFilteredComments(filteredComments)
+    }
+
     fetchSpecficUser()
+    fetchUsersComments()
   }, [id])
+
+
+
 
   if (!!specificUser) {
     if (status === 'authenticated') {
@@ -38,17 +56,20 @@ const Index = (
           <p>Bio: {specificUser.bio}</p>
 
           <section className='usersFavorites'>
-            <h2>Favorites</h2>
+            <h2>{specificUser.name}&apos;s Favorites</h2>
 
             {specificUser.favorites.map((favoritedRecipe, index) => {
               return (
                 //need to populate the favorites and use the large card component when that has been done.
-                <h1 key={index}>favoritedRecipe</h1>
+                <LargeCard key={index} recipeInfo={favoritedRecipe} />
               )
             })}
           </section>
           <section className='usersFavorites'>
             <h2>Comments</h2>
+            {filteredComments.map((comment, index) => <Comment key={index} userComment={comment} />)}
+
+
           </section>
         </>
       )

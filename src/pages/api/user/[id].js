@@ -5,9 +5,8 @@ export default async function handler(req, res) {
   await dbConnect()
   const { id } = req.query
 
-  console.log(id)
   if (req.method === "GET") {
-    const user = await User.findById(id)
+    const user = await User.findById(id).populate('favorites')
     res.status(200).json(user)
   }
 
