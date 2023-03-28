@@ -11,16 +11,18 @@ const NewRecipe = () => {
   const [confirmedUser, setConfirmedUser] = useState()
   const router = useRouter()
 
-  const handleRecipeSubmit = async (event, tags, author, method, ingredients, images) => {
+  const handleRecipeSubmit = async (event, recipe, ingredients, method, author, images) => {
     event.preventDefault()
 
     const date = new Date
     const formattedDate = date.toLocaleString()
 
-    const formData = new FormData(event.target);
-    const productData = Object.fromEntries(formData);
+    // const formData = new FormData(event.target);
+    // const productData = Object.fromEntries(formData);
 
-    const wholePost = { ...productData, date: formattedDate, author, tags, method, ingredients, images }
+    const wholePost = { ...recipe, date: formattedDate, author, method, ingredients, images }
+
+    console.log(wholePost)
 
     const response = await fetch('/api/posts', {
       method: 'POST',

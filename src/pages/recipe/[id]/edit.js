@@ -8,7 +8,6 @@ const Edit = () => {
   const [editMode, setEditMode] = useState(true)
   const [specificPost, setSpecificPost] = useState()
 
-
   useEffect(() => {
     if (!!id) {
       const fetchSpecficRecipe = async () => {
@@ -20,19 +19,17 @@ const Edit = () => {
     }
   }, [id])
 
-  const editRecipe = async (event, tags, author, method, ingredients, images) => {
+  const editRecipe = async (event, recipe, ingredients, methodSteps) => {
     event.preventDefault()
-    console.log('EDIT RECIPE BUTTON CLICKED')
     const date = new Date
     const formattedDate = date.toLocaleString()
 
-    const formData = new FormData(event.target);
-    const productData = Object.fromEntries(formData);
-
-    const wholePost = { ...productData, date: formattedDate, author, tags, method, ingredients, images }
-
-    console.log('WHOLE EDITED OBJECT INFO-------------------', wholePost)
-
+    const wholePost = { ...recipe, date: formattedDate, method: methodSteps, ingredients }
+    const response = await fetch(`/api/post/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(wholePost)
+    })
+    router.push(`/recipe/${id}`)
   }
 
 

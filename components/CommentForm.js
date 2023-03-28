@@ -4,7 +4,7 @@ const CommentForm = ({ recipeId, userId }) => {
 
 
   const addComment = async (event) => {
-    event.preventDefault()
+
     const date = new Date
     const formattedDate = date.toLocaleString()
     const formData = new FormData(event.target);
