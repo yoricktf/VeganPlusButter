@@ -7,6 +7,9 @@ const userSchema = new Schema({
   image: String,
   admin: { type: Boolean, default: false },
   favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }]
+}, {
+  // this second object adds extra properties: `createdAt` and `updatedAt`
+  timestamps: true,
 });
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);

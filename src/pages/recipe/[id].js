@@ -91,7 +91,7 @@ const ShowPage = () => {
   if (!!specficPost) {
     const { title, method, ingredients, date, description, prepTime, cookTime, tags, images, servingSize } = specficPost
     return (
-      <>
+      <section className="bodySection">
         <div id='recipeShowImageContainer'>
           <h1>{title}</h1>
           <Image
@@ -105,14 +105,13 @@ const ShowPage = () => {
         </div>
         <section id='showPageBody'>
           {status === 'authenticated' && specificUser.admin ?
-            <div>
-              <Link className='edit Button' href={`/recipe/${id}/edit`}>Edit Recipe</Link>
-              <button onClick={handleDelete}>Delete Recipe</button>
+            <div className='adminControls'>
+              <Link className='edit button' href={`/recipe/${id}/edit`}>Edit Recipe</Link>
+              <p className='delete button' onClick={handleDelete}>Delete Recipe</p>
             </div>
             :
             ''}
           {status === 'authenticated' && userFavorites ?
-
             userFavorites.includes(id) ?
               <Image onClick={toggleFavorite} src={starFilled} width={20} height={20} alt='outline of a star' />
               :
@@ -149,7 +148,7 @@ const ShowPage = () => {
             )
           })}
         </section>
-      </>
+      </section>
     )
   }
 

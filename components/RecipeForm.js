@@ -5,17 +5,19 @@ import NotAuthorized from "./NotAuthorized"
 import ImageUpload from "./ImageUpload"
 
 
-const RecipeForm = ({ onSubmit, value, editMode }) => {
-  const [recipe, setRecipe] = useState(value)
+const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
+  const { data: session, status } = useSession()
+  const router = useRouter()
+  const [recipe, setRecipe] = useState(recipeValue)
   const [uploadData, setUploadData] = useState();
   const [imageSrc, setImageSrc] = useState([]);
-  const images = []
-  const router = useRouter()
-  const { data: session, status } = useSession()
+  const [ingredients, setIngredients] = useState(recipeValue ? [...recipe.ingredients] : [''])
+  const [methodSteps, setMethodSteps] = useState(recipeValue ? [...recipe.method] : [''])
   const [tags, setTags] = useState([])
-  const [ingredients, setIngredients] = useState([''])
-  const [methodSteps, setMethodSteps] = useState([''])
+  const images = []
   const tagOptions = ['easy', 'intermediate', 'hard', 'vegan', 'vegetarian', 'healthy', 'quick', 'breakfast', 'lunch', 'snack', 'dinner', 'dessert', 'baking']
+
+  // console.log(recipe?.tags)
 
   function handleImageChange(e) {
     for (const file of e.target.files) {
@@ -53,25 +55,6 @@ const RecipeForm = ({ onSubmit, value, editMode }) => {
     setImageSrc(images);
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-
-    const date = new Date
-    const formattedDate = date.toLocaleString()
-
-    const formData = new FormData(event.target);
-    const productData = Object.fromEntries(formData);
-    const wholePost = { ...productData, date: formattedDate, author: session.user.email, tags, method: methodSteps, ingredients, images: imageSrc }
-
-    const response = await fetch('/api/posts', {
-      method: 'POST',
-      body: JSON.stringify(wholePost)
-    })
-    const data = await response.json()
-
-    router.push(`/recipe/${data._id}`)
-  }
-
   const addIngredient = () => {
     setIngredients([...ingredients, ''])
   }
@@ -93,29 +76,45 @@ const RecipeForm = ({ onSubmit, value, editMode }) => {
     setMethodSteps(copy)
   }
 
+  const toggleTags = (event) => {
+    const name = event.target.name
+
+    const array = recipe?.tags?.slice() || []
+
+    if (recipe?.tags?.includes(name)) {
+      const filtered = array.filter(tag => tag !== name)
+      setRecipe({ ...recipe, tags: filtered })
+      console.log(filtered)
+    } else {
+      array.push(name)
+      setRecipe({ ...recipe, tags: array })
+    }
+  }
+
+  console.log(recipe?.tags)
+
 
   return (
-    <>
+    <section className="bodySection">
       {!!editMode ? <h1>EditRecipe</h1> : <h1>NewRecipe</h1>}
-      <h1>NewRecipe</h1>
       <ImageUpload
         uploadData={uploadData}
         imageSrc={imageSrc}
         onImageSubmit={handleImageSubmit}
         onImageChange={handleImageChange}
-      // images={images}
       />
-      <form className="postForm" onSubmit={handleSubmit}>
+      <form className="postForm" onSubmit={e => onSubmit(e, recipe, ingredients, methodSteps, session.user.id, imageSrc)}>
+        {/* <form className="postForm" onSubmit={handleSubmit}> */}
         <label htmlFor="title">Title:</label>
-        <input type="text" name="title" id="title" />
+        <input type="text" name="title" id="title" value={recipe?.title} onChange={e => setRecipe(currentRecipe => ({ ...currentRecipe, title: e.target.value }))} />
         <label htmlFor="description">Description:</label>
-        <textarea name="description" id="description" cols="30" rows="10"></textarea>
+        <textarea name="description" id="description" cols="30" rows="10" value={recipe?.description} onChange={e => setRecipe(currentRecipe => ({ ...currentRecipe, description: e.target.value }))}></textarea>
         <fieldset> <legend>Ingredients</legend>
           <ul>
             {ingredients.map((input, index) => {
               return (
                 <li key={index}>
-                  <input type="text" name="ingredient" onChange={e => updateIngredient(e.target.value, index)} />
+                  <input type="text" onChange={e => updateIngredient(e.target.value, index)} value={input} />
                 </li>
               )
             })}
@@ -127,7 +126,7 @@ const RecipeForm = ({ onSubmit, value, editMode }) => {
             {methodSteps.map((input, index) => {
               return (
                 <li key={index}>
-                  <textarea name="method" onChange={e => updateMethod(e.target.value, index)} />
+                  <textarea name="method" onChange={e => updateMethod(e.target.value, index)} value={input} />
                 </li>
               )
             })}
@@ -137,31 +136,46 @@ const RecipeForm = ({ onSubmit, value, editMode }) => {
         <fieldset> <legend>tags</legend>
           {tagOptions.map((tag, index) => {
             return (
-
               <div key={index}>
-                <input onChange={(e) => setTags([...tags, e.target.value])} value={tag} type="checkbox" />
+                <input
+                  // onChange={(e) => setRecipe({ ...recipe, tags: [...recipe?.tags, e.target.value] })}
+                  onChange={e => toggleTags(e)}
+                  name={tag}
+                  checked={recipe?.tags?.includes(tag) ? true : false}
+                  value={tag}
+                  type="checkbox" />
                 <label htmlFor={tag}>{tag}</label>
               </div>
             )
           })}
         </fieldset>
-        <label htmlFor="difficulty">difficulty:</label>
-        <input type="number" name="difficulty" id="difficulty" placeholder="1(easy)-5(hardest)" />
-        <label htmlFor="prepTime">Prep Time:</label>
-        <input type="number" name="prepTime" id="prepTime" placeholder="the amount of time it takes to prep this dish" />
-        <label htmlFor="cookTime">Cook Time:</label>
-        <input type="number" name="cookTime" id="cookTime" placeholder="the amount of time it takes to Cook this dish" />
-        <label htmlFor="servingSize">Serving Size:</label>
-        <input type="number" name="servingSize" id="servingSize" placeholder="Number of people this dish can serve" />
-        <div>
-          <label htmlFor="featured"> Featured</label>
-          <input type="checkbox" name="featured" id="featured" value />
-        </div>
-        <button>
+        <fieldset> <legend>Recipe Details</legend>
+          <label htmlFor="difficulty">difficulty:</label>
+          <input type="number" name="difficulty" id="difficulty" min={1} max={5} placeholder="1(easy)-5(hardest)" value={recipe?.difficulty} onChange={e => setRecipe(currentRecipe => ({ ...currentRecipe, difficulty: e.target.value }))} />
+          <label htmlFor="prepTime">Prep Time:</label>
+          <input type="number" name="prepTime" id="prepTime" placeholder="the amount of time it takes to prep this dish" value={recipe?.prepTime} onChange={e => setRecipe(currentRecipe => ({ ...currentRecipe, prepTime: e.target.value }))} />
+          <label htmlFor="cookTime">Cook Time:</label>
+          <input type="number" name="cookTime" id="cookTime" placeholder="the amount of time it takes to Cook this dish" value={recipe?.cookTime} onChange={e => setRecipe(currentRecipe => ({ ...currentRecipe, cookTime: e.target.value }))} />
+          <label htmlFor="servingSize">Serving Size:</label>
+          <input type="number" name="servingSize" id="servingSize" placeholder="Number of people this dish can serve" value={recipe?.servingSize} onChange={e => setRecipe(currentRecipe => ({ ...currentRecipe, servingSize: e.target.value }))} />
+          <div>
+            <label htmlFor="featured"> Featured</label>
+            <input
+              type="checkbox"
+              name="featured"
+              id="featured"
+              value
+              onChange={(e) => setRecipe({ ...recipe, featured: e.target.checked })}
+              checked={recipe?.featured ? true : false}
+            />
+          </div>
+        </fieldset>
+
+        <button className="submit button">
           {editMode ? "Edit Recipe" : "Submit Recipe"}
         </button>
       </form>
-    </>
+    </section>
   )
 }
 

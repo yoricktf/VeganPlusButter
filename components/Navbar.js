@@ -4,11 +4,14 @@ import LoginComponent from "./Login-btn"
 const Navbar = () => {
   return (
     <nav>
-      <div className="navButtons">
-        <Link href='/' >Home</Link>
-        <Link href='/search' >Search</Link>
+      <div id="navContent">
+
+        <div className="navButtons">
+          <Link href='/' >Home</Link>
+          <Link href='/search' >Search</Link>
+        </div>
+        <LoginComponent />
       </div>
-      <LoginComponent />
     </nav>
   )
 }

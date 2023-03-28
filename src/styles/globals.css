@@ -6,10 +6,17 @@
 @import './profileEditPage.css';
 @import './postForm.css';
 @import './comments.css';
+@import './button.css';
+@import './HomePage.css';
 
 body {
-  padding-top: 40px;
+  padding-top: 50px;
   margin: 0;
+}
+
+.bodySection {
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 * {

@@ -1,0 +1,30 @@
+.button {
+  border: solid black 1px;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 10px 0 0;
+  width: fit-content;
+}
+
+.edit {
+  background-color: rgb(78, 78, 220);
+}
+
+.new {
+  background-color: rgb(0, 171, 0);
+  position: fixed;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.delete {
+  display: inline-block;
+  background-color: red;
+}
+
+.submit {
+  margin: 10px auto;
+}

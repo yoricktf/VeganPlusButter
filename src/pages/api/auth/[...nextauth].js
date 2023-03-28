@@ -6,8 +6,6 @@ import clientPromise from "../../../../db/mongoDBAdapter";
 export const authOptions = {
   // Configure one or more authentication providers
   secret: process.env.SECRET,
-
-
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,

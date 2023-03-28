@@ -14,4 +14,12 @@ export default async function handler(req, res) {
     const post = await Post.findByIdAndDelete(id)
     res.status(200).json('Post has been deleted')
   }
+
+  if (req.method === "PATCH") {
+    const post = JSON.parse(req.body);
+    console.log(post)
+
+    const editedPost = await Post.findByIdAndUpdate(id, post)
+    res.status(200).json(editedPost)
+  }
 }
