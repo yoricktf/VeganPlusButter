@@ -6,11 +6,10 @@ import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-export default function Home({ posts }) {
+export default function Home({ posts, getAllPosts }) {
   const [confirmedUser, setConfirmedUser] = useState()
   const [newestPosts, setNewestPosts] = useState([])
   const { data: session, status } = useSession()
-
 
   useEffect(() => {
     const sortedPosts = posts.sort(function (a, b) {
@@ -20,6 +19,12 @@ export default function Home({ posts }) {
     const threeNewestPosts = sortedPosts.slice(0, 3)
     setNewestPosts(threeNewestPosts)
   }, [posts])
+
+  useEffect(() => {
+    getAllPosts()
+
+
+  }, [])
 
 
 

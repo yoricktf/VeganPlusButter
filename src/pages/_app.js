@@ -4,19 +4,15 @@ import { useEffect, useState } from 'react'
 import Layout from "../../components/Layout"
 import { useSession, signIn, signOut } from "next-auth/react"
 
-
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const [posts, setPosts] = useState([])
   const [specificUser, setSpecificUser] = useState()
 
-  useEffect(() => {
-    const getAllPosts = async () => {
-      const response = await fetch('/api')
-      const allPosts = await response.json()
-      setPosts(allPosts)
-    }
-    getAllPosts()
-  }, [])
+  const getAllPosts = async () => {
+    const response = await fetch('/api')
+    const allPosts = await response.json()
+    setPosts(allPosts)
+  }
 
   const fetchSpecficUser = async (id) => {
     const response = await fetch(`/api/user/${id}`)
@@ -25,10 +21,14 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
     return user
   }
 
+  useEffect(() => {
+    getAllPosts()
+  }, [])
+
   return (
     <SessionProvider session={session}>
       <Layout>
-        <Component {...pageProps} posts={posts} handleFetchSpecificUser={fetchSpecficUser} />
+        <Component {...pageProps} posts={posts} getAllPosts={getAllPosts} handleFetchSpecificUser={fetchSpecficUser} />
       </Layout>
     </SessionProvider>
   )
