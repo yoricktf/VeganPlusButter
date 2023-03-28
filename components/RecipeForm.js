@@ -16,7 +16,6 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
   const [ingredients, setIngredients] = useState([''])
   const [methodSteps, setMethodSteps] = useState([''])
   const tagOptions = ['easy', 'intermediate', 'hard', 'vegan', 'vegetarian', 'healthy', 'quick', 'breakfast', 'lunch', 'snack', 'dinner', 'dessert', 'baking']
-
   // console.log('here is the recipe', recipe)
 
 
@@ -56,25 +55,6 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
     setImageSrc(images);
   }
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault()
-
-  //   const date = new Date
-  //   const formattedDate = date.toLocaleString()
-
-  //   const formData = new FormData(event.target);
-  //   const productData = Object.fromEntries(formData);
-  //   const wholePost = { ...productData, date: formattedDate, author: session.user.email, tags, method: methodSteps, ingredients, images: imageSrc }
-
-  //   const response = await fetch('/api/posts', {
-  //     method: 'POST',
-  //     body: JSON.stringify(wholePost)
-  //   })
-  //   const data = await response.json()
-
-  //   router.push(`/recipe/${data._id}`)
-  // }
-
   const addIngredient = () => {
     setIngredients([...ingredients, ''])
   }
@@ -96,9 +76,10 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
     setMethodSteps(copy)
   }
 
+  console.log(recipe)
 
   return (
-    <>
+    <section className="bodySection">
       {!!editMode ? <h1>EditRecipe</h1> : <h1>NewRecipe</h1>}
       <ImageUpload
         uploadData={uploadData}
@@ -109,9 +90,9 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
       <form className="postForm" onSubmit={e => onSubmit(e, tags, session.user.email, methodSteps, ingredients, imageSrc)}>
         {/* <form className="postForm" onSubmit={handleSubmit}> */}
         <label htmlFor="title">Title:</label>
-        <input type="text" name="title" id="title" />
+        <input type="text" name="title" id="title" value={recipe?.title} />
         <label htmlFor="description">Description:</label>
-        <textarea name="description" id="description" cols="30" rows="10"></textarea>
+        <textarea name="description" id="description" cols="30" rows="10" value={recipe?.description}></textarea>
         <fieldset> <legend>Ingredients</legend>
           <ul>
             {ingredients.map((input, index) => {
@@ -139,7 +120,6 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
         <fieldset> <legend>tags</legend>
           {tagOptions.map((tag, index) => {
             return (
-
               <div key={index}>
                 <input onChange={(e) => setTags([...tags, e.target.value])} value={tag} type="checkbox" />
                 <label htmlFor={tag}>{tag}</label>
@@ -147,23 +127,27 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
             )
           })}
         </fieldset>
-        <label htmlFor="difficulty">difficulty:</label>
-        <input type="number" name="difficulty" id="difficulty" placeholder="1(easy)-5(hardest)" />
-        <label htmlFor="prepTime">Prep Time:</label>
-        <input type="number" name="prepTime" id="prepTime" placeholder="the amount of time it takes to prep this dish" />
-        <label htmlFor="cookTime">Cook Time:</label>
-        <input type="number" name="cookTime" id="cookTime" placeholder="the amount of time it takes to Cook this dish" />
-        <label htmlFor="servingSize">Serving Size:</label>
-        <input type="number" name="servingSize" id="servingSize" placeholder="Number of people this dish can serve" />
-        <div>
-          <label htmlFor="featured"> Featured</label>
-          <input type="checkbox" name="featured" id="featured" value />
-        </div>
-        <button>
+
+        <fieldset> <legend>Recipe Details</legend>
+          <label htmlFor="difficulty">difficulty:</label>
+          <input type="number" name="difficulty" id="difficulty" min={1} max={5} placeholder="1(easy)-5(hardest)" value={recipe?.difficulty} />
+          <label htmlFor="prepTime">Prep Time:</label>
+          <input type="number" name="prepTime" id="prepTime" placeholder="the amount of time it takes to prep this dish" value={recipe?.prepTime} />
+          <label htmlFor="cookTime">Cook Time:</label>
+          <input type="number" name="cookTime" id="cookTime" placeholder="the amount of time it takes to Cook this dish" value={recipe?.cookTime} />
+          <label htmlFor="servingSize">Serving Size:</label>
+          <input type="number" name="servingSize" id="servingSize" placeholder="Number of people this dish can serve" value={recipe?.servingSize} />
+          <div>
+            <label htmlFor="featured"> Featured</label>
+            <input type="checkbox" name="featured" id="featured" value />
+          </div>
+        </fieldset>
+
+        <button className="submit button">
           {editMode ? "Edit Recipe" : "Submit Recipe"}
         </button>
       </form>
-    </>
+    </section>
   )
 }
 

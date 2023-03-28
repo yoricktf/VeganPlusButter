@@ -17,6 +17,9 @@ const postSchema = new Schema({
   numberOfComments: Number,
   numberOfFavorites: Number,
   typeOfPost: String
+}, {
+  // this second object adds extra properties: `createdAt` and `updatedAt`
+  timestamps: true,
 });
 
 const Post = mongoose.models.Post || mongoose.model('Post', postSchema);
