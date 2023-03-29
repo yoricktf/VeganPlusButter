@@ -10,10 +10,9 @@ export default async function handler(req, res) {
     res.status(200).json(user.favorites)
   }
 
-
   if (req.method === "PATCH") {
     const { userId, postId } = JSON.parse(req.body)
-    console.log('=========PostID', postId)
+
     const user = await User.findByIdAndUpdate(userId,
       [
         {
@@ -26,8 +25,8 @@ export default async function handler(req, res) {
           }
         }
       ]
+      , { new: true }
     )
-    console.log('+++++++++++USER FAVORITES', user.favorites)
     res.status(200).json(user.favorites)
   }
 }

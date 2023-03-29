@@ -15,20 +15,9 @@ const ShowPage = () => {
   const [specficPost, setSpecficPost] = useState()
   const [specificUser, setSpecificUser] = useState({})
   const [comments, setComments] = useState([])
-  const [userFavorites, setUserFavorites] = useState()
+  const [userFavorites, setUserFavorites] = useState([])
   const { id } = router.query;
 
-  console.log('----------------USERFAVORITES+++===', userFavorites)
-
-  const fetchComments = async () => {
-    const response = await fetch('/api/comments')
-    const comments = await response.json()
-    const filteredComments = comments.filter(comment => comment.post === id)
-    setComments(filteredComments)
-  }
-  useEffect(() => {
-    fetchComments()
-  }, [])
 
   useEffect(() => {
     if (!!id) {
@@ -41,6 +30,7 @@ const ShowPage = () => {
     }
   }, [id])
 
+
   useEffect(() => {
     if (session) {
       const checkFavorites = async () => {
@@ -49,12 +39,23 @@ const ShowPage = () => {
           body: session.user.id
         })
         const favorites = await response.json()
-        console.log(favorites)
+        console.log('does this showFAVORITES: ', favorites)
         setUserFavorites(favorites)
       }
       checkFavorites()
     }
   }, [session])
+
+  const fetchComments = async () => {
+    const response = await fetch('/api/comments')
+    const comments = await response.json()
+    const filteredComments = comments.filter(comment => comment.post === id)
+    setComments(filteredComments)
+  }
+  useEffect(() => {
+    fetchComments()
+  }, [])
+
 
   const toggleFavorite = async () => {
     const favoritesInfo = { userId: session.user.id, postId: id }
@@ -110,7 +111,9 @@ const ShowPage = () => {
               <p className='delete button' onClick={handleDelete}>Delete Recipe</p>
             </div>
             :
-            ''}
+            null}
+
+
           {status === 'authenticated' && userFavorites ?
             userFavorites.includes(id) ?
               <Image onClick={toggleFavorite} src={starFilled} width={20} height={20} alt='outline of a star' />
@@ -118,9 +121,13 @@ const ShowPage = () => {
               <Image onClick={toggleFavorite} src={starOutline} width={20} height={20} alt='outline of a star' />
 
             : <div>
-              <Image src={starFilled} width={20} height={20} alt='outline of a star' />
+              <Image src={starFilled} width={20} height={20} alt='filled star' />
               <p>sign in to save favorites</p>
             </div>}
+
+
+
+
 
           <div className='tags'>
             {tags.map(tag => <Tag key={tag} tag={tag} />)}
