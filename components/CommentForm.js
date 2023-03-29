@@ -1,10 +1,9 @@
+import { useEffect } from "react"
 
-
-const CommentForm = ({ recipeId, userId }) => {
+const CommentForm = ({ recipeId, userId, fetchComments }) => {
 
 
   const addComment = async (event) => {
-
     const date = new Date
     const formattedDate = date.toLocaleString()
     const formData = new FormData(event.target);
@@ -14,10 +13,13 @@ const CommentForm = ({ recipeId, userId }) => {
       method: 'POST',
       body: JSON.stringify(completeComment)
     })
-
     const comment = await response.json()
-
   }
+
+  useEffect(() => {
+    fetchComments()
+  }, [])
+
 
   return (
     <form className='commentForm' onSubmit={addComment}>

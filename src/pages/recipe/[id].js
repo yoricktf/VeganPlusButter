@@ -20,13 +20,13 @@ const ShowPage = () => {
 
   console.log('----------------USERFAVORITES+++===', userFavorites)
 
+  const fetchComments = async () => {
+    const response = await fetch('/api/comments')
+    const comments = await response.json()
+    const filteredComments = comments.filter(comment => comment.post === id)
+    setComments(filteredComments)
+  }
   useEffect(() => {
-    const fetchComments = async () => {
-      const response = await fetch('/api/comments')
-      const comments = await response.json()
-      const filteredComments = comments.filter(comment => comment.post === id)
-      setComments(filteredComments)
-    }
     fetchComments()
   }, [])
 
@@ -140,7 +140,13 @@ const ShowPage = () => {
           </ol>
         </section>
 
-        {status === 'authenticated' ? <CommentForm recipeId={id} userId={session.user.id} /> : <p>Sign in to leave comments</p>}
+        {status === 'authenticated' ?
+          <CommentForm recipeId={id}
+            userId={session.user.id}
+            fetchComments={fetchComments}
+          />
+          :
+          <p>Sign in to leave comments</p>}
         <section className='comments'>
           {comments.map((comment, index) => {
             return (
