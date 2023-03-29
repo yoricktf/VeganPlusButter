@@ -15,7 +15,7 @@ const LargeCard = ({ recipeInfo }) => {
             {tags.map(tag => <Tag key={tag} tag={tag} />)}
           </div>
           <div className="details">
-            <p className="detail">{numberOfComments} comments</p>
+            <p className="detail">{numberOfComments} Comments</p>
             <p className="detail">Favorited {numberOfFavorites} times</p>
           </div>
 

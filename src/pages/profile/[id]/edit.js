@@ -39,7 +39,7 @@ const EditProfile = (
 
   if (!!specificUser && status === 'authenticated' && id === session.user.id) {
     return (
-      <section className='profileForm'>
+      <section className='profileForm bodySection'>
         <div className='profileData'>
           <Image id='largeProfile' src={specificUser.image} width={96} height={96} alt={`${specificUser.name}'s profile picture`} />
           <div>

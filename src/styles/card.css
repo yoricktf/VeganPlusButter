@@ -26,11 +26,12 @@
 
 .tag {
   margin: 4px;
-  background-color: rgb(255, 255, 255);
-  padding: 5px;
+  color: #fff;
+  background-color: #000000;
+  padding: 5px 10px;
   border-radius: 14px;
   font-size: 0.8rem;
-  border: solid black 2px;
+  /* border: solid #fff 1px; */
 }
 
 .layer {
@@ -38,6 +39,7 @@
     rgba(255, 255, 255, 0.198),
     rgba(0, 0, 0, 0.198)
   );
+  transition: all 0.1s ease-in-out;
   position: absolute;
   top: 0;
   left: 0;
@@ -45,6 +47,11 @@
   height: 100%;
   border-radius: 10px;
   padding: 10px;
+}
+
+.layer:hover {
+  background: none;
+  transform: scale(1.02);
 }
 
 .horizontalSection {
@@ -55,7 +62,7 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
   overflow-y: scroll;
-  margin: 0;
+  margin: 0 auto;
   scroll-snap-type: x mandatory;
   scroll-padding: 0 24px;
   scroll-snap-align: start;
@@ -63,4 +70,10 @@
 
 .horizontalSection::-webkit-scrollbar {
   display: none;
+}
+
+@media only screen and (min-width: 1500px) {
+  .horizontalSection {
+    justify-content: center;
+  }
 }

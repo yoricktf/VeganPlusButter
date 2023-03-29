@@ -9,14 +9,31 @@
   margin: 0 auto;
 }
 
-#recipeShowImageContainer > h1 {
+#showPageBody > h1 {
+  font-size: 3rem;
+  text-align: center;
+  margin: 0 0;
+}
+
+/* #recipeShowImageContainer > h1 {
   padding: 10px;
   background-color: white;
   border-radius: 10px;
+  color: red;
+} */
+
+/* #recipeShowImage {
+  z-index: -1;
+} */
+
+.favoritesSection {
+  display: flex;
+  align-items: center;
+  margin: 5px;
 }
 
-#recipeShowImage {
-  z-index: -1;
+.favoritesSection > p {
+  margin: 10px;
 }
 
 #showPageBody {
@@ -24,13 +41,12 @@
 }
 
 .adminControls {
-  margin: 10px 0;
+  width: fit-content;
+  margin: 10px auto;
 }
 
 .tags {
+  /* width: fit-content; */
   display: flex;
-}
-
-.title {
-  margin-bottom: 0;
+  justify-content: center;
 }

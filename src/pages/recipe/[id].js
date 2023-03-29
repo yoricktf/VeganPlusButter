@@ -50,11 +50,18 @@ const ShowPage = () => {
     const response = await fetch('/api/comments')
     const comments = await response.json()
     const filteredComments = comments.filter(comment => comment.post === id)
-    setComments(filteredComments)
+
+    const sortedComments = filteredComments.sort(function (a, b) {
+      return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
+    });
+
+    setComments(sortedComments)
   }
   useEffect(() => {
     fetchComments()
   }, [])
+
+
 
 
   const toggleFavorite = async () => {
@@ -94,7 +101,7 @@ const ShowPage = () => {
     return (
       <section className="bodySection">
         <div id='recipeShowImageContainer'>
-          <h1>{title}</h1>
+          {/* <h1>{title}</h1> */}
           <Image
             id='recipeShowImage'
             src={images[0]}
@@ -105,6 +112,11 @@ const ShowPage = () => {
           />
         </div>
         <section id='showPageBody'>
+          <h1>{title}</h1>
+          <div className='tags'>
+
+            {tags.map(tag => <Tag key={tag} tag={tag} />)}
+          </div>
           {status === 'authenticated' && specificUser.admin ?
             <div className='adminControls'>
               <Link className='edit button' href={`/recipe/${id}/edit`}>Edit Recipe</Link>
@@ -112,26 +124,17 @@ const ShowPage = () => {
             </div>
             :
             null}
-
-
           {status === 'authenticated' && userFavorites ?
             userFavorites.includes(id) ?
-              <Image onClick={toggleFavorite} src={starFilled} width={20} height={20} alt='outline of a star' />
+              <Image className='favoriteIcon' onClick={toggleFavorite} src={starFilled} width={30} height={30} alt='outline of a star' />
               :
-              <Image onClick={toggleFavorite} src={starOutline} width={20} height={20} alt='outline of a star' />
+              <Image className='favoriteIcon' onClick={toggleFavorite} src={starOutline} width={30} height={30} alt='outline of a star' />
 
-            : <div>
-              <Image src={starFilled} width={20} height={20} alt='filled star' />
+            : <div className='favoritesSection'>
+              <Image className='favoriteIcon' src={starFilled} width={30} height={30} alt='filled star' />
               <p>sign in to save favorites</p>
             </div>}
 
-
-
-
-
-          <div className='tags'>
-            {tags.map(tag => <Tag key={tag} tag={tag} />)}
-          </div>
           <p>{description}</p>
           <h2>Ingredients</h2>
           <ul>
