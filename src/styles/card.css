@@ -30,6 +30,7 @@
   padding: 5px;
   border-radius: 14px;
   font-size: 0.8rem;
+  border: solid black 2px;
 }
 
 .layer {
