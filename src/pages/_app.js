@@ -28,7 +28,10 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
   return (
     <SessionProvider session={session}>
       <Layout>
-        <Component {...pageProps} posts={posts} getAllPosts={getAllPosts} handleFetchSpecificUser={fetchSpecficUser} />
+        <Component {...pageProps}
+          posts={posts}
+          getAllPosts={getAllPosts}
+          handleFetchSpecificUser={fetchSpecficUser} />
       </Layout>
     </SessionProvider>
   )
