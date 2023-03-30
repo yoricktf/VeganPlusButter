@@ -24,10 +24,10 @@ const LargeCard = ({ recipeInfo }) => {
           <div className="largeCardTags">
             {tags.map(tag => <Tag key={tag} tag={tag} />)}
           </div>
-          <div className="details">
+          {/* <div className="details">
             <p className="detail">{numberOfComments} Comments</p>
             <p className="detail">Favorited {numberOfFavorites} times</p>
-          </div>
+          </div> */}
 
         </div>
       </article>

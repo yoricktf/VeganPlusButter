@@ -73,7 +73,7 @@ export default function LoginComponent() {
   }
   return (
     <div className="loginOptions">
-      <button onClick={() => signIn()}>Sign in</button>
+      <button className="signIn" onClick={() => signIn()}>Sign in</button>
     </div>
   )
 }

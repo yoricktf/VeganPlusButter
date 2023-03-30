@@ -17,9 +17,12 @@
   border-radius: 50%;
   right: 0;
   border: none;
-  /* height: 10px; */
-  /* width: 10px; */
   padding: 10px 13px;
+}
+
+.commentButton {
+  width: 100%;
+  margin: 15px 0 10px;
 }
 
 .delete {
@@ -29,4 +32,18 @@
 
 .submit {
   margin: 10px auto;
+}
+
+.signIn {
+  padding: 8px 10px;
+  margin-right: 5px;
+  color: #fff;
+  background-color: #000;
+  /* border: 1px solid black; */
+  border: none;
+  border-radius: 5px;
+}
+
+.commentSignIn {
+  margin: 0 auto;
 }

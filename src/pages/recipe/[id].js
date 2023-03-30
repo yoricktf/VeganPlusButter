@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Tag from '../../../components/Tag';
 import CommentForm from '../../../components/CommentForm';
-import { useSession } from "next-auth/react"
+import { useSession, signIn } from "next-auth/react"
 import Comment from '../../../components/Comment';
 import starOutline from '../../../public/starOutline.png'
 import starFilled from '../../../public/starFilled.png'
@@ -156,7 +156,7 @@ const ShowPage = () => {
             fetchComments={fetchComments}
           />
           :
-          <p>Sign in to leave comments</p>}
+          <p className='commentSignIn button' onClick={() => signIn()}>Sign in to leave comments</p>}
         <section className='comments'>
           {comments.map((comment, index) => {
             return (
@@ -164,7 +164,7 @@ const ShowPage = () => {
             )
           })}
         </section>
-      </section>
+      </section >
     )
   }
 
