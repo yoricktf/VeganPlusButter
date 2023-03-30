@@ -10,14 +10,12 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
   const router = useRouter()
   const [recipe, setRecipe] = useState(recipeValue)
   const [uploadData, setUploadData] = useState();
-  const [imageSrc, setImageSrc] = useState([]);
+  const [imageSrc, setImageSrc] = useState(recipeValue ? [...recipe.images] : []);
   const [ingredients, setIngredients] = useState(recipeValue ? [...recipe.ingredients] : [''])
   const [methodSteps, setMethodSteps] = useState(recipeValue ? [...recipe.method] : [''])
   const [tags, setTags] = useState([])
   const images = []
   const tagOptions = ['easy', 'intermediate', 'hard', 'vegan', 'vegetarian', 'healthy', 'quick', 'breakfast', 'lunch', 'snack', 'dinner', 'dessert', 'baking']
-
-  // console.log(recipe?.tags)
 
   function handleImageChange(e) {
     for (const file of e.target.files) {
@@ -90,9 +88,6 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
       setRecipe({ ...recipe, tags: array })
     }
   }
-
-  console.log(recipe?.tags)
-
 
   return (
     <section className="bodySection">

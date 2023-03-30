@@ -7,8 +7,6 @@ import NotAuthorized from '../../../../components/NotAuthorized';
 import LargeCard from '../../../../components/LargeCard';
 import Comment from '../../../../components/Comment';
 
-
-
 const Index = (
   // { handleFetchSpecificUser }
 ) => {
@@ -34,33 +32,33 @@ const Index = (
       const comments = await response.json()
       console.log(comments)
       const filteredComments = comments.filter(comment => comment.author._id === id)
-
-      setFilteredComments(filteredComments)
+      const sortedUsersComments = filteredComments.sort(function (a, b) {
+        return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
+      });
+      setFilteredComments(sortedUsersComments)
     }
 
     fetchSpecficUser()
     fetchUsersComments()
   }, [id])
 
-
-
-
   if (!!specificUser) {
     if (status === 'authenticated') {
       return (
-        <>
-          <Image className='largeProfile' src={specificUser.image} width={96} height={96} alt={`${specificUser.name}'s profile picture`} />
-          <h1>{specificUser.name}&apos;s Profile</h1>
-          {specificUser.email === session.user.email ? <Link href={`/profile/${specificUser._id}/edit`}>Edit your Profile</Link> : ''}
+        <section className='profilePage bodySection'>
+          <div className='profileData'>
+            <Image className='largeProfile' src={specificUser.image} width={96} height={96} alt={`${specificUser.name}'s profile picture`} />
+            <div>
+              <h1>{specificUser.name}&apos;s Profile</h1>
+              <p>Bio: {specificUser.bio}</p>
 
-          <p>Bio: {specificUser.bio}</p>
-
+            </div>
+          </div>
+          {specificUser.email === session.user.email ? <Link className='button' href={`/profile/${specificUser._id}/edit`}>Edit your Profile</Link> : ''}
           <section className='usersFavorites'>
             <h2>{specificUser.name}&apos;s Favorites</h2>
-
             {specificUser.favorites.map((favoritedRecipe, index) => {
               return (
-                //need to populate the favorites and use the large card component when that has been done.
                 <LargeCard key={index} recipeInfo={favoritedRecipe} />
               )
             })}
@@ -68,14 +66,11 @@ const Index = (
           <section className='usersFavorites'>
             <h2>Comments</h2>
             {filteredComments.map((comment, index) => <Comment key={index} userComment={comment} />)}
-
-
           </section>
-        </>
+        </section>
       )
     } else {
       return (
-
         <NotAuthorized />
       )
     }

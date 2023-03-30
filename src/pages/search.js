@@ -18,16 +18,18 @@ const Search = ({ posts }) => {
   if (!!posts) {
     return (
       <>
-        <section id="searchSection">
-          <h1>Search</h1>
-          <input type="text" id="search" onChange={handleSearch} placeholder="cookies, healthy, butter" autoFocus />
-          <p className="detail">Search through recipe titles, tags or ingredients</p>
-        </section>
-        {filteredPosts.map(foundPost => {
-          return (
-            <LargeCard key={foundPost._id} recipeInfo={foundPost} />
-          )
-        })}
+        <div className="bodySection">
+          <section id="searchSection" >
+            <h1>Search</h1>
+            <input type="text" id="search" onChange={handleSearch} placeholder="cookies, healthy, butter" autoFocus />
+            <p className="detail">Search through recipe titles, tags or ingredients</p>
+          </section>
+          {filteredPosts.map(foundPost => {
+            return (
+              <LargeCard key={foundPost._id} recipeInfo={foundPost} />
+            )
+          })}
+        </div>
       </>
     )
   }

@@ -8,16 +8,26 @@ const LargeCard = ({ recipeInfo }) => {
   return (
     <Link href={`/recipe/${_id}`} className="largeCardLink">
       <article className="largeCard">
-        <Image src={images[0]} alt={`image of ${title}`} width={150} height={150} />
+        <div className="largeCardImage">
+          <Image
+            src={images[0]}
+            alt={`image of ${title}`}
+            // width={150}
+            // height={150}
+            fill
+            sizes="100%"
+            style={{ objectFit: 'cover' }}
+          />
+        </div>
         <div className="largeCardDetails">
           <h2>{title}</h2>
           <div className="largeCardTags">
             {tags.map(tag => <Tag key={tag} tag={tag} />)}
           </div>
-          <div className="details">
-            <p className="detail">{numberOfComments} comments</p>
+          {/* <div className="details">
+            <p className="detail">{numberOfComments} Comments</p>
             <p className="detail">Favorited {numberOfFavorites} times</p>
-          </div>
+          </div> */}
 
         </div>
       </article>

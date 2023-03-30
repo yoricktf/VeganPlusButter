@@ -3,6 +3,9 @@ import { SessionProvider } from "next-auth/react"
 import { useEffect, useState } from 'react'
 import Layout from "../../components/Layout"
 import { useSession, signIn, signOut } from "next-auth/react"
+import { Open_Sans } from 'next/font/google'
+
+const openSans = Open_Sans({ subsets: ['latin'], weight: ['400', '700'] })
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const [posts, setPosts] = useState([])
@@ -25,14 +28,20 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
     getAllPosts()
   }, [])
 
+
+
+
   return (
     <SessionProvider session={session}>
-      <Layout>
-        <Component {...pageProps}
-          posts={posts}
-          getAllPosts={getAllPosts}
-          handleFetchSpecificUser={fetchSpecficUser} />
-      </Layout>
+      <main className={openSans.className}>
+        <Layout>
+          <Component
+            {...pageProps}
+            posts={posts}
+            getAllPosts={getAllPosts}
+            handleFetchSpecificUser={fetchSpecficUser} />
+        </Layout>
+      </main>
     </SessionProvider>
   )
 }

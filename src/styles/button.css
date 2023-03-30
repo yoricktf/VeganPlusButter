@@ -7,24 +7,43 @@
 }
 
 .edit {
-  background-color: rgb(78, 78, 220);
+  background-color: #a8c7e7;
 }
 
 .new {
-  background-color: rgb(0, 171, 0);
+  background-color: rgb(0, 246, 205);
   position: fixed;
   bottom: 10px;
-  left: 0;
+  border-radius: 50%;
   right: 0;
-  margin: 0 auto;
-  width: fit-content;
+  border: none;
+  padding: 10px 13px;
+}
+
+.commentButton {
+  width: 100%;
+  margin: 15px 0 10px;
 }
 
 .delete {
   display: inline-block;
-  background-color: red;
+  background-color: #ff6961;
 }
 
 .submit {
   margin: 10px auto;
+}
+
+.signIn {
+  padding: 8px 10px;
+  margin-right: 5px;
+  color: #fff;
+  background-color: #000;
+  /* border: 1px solid black; */
+  border: none;
+  border-radius: 5px;
+}
+
+.commentSignIn {
+  margin: 0 auto;
 }
