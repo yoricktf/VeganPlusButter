@@ -8,6 +8,7 @@
 @import './comments.css';
 @import './button.css';
 @import './HomePage.css';
+@import './nothingFound.css';
 
 body {
   padding-top: 50px;

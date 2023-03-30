@@ -1,4 +1,5 @@
 import LargeCard from "../../components/LargeCard"
+import NothingFound from "../../components/nothingFound"
 import { useState } from 'react'
 
 const Search = ({ posts }) => {
@@ -15,6 +16,8 @@ const Search = ({ posts }) => {
         || (post.ingredients.map(ingredient => ingredient.toLowerCase())).includes(searchQuery)
     }) : []
 
+  console.log('--------------', filteredPosts)
+
   if (!!posts) {
     return (
       <>
@@ -24,11 +27,16 @@ const Search = ({ posts }) => {
             <input type="text" id="search" onChange={handleSearch} placeholder="cookies, healthy, butter" autoFocus />
             <p className="detail">Search through recipe titles, tags or ingredients</p>
           </section>
-          {filteredPosts.map(foundPost => {
-            return (
-              <LargeCard key={foundPost._id} recipeInfo={foundPost} />
-            )
-          })}
+          {filteredPosts.length === 0 && searchQuery.length ?
+            <NothingFound />
+            :
+            filteredPosts.map(foundPost => {
+              return (
+                <LargeCard key={foundPost._id} recipeInfo={foundPost} />
+              )
+            })
+
+          }
         </div>
       </>
     )
