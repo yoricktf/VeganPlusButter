@@ -6,10 +6,28 @@ import { useRouter } from 'next/router'
 
 export default function LoginComponent() {
   const [loggedInUser, setLoggedInUser] = useState()
-
-
-
   const { data: session } = useSession()
+
+  function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+
+  // // Close the dropdown menu if the user clicks outside of it
+  // window.onclick = function (event) {
+  //   if (!event.target.matches('.dropbtn')) {
+  //     var dropdowns = document.getElementsByClassName("dropdown-content");
+  //     var i;
+  //     for (i = 0; i < dropdowns.length; i++) {
+  //       var openDropdown = dropdowns[i];
+  //       if (openDropdown.classList.contains('show')) {
+  //         openDropdown.classList.remove('show');
+  //       }
+  //     }
+  //   }
+  // }
+
+
+
 
   useEffect(() => {
     try {
@@ -32,11 +50,24 @@ export default function LoginComponent() {
 
   if (session && loggedInUser) {
     return (
-      <div className="loginOptions">
+      <div className="loginOptions dropdown">
         {/* <button onClick={() => signOut()}>Sign out</button> */}
-        <Link href={`/profile/${loggedInUser._id}`}>
-          <Image className="profile" src={session.user.image} height={30} width={30} alt={`profile picture for ${session.user.name}`} />
-        </Link>
+        {/* <Link href={`/profile/${loggedInUser._id}`}> */}
+        <Image
+          onClick={myFunction}
+          class="dropbtn"
+          className="profile"
+          src={session.user.image}
+          height={30}
+          width={30}
+          alt={`profile picture for ${session.user.name}`} />
+        <div id="myDropdown" class="dropdown-content">
+          <Link href={`/profile/${loggedInUser._id}`}>Profile</Link>
+          <p>About</p>
+          <p onClick={() => signOut()}>Sign Out</p>
+        </div>
+
+        {/* </Link> */}
       </div>
     )
   }
