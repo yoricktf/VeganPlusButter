@@ -102,6 +102,11 @@ export default function Home({ posts, getAllPosts }) {
             </div>
           </section>
         }
+        <div className='blurb'>
+          <h1 className='title'>VEGAN PLUS BUTTER</h1>
+          <p>Vegan Plus Butter started out as a place for me to write Vegan recipes, but then morphed into adding butter to recipes because I enjoy the depth of flavour it can add to certain dishes. Everything on this website can be made vegan though without sacrificing the taste in any way. I hope you enjoy using it as much as I do! and if you are reading this part let me know and we will have abeer together</p>
+
+        </div>
       </section>
       <h2 className='title'>Featured Recipes</h2>
       <div className='horizontalSection'>
