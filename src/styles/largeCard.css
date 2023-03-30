@@ -8,9 +8,10 @@
 
 .largeCardImage {
   position: relative;
-  height: 200px;
+  height: 220px;
   width: 100%;
   max-width: 150px;
+  min-width: 60px;
 }
 
 .largeCardDetails {
@@ -26,6 +27,7 @@
 
 .largeCardTags {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .details {

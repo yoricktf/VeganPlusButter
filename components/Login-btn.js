@@ -33,9 +33,8 @@ export default function LoginComponent() {
   if (session && loggedInUser) {
     return (
       <div className="loginOptions">
-        <button onClick={() => signOut()}>Sign out</button>
+        {/* <button onClick={() => signOut()}>Sign out</button> */}
         <Link href={`/profile/${loggedInUser._id}`}>
-
           <Image className="profile" src={session.user.image} height={30} width={30} alt={`profile picture for ${session.user.name}`} />
         </Link>
       </div>
