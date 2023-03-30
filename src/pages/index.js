@@ -114,7 +114,7 @@ export default function Home({ posts, getAllPosts }) {
           if (post.featured) { return <Card key={post._id} title={post.title} image={post.images[0]} tags={post.tags} postId={post._id} /> }
         })}
       </div>
-      {status === 'authenticated' && confirmedUser && confirmedUser.admin === true ? <Link className='new button' href={'/recipe/new'}>New Recipe</Link> : ''}
+      {status === 'authenticated' && confirmedUser && confirmedUser.admin === true ? <Link className='new button' href={'/recipe/new'}>➕</Link> : ''}
     </>
   )
 }
