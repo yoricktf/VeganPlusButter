@@ -63,7 +63,7 @@ export default function LoginComponent() {
           alt={`profile picture for ${session.user.name}`} />
         <div id="myDropdown" class="dropdown-content">
           <Link href={`/profile/${loggedInUser._id}`}>Profile</Link>
-          <p>About</p>
+          <Link href={`/about}`}>About</Link>
           <p onClick={() => signOut()}>Sign Out</p>
         </div>
 
