@@ -91,7 +91,7 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
 
   return (
     <section className="bodySection">
-      {!!editMode ? <h1>EditRecipe</h1> : <h1>NewRecipe</h1>}
+      <h1 id="formTitle">{!!editMode ? 'EditRecipe' : 'NewRecipe'}</h1>
       <ImageUpload
         uploadData={uploadData}
         imageSrc={imageSrc}
@@ -144,7 +144,7 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
             )
           })}
         </fieldset>
-        <fieldset> <legend>Recipe Details</legend>
+        <fieldset className="formFeatures"> <legend>Recipe Details</legend>
           <label htmlFor="difficulty">difficulty:</label>
           <input type="number" name="difficulty" id="difficulty" min={1} max={5} placeholder="1(easy)-5(hardest)" value={recipe?.difficulty} onChange={e => setRecipe(currentRecipe => ({ ...currentRecipe, difficulty: e.target.value }))} />
           <label htmlFor="prepTime">Prep Time:</label>

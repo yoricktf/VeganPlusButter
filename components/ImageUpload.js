@@ -17,7 +17,7 @@ const ImageUpload = ({ onImageSubmit, onImageChange, imageSrc, uploadData, image
           <Image key={index} alt={`image to upload number ${index}`} src={link} width="150" height="150" />
         ))}
 
-        {imageSrc && !uploadData && (
+        {imageSrc.length > 0 && !uploadData && (
           <p>
             <button>Upload Files</button>
           </p>
