@@ -14,12 +14,15 @@ const EditProfile = (
 
 
   useEffect(() => {
-    const fetchSpecficUser = async () => {
-      const response = await fetch(`/api/user/${id}`)
-      const user = await response.json()
-      setSpecificUser(user)
+    if (id) {
+
+      const fetchSpecficUser = async () => {
+        const response = await fetch(`/api/user/${id}`)
+        const user = await response.json()
+        setSpecificUser(user)
+      }
+      fetchSpecficUser()
     }
-    fetchSpecficUser()
     // setSpecificUser(handleFetchSpecificUser(id))
   }, [id])
 
