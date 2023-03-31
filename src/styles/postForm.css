@@ -3,3 +3,28 @@
   flex-direction: column;
   padding: 10px;
 }
+
+#formTitle {
+  text-align: center;
+  font-size: 2.5rem;
+  margin: 10px;
+}
+
+form > fieldset:nth-child(5) > ul > li,
+form > fieldset:nth-child(6) > ol > li {
+  margin-top: 10px;
+}
+
+#__next > main > section > fieldset {
+  margin: 0 10px;
+}
+
+.formFeatures {
+  display: flex;
+  flex-direction: column;
+}
+
+.formFeatures > div {
+  margin: 10px;
+  margin-left: 0;
+}
