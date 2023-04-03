@@ -15,7 +15,4 @@ export default async function handler(req, res) {
     await User.findByIdAndUpdate(id, userObject)
     res.status(200).json('user updated')
   }
-
-
-
 }
