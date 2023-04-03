@@ -4,7 +4,6 @@ import { useRouter } from "next/router"
 import NotAuthorized from "./NotAuthorized"
 import ImageUpload from "./ImageUpload"
 
-
 const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
   const { data: session, status } = useSession()
   const router = useRouter()
@@ -57,15 +56,14 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
     setIngredients([...ingredients, ''])
   }
 
+  const addMethodStep = () => {
+    setMethodSteps([...methodSteps, ''])
+  }
+
   const updateIngredient = (input, index) => {
     const copy = ingredients.slice()
     copy[index] = input
     setIngredients(copy)
-  }
-
-
-  const addMethodStep = () => {
-    setMethodSteps([...methodSteps, ''])
   }
 
   const updateMethod = (input, index) => {

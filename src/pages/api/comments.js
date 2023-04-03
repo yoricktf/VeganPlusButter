@@ -5,13 +5,21 @@ export default async function handler(req, res) {
   await dbConnect()
 
   if (req.method === "GET") {
-    const allComments = await Comment.find().populate('author')
-    res.status(200).json(allComments)
+    try {
+      const allComments = await Comment.find().populate('author')
+      res.status(200).json(allComments)
+    } catch (error) {
+      res.status(500).json({ error: error.message })
+    }
   }
 
   if (req.method === "POST") {
-    const commentObject = await JSON.parse(req.body)
-    const submittedComment = await Comment.create(commentObject)
-    res.status(200).json(submittedComment)
+    try {
+      const commentObject = await JSON.parse(req.body)
+      const submittedComment = await Comment.create(commentObject)
+      res.status(200).json(submittedComment)
+    } catch (error) {
+      res.status(500).json({ error: error.message })
+    }
   }
 }

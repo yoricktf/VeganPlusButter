@@ -2,22 +2,20 @@ import { useEffect } from "react"
 
 const CommentForm = ({ recipeId, userId, fetchComments }) => {
 
-  try {
-    const addComment = async (event) => {
-      const date = new Date
-      const formattedDate = date.toLocaleString()
-      const formData = new FormData(event.target);
-      const productData = Object.fromEntries(formData);
-      const completeComment = { ...productData, date: formattedDate, author: userId, post: recipeId }
-      const response = await fetch('/api/comments', {
-        method: 'POST',
-        body: JSON.stringify(completeComment)
-      })
-      const comment = await response.json()
-    }
-  } catch (error) {
-    console.log(error)
+
+  const addComment = async (event) => {
+    const date = new Date
+    const formattedDate = date.toLocaleString()
+    const formData = new FormData(event.target);
+    const productData = Object.fromEntries(formData);
+    const completeComment = { ...productData, date: formattedDate, author: userId, post: recipeId }
+    const response = await fetch('/api/comments', {
+      method: 'POST',
+      body: JSON.stringify(completeComment)
+    })
+    const comment = await response.json()
   }
+
 
   useEffect(() => {
     fetchComments()
