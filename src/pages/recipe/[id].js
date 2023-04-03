@@ -39,7 +39,6 @@ const ShowPage = () => {
           body: session.user.id
         })
         const favorites = await response.json()
-        console.log('does this showFAVORITES: ', favorites)
         setUserFavorites(favorites)
       }
       checkFavorites()

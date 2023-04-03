@@ -15,7 +15,6 @@ const EditProfile = (
 
   useEffect(() => {
     if (id) {
-
       const fetchSpecficUser = async () => {
         const response = await fetch(`/api/user/${id}`)
         const user = await response.json()

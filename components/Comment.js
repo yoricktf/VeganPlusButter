@@ -5,8 +5,6 @@ import Link from "next/link"
 const Comment = ({ userComment }) => {
   const { comment, date, author } = userComment
 
-  console.log(author.image)
-
   return (
     <Link href={`/profile/${author._id}`}>
       <article className="comment">

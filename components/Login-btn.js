@@ -12,23 +12,6 @@ export default function LoginComponent() {
     document.getElementById("myDropdown").classList.toggle("show");
   }
 
-  // // Close the dropdown menu if the user clicks outside of it
-  // window.onclick = function (event) {
-  //   if (!event.target.matches('.dropbtn')) {
-  //     var dropdowns = document.getElementsByClassName("dropdown-content");
-  //     var i;
-  //     for (i = 0; i < dropdowns.length; i++) {
-  //       var openDropdown = dropdowns[i];
-  //       if (openDropdown.classList.contains('show')) {
-  //         openDropdown.classList.remove('show');
-  //       }
-  //     }
-  //   }
-  // }
-
-
-
-
   useEffect(() => {
     try {
       const checkUser = async () => {
@@ -55,13 +38,13 @@ export default function LoginComponent() {
         {/* <Link href={`/profile/${loggedInUser._id}`}> */}
         <Image
           onClick={myFunction}
-          class="dropbtn"
+
           className="profile"
           src={session.user.image}
           height={30}
           width={30}
           alt={`profile picture for ${session.user.name}`} />
-        <div id="myDropdown" class="dropdown-content">
+        <div id="myDropdown" className="dropdown-content">
           <Link href={`/profile/${loggedInUser._id}`}>Profile</Link>
           <Link href={`/about}`}>About</Link>
           <p onClick={() => signOut()}>Sign Out</p>
