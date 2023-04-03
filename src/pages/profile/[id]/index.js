@@ -30,16 +30,15 @@ const Index = (
     }
 
     const fetchUsersComments = async () => {
-
-      const response = await fetch('/api/comments')
-      const comments = await response.json()
-      console.log(comments)
-      const filteredComments = comments.filter(comment => comment.author._id === id)
-      const sortedUsersComments = filteredComments.sort(function (a, b) {
-        return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
-      });
-      setFilteredComments(sortedUsersComments)
-
+      if (id) {
+        const response = await fetch('/api/comments')
+        const comments = await response.json()
+        const filteredComments = comments.filter(comment => comment.author._id === id)
+        const sortedUsersComments = filteredComments.sort(function (a, b) {
+          return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
+        });
+        setFilteredComments(sortedUsersComments)
+      }
     }
 
     fetchSpecficUser()
