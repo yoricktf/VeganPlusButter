@@ -2,16 +2,16 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-const about = () => {
+const About = () => {
   const [admins, setAdmins] = useState([])
 
-  const fetchUsers = async () => {
-    const response = await fetch('/api/users')
-    const data = await response.json()
-    setAdmins(data)
-  }
 
   useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await fetch('/api/users')
+      const data = await response.json()
+      setAdmins(data)
+    }
     fetchUsers()
   }, [])
 
@@ -45,4 +45,4 @@ const about = () => {
   )
 }
 
-export default about
+export default About
