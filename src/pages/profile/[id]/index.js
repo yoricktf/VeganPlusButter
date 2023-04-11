@@ -65,7 +65,7 @@ const Index = (
               )
             })}
           </section>
-          <section className='usersFavorites'>
+          <section className='comments'>
             <h2>Comments</h2>
             {filteredComments.map((comment, index) => <Comment key={index} userComment={comment} />)}
           </section>
@@ -77,6 +77,9 @@ const Index = (
       )
     }
   }
+  return (
+    <h1>Loading...</h1>
+  )
 }
 
 export default Index

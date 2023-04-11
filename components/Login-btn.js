@@ -7,6 +7,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
 
 
 export default function LoginComponent() {
@@ -20,10 +21,6 @@ export default function LoginComponent() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-  }
 
   useEffect(() => {
     try {
@@ -46,7 +43,7 @@ export default function LoginComponent() {
 
   if (session && loggedInUser) {
     return (
-      <div className="loginOptions dropdown">
+      <div className="loginOptions">
         <IconButton
           onClick={handleClick}
           size="small"
@@ -63,6 +60,7 @@ export default function LoginComponent() {
             alt={`profile picture for ${session.user.name}`} /></Avatar>
         </IconButton>
         <Menu
+
           id="basic-menu"
           anchorEl={anchorEl}
           open={open}
@@ -71,9 +69,10 @@ export default function LoginComponent() {
             'aria-labelledby': 'basic-button',
           }}
         >
-          <Link href={`/profile/${loggedInUser._id}`}><MenuItem onClick={handleClose}>Profile</MenuItem></Link>
-          <Link href={`/about}`}><MenuItem onClick={handleClose}>About</MenuItem></Link>
-          <MenuItem onClick={() => signOut()}>Logout</MenuItem>
+          <Link href={`/profile/${loggedInUser._id}`}><MenuItem sx={{ width: 120 }} onClick={handleClose}>Profile</MenuItem></Link>
+          <Link href={`/about}`}><MenuItem sx={{ width: 120 }} onClick={handleClose}>About</MenuItem></Link>
+          <Divider />
+          <MenuItem sx={{ width: 120 }} onClick={() => signOut()}>Logout</MenuItem>
         </Menu>
       </div>
     )

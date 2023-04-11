@@ -9,7 +9,25 @@ import Image from 'next/image'
 export default function Home({ posts, getAllPosts }) {
   const [confirmedUser, setConfirmedUser] = useState()
   const [newestPosts, setNewestPosts] = useState([])
+  const [featuredFive, setFeaturedFive] = useState([])
   const { data: session, status } = useSession()
+
+  const fiveRandomFeaturedPosts = () => {
+    const featuredPosts = posts.filter(post => post.featured === true)
+    let featured5 = []
+
+    for (let index = 0; index < 5; index++) {
+      let randomNumber = Math.floor(Math.random() * featuredPosts.length)
+      let randomRecipe = featuredPosts.splice(randomNumber, 1)
+      featured5.push(...randomRecipe)
+    }
+    setFeaturedFive(featured5)
+  }
+
+  useEffect(() => {
+    getAllPosts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     const sortedPosts = posts.sort(function (a, b) {
@@ -17,39 +35,10 @@ export default function Home({ posts, getAllPosts }) {
     });
     const threeNewestPosts = sortedPosts.slice(0, 3)
     setNewestPosts(threeNewestPosts)
+    fiveRandomFeaturedPosts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [posts])
 
-
-  // const fiveRandomFeaturedPosts = () => {
-  //   // console.log(posts)
-  //   const featuredPosts = posts.filter(post => post.featured === true)
-  //   const arraylength = featuredPosts.length - 1
-  //   const randomNumber = Math.floor(Math.random() * arraylength)
-  //   let featured5 = []
-
-  //   console.log(featuredPosts)
-
-  //   console.log(featuredPosts.slice(randomNumber, randomNumber + 1))
-
-  //   for (let index = 0; index < 3; index++) {
-
-  //   //   const featuredPosts = posts.filter(post => post.featured === true)
-  //   //   const arraylength = featuredPosts.length - 1
-  //   //   const randomNumber = Math.floor(Math.random() * arraylength)
-  //   //   // console.log(index, featuredPosts.slice(randomNumber, 1));
-  //   //   featured5.push(featuredPosts.slice(randomNumber, randomNumber + 1));
-  //   }
-
-  //   // console.log(featured5)
-  //   // console.log(featuredPosts)
-  // }
-
-  // fiveRandomFeaturedPosts()
-
-
-  useEffect(() => {
-    getAllPosts()
-  }, [])
 
   useEffect(() => {
     try {
@@ -104,14 +93,13 @@ export default function Home({ posts, getAllPosts }) {
         }
         <div className='blurb'>
           <h1 className='title'>VEGAN PLUS BUTTER</h1>
-          <p>Vegan Plus Butter started out as a place for me to write Vegan recipes, but then morphed into adding butter to recipes because I enjoy the depth of flavour it can add to certain dishes. Everything on this website can be made vegan though without sacrificing the taste in any way. I hope you enjoy using it as much as I do! and if you are reading this part let me know and we will have abeer together</p>
-
+          <p>Vegan Plus Butter started out as a place for me to write Vegan recipes, but then morphed into adding butter to recipes because I enjoy the depth of flavour it can add to certain dishes. Everything on this website can be made vegan though without sacrificing the taste in any way. I hope you enjoy using it as much as I do!</p>
         </div>
       </section>
       <h2 className='title'>Featured Recipes</h2>
       <div className='horizontalSection'>
-        {posts.map(post => {
-          if (post.featured) { return <Card key={post._id} title={post.title} image={post.images[0]} tags={post.tags} postId={post._id} /> }
+        {featuredFive.map(post => {
+          return <Card key={post._id} title={post.title} image={post.images[0]} tags={post.tags} postId={post._id} />
         })}
       </div>
       {status === 'authenticated' && confirmedUser && confirmedUser.admin === true ? <Link className='new button' href={'/recipe/new'}>➕</Link> : ''}
