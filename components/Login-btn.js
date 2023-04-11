@@ -70,7 +70,7 @@ export default function LoginComponent() {
           }}
         >
           <Link href={`/profile/${loggedInUser._id}`}><MenuItem sx={{ width: 120 }} onClick={handleClose}>Profile</MenuItem></Link>
-          <Link href={`/about}`}><MenuItem sx={{ width: 120 }} onClick={handleClose}>About</MenuItem></Link>
+          <Link href={`/about`}><MenuItem sx={{ width: 120 }} onClick={handleClose}>About</MenuItem></Link>
           <Divider />
           <MenuItem sx={{ width: 120 }} onClick={() => signOut()}>Logout</MenuItem>
         </Menu>
