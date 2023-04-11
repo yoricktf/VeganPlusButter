@@ -11,13 +11,17 @@
 }
 
 .new {
-  background-color: rgb(0, 246, 205);
+  background-color: rgb(255, 222, 57);
   position: fixed;
   bottom: 10px;
   border-radius: 50%;
   right: 0;
   border: none;
-  padding: 10px 13px;
+  padding: 18px 24px;
+}
+
+#__next > main > a {
+  font-size: 2rem;
 }
 
 .commentButton {
