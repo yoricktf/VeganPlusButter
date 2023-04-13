@@ -82,16 +82,15 @@ const ShowPage = () => {
         setSpecificUser(user)
       }
       fetchSpecficUser()
-
     }
     // setSpecificUser(handleFetchSpecificUser(id))
   }, [session])
 
   const handleDelete = async () => {
     const response = await fetch(`/api/post/${id}`, {
-      method: 'POST',
-      body: id
-    })
+      method: 'DELETE',
+    }
+    )
     router.push('/')
   }
 
