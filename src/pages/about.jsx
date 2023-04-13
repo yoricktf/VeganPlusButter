@@ -28,7 +28,7 @@ const About = () => {
         <div key={admin._id}>
           <Link href={`/profile/${admin._id}`}>
             <div className='card'>
-              <Image className='profile' src={admin.image} height={100} width={100} />
+              <Image src={admin.image} alt={`${admin.name}'s profile picture`} className='profile' height={100} width={100} />
               <h2>
                 {admin.name}
               </h2>

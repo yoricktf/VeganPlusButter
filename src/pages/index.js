@@ -10,6 +10,8 @@ export default function Home({ posts, getAllPosts }) {
   const [confirmedUser, setConfirmedUser] = useState()
   const [newestPosts, setNewestPosts] = useState([])
   const [featuredFive, setFeaturedFive] = useState([])
+  const [timeRelevantPosts, setTimeRelevantPosts] = useState([])
+  const [tagSlogan, setTagSlogan] = useState('')
   const { data: session, status } = useSession()
 
   const fiveRandomFeaturedPosts = () => {
@@ -24,6 +26,32 @@ export default function Home({ posts, getAllPosts }) {
     setFeaturedFive(featured5)
   }
 
+  const timeOfDayRecipes = () => {
+    let date = new Date
+    let hour = date.getHours()
+    const breakfastRecipes = posts.filter(post => post.tags.includes('breakfast'))
+    const lunchRecipes = posts.filter(post => post.tags.includes('lunch'))
+    const dinnerRecipes = posts.filter(post => post.tags.includes('dinner'))
+    const snackRecipes = posts.filter(post => post.tags.includes('snack'))
+
+    if (hour > 5 && hour < 10) {
+      setTimeRelevantPosts(breakfastRecipes)
+      setTagSlogan('Breakfast Recipes')
+    } else if (hour < 14) {
+      setTimeRelevantPosts(lunchRecipes)
+      setTagSlogan('Lunch time!')
+    } else if (hour < 20) {
+      setTimeRelevantPosts(dinnerRecipes)
+      setTagSlogan('Dinner Recipes')
+    } else {
+      setTimeRelevantPosts(snackRecipes)
+      setTagSlogan('Feeling Snackish?')
+    }
+  }
+
+
+
+
   useEffect(() => {
     getAllPosts()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,7 +63,9 @@ export default function Home({ posts, getAllPosts }) {
     });
     const threeNewestPosts = sortedPosts.slice(0, 3)
     setNewestPosts(threeNewestPosts)
+
     fiveRandomFeaturedPosts()
+    timeOfDayRecipes()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [posts])
 
@@ -96,12 +126,22 @@ export default function Home({ posts, getAllPosts }) {
           <p>Vegan Plus Butter started out as a place for me to write Vegan recipes, but then morphed into adding butter to recipes because I enjoy the depth of flavour it can add to certain dishes. Everything on this website can be made vegan though without sacrificing the taste in any way. I hope you enjoy using it as much as I do!</p>
         </div>
       </section>
-      <h2 className='title'>Featured Recipes</h2>
-      <div className='horizontalSection'>
-        {featuredFive.map(post => {
-          return <Card key={post._id} title={post.title} image={post.images[0]} tags={post.tags} postId={post._id} />
-        })}
-      </div>
+      <section className='featuredSection highlight'>
+        <h2 className='subTitle'>Featured Recipes</h2>
+        <div className='horizontalSection '>
+          {featuredFive.map(post => {
+            return <Card key={post._id} title={post.title} image={post.images[0]} tags={post.tags} postId={post._id} />
+          })}
+        </div>
+      </section>
+      <section className='timeOfDaySection highlight'>
+        <h2 className='subTitle'>{tagSlogan}</h2>
+        <div className='horizontalSection '>
+          {timeRelevantPosts.map(post => {
+            return <Card key={post._id} title={post.title} image={post.images[0]} tags={post.tags} postId={post._id} />
+          })}
+        </div>
+      </section>
       {status === 'authenticated' && confirmedUser && confirmedUser.admin === true ? <Link className='new button' href={'/recipe/new'}>➕</Link> : ''}
     </>
   )
