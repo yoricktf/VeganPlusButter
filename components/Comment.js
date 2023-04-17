@@ -12,7 +12,6 @@ const Comment = ({ userComment, fetchUsersComments, fetchRecipeComments }) => {
       method: 'DELETE',
     })
     const data = await response.json()
-    console.log(data)
     !!fetchUsersComments ? fetchUsersComments() : fetchRecipeComments()
   }
 
