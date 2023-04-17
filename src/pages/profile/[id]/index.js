@@ -19,28 +19,27 @@ const Index = (
   // useEffect(() => {
   // setSpecificUser(handleFetchSpecificUser(id))
   // }, [id])
+  const fetchUsersComments = async () => {
+    if (id) {
+      const response = await fetch('/api/comments')
+      const comments = await response.json()
+      const filteredComments = comments.filter(comment => comment.author._id === id)
+      const sortedUsersComments = filteredComments.sort(function (a, b) {
+        return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
+      });
+      setFilteredComments(sortedUsersComments)
+    }
+  }
+
+  const fetchSpecficUser = async () => {
+    if (id) {
+      const response = await fetch(`/api/user/${id}`)
+      const user = await response.json()
+      setSpecificUser(user)
+    }
+  }
 
   useEffect(() => {
-    const fetchSpecficUser = async () => {
-      if (id) {
-        const response = await fetch(`/api/user/${id}`)
-        const user = await response.json()
-        setSpecificUser(user)
-      }
-    }
-
-    const fetchUsersComments = async () => {
-      if (id) {
-        const response = await fetch('/api/comments')
-        const comments = await response.json()
-        const filteredComments = comments.filter(comment => comment.author._id === id)
-        const sortedUsersComments = filteredComments.sort(function (a, b) {
-          return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
-        });
-        setFilteredComments(sortedUsersComments)
-      }
-    }
-
     fetchSpecficUser()
     fetchUsersComments()
   }, [id])
@@ -67,7 +66,7 @@ const Index = (
           </section>
           <section className='comments'>
             <h2>Comments</h2>
-            {filteredComments.map((comment, index) => <Comment key={index} userComment={comment} />)}
+            {filteredComments.map((comment, index) => <Comment key={index} userComment={comment} fetchUsersComments={fetchUsersComments} />)}
           </section>
         </section>
       )
