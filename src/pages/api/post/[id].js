@@ -15,8 +15,8 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "DELETE") {
-    const adminUser = await User.findById(session.user.id)
-    if (!!session && adminUser.admin) {
+    const adminUser = await User.findById(session?.user.id)
+    if (adminUser.admin) {
       const post = await Post.findByIdAndDelete(id)
       res.status(200).json('Post has been deleted')
     } else {
@@ -26,8 +26,8 @@ export default async function handler(req, res) {
 
   if (req.method === "PATCH") {
     const post = JSON.parse(req.body);
-    const adminUser = await User.findById(session.user.id)
-    if (!!session && adminUser.admin) {
+    const adminUser = await User.findById(session?.user.id)
+    if (adminUser.admin) {
       const editedPost = await Post.findByIdAndUpdate(id, post)
       res.status(200).json(editedPost)
     } else {

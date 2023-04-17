@@ -59,7 +59,7 @@ const Index = (
           {specificUser.email === session.user.email ? <Link className='button' href={`/profile/${specificUser._id}/edit`}>Edit your Profile</Link> : ''}
           <section className='usersFavorites'>
             <h2>{specificUser.name}&apos;s Favorites</h2>
-            {specificUser.favorites.map((favoritedRecipe, index) => {
+            {specificUser.favorites?.map((favoritedRecipe, index) => {
               return (
                 <LargeCard key={index} recipeInfo={favoritedRecipe} />
               )

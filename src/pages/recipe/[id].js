@@ -89,8 +89,7 @@ const ShowPage = () => {
   const handleDelete = async () => {
     const response = await fetch(`/api/post/${id}`, {
       method: 'DELETE',
-    }
-    )
+    })
     router.push('/')
   }
 
@@ -162,7 +161,7 @@ const ShowPage = () => {
             )
           })}
         </section>
-      </section >
+      </section>
     )
   }
 
