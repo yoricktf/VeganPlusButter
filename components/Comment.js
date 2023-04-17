@@ -1,9 +1,11 @@
 import Image from "next/image"
 import Link from "next/link"
+import { useSession } from "next-auth/react"
 
 
 const Comment = ({ userComment }) => {
   const { comment, date, author, _id } = userComment
+  const { data: session, status } = useSession()
 
   const deleteComment = async (id) => {
     console.log('----------response', id)
@@ -13,6 +15,8 @@ const Comment = ({ userComment }) => {
     const data = await response.json()
     console.log(data)
   }
+
+  console.log(session)
 
 
   return (
@@ -25,7 +29,10 @@ const Comment = ({ userComment }) => {
       </div>
       <p>{date}</p>
       <p>{comment}</p>
-      <p onClick={() => deleteComment(_id)}>Delete Comment</p>
+      {
+        author._id === session?.user.id && (<p onClick={() => deleteComment(_id)}>Delete Comment</p>)
+      }
+
     </article>
   )
 }
