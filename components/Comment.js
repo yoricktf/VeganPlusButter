@@ -3,21 +3,18 @@ import Link from "next/link"
 import { useSession } from "next-auth/react"
 
 
-const Comment = ({ userComment }) => {
+const Comment = ({ userComment, fetchUsersComments, fetchRecipeComments }) => {
   const { comment, date, author, _id } = userComment
   const { data: session, status } = useSession()
 
   const deleteComment = async (id) => {
-    console.log('----------response', id)
     const response = await fetch(`/api/comments/${id}`, {
       method: 'DELETE',
     })
     const data = await response.json()
     console.log(data)
+    !!fetchUsersComments ? fetchUsersComments() : fetchRecipeComments()
   }
-
-  console.log(session)
-
 
   return (
     <article className="comment">
@@ -29,10 +26,7 @@ const Comment = ({ userComment }) => {
       </div>
       <p>{date}</p>
       <p>{comment}</p>
-      {
-        author._id === session?.user.id && (<p onClick={() => deleteComment(_id)}>Delete Comment</p>)
-      }
-
+      {author._id === session?.user.id && (<p onClick={() => deleteComment(_id)}>Delete Comment</p>)}
     </article>
   )
 }

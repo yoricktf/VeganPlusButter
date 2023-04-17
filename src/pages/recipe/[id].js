@@ -157,7 +157,7 @@ const ShowPage = () => {
         <section className='comments'>
           {comments.map((comment, index) => {
             return (
-              <Comment key={index} userComment={comment} />
+              <Comment key={index} userComment={comment} fetchRecipeComments={fetchComments} />
             )
           })}
         </section>
