@@ -18,7 +18,7 @@
   background-color: rgb(255, 255, 248);
 }
 
-.comments > a > article > p:nth-child(2) {
+.date {
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -27,11 +27,20 @@
   font-size: 0.8rem;
 }
 
-.comment > div {
+.userLink {
   display: flex;
 }
 
-.comment > div > p {
+.userLink > p {
   margin: 0;
   padding: auto;
+}
+
+.deleteCommentButton {
+  color: grey;
+  position: absolute;
+  margin: 0;
+  top: 10px;
+  right: 10px;
+  font-size: 0.8rem;
 }

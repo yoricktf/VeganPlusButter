@@ -18,14 +18,14 @@ const Comment = ({ userComment, fetchUsersComments, fetchRecipeComments }) => {
   return (
     <article className="comment">
       <div>
-        <Link href={`/profile/${author._id}`}>
+        <Link className="userLink" href={`/profile/${author._id}`}>
           <Image className="profile" src={author.image} width={30} height={30} alt={`Profile picture of ${author.name}`} />
           <p>{author.name}</p>
         </Link>
       </div>
-      <p>{date}</p>
+      <p className="date">{date}</p>
       <p>{comment}</p>
-      {author._id === session?.user.id && (<p onClick={() => deleteComment(_id)}>Delete Comment</p>)}
+      {author._id === session?.user.id && (<p className="deleteCommentButton" onClick={() => deleteComment(_id)}>Delete Comment</p>)}
     </article>
   )
 }
