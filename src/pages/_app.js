@@ -2,7 +2,6 @@ import '@/styles/globals.css'
 import { SessionProvider } from "next-auth/react"
 import { useEffect, useState } from 'react'
 import Layout from "../../components/Layout"
-import { useSession, signIn, signOut } from "next-auth/react"
 import { Open_Sans } from 'next/font/google'
 
 const openSans = Open_Sans({ subsets: ['latin'], weight: ['400', '700'] })
