@@ -7,24 +7,23 @@ const ImageUpload = ({ onImageSubmit, onImageChange, imageSrc, uploadData, image
   return (
     <fieldset > <legend>Image Uploader</legend>
       <p>Select the images you want to upload</p>
-
       <form method="post" onChange={onImageChange} onSubmit={onImageSubmit}>
         <p>
           <input type="file" name="file" multiple />
         </p>
-
         {imageSrc.map((link, index) => (
           <Image key={index} alt={`image to upload number ${index}`} src={link} width="150" height="150" />
         ))}
-
         {imageSrc.length > 0 && !uploadData && (
-          <p>
-            <button>Upload Files</button>
-          </p>
+          <>
+            <p>
+              🚨🚨 Pleas make sure to upload the images IF YOU HAVE MADE CHANGES 🚨🚨
+            </p>
+            <button className='button upload'>UPLOAD IMAGES</button>
+          </>
         )}
-
         {uploadData && (
-          <p>Your Image has been uploaded</p>
+          <p>🎉🎉🎉 Your Image has been Successfully uploaded 🎉🎉🎉</p>
         )}
       </form>
     </fieldset>
