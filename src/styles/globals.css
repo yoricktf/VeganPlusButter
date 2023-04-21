@@ -23,6 +23,7 @@ body {
 input,
 textarea {
   font-family: inherit;
+  padding: 5px 2px;
 }
 
 * {

@@ -2,6 +2,9 @@ import Image from "next/image"
 import Link from "next/link"
 import Tag from "./Tag"
 const Card = ({ title, image, tags, postId }) => {
+
+  const shortenedTitle = title.length > 27 ? title.slice(0, 27) + '...' : title
+
   return (
     <Link href={`recipe/${postId}`}>
       <article className="recipeCard">
@@ -18,7 +21,7 @@ const Card = ({ title, image, tags, postId }) => {
             {tags.map(tag => <Tag key={tag} tag={tag} />)}
           </div>
         </div>
-        <h2 className="cardTitle">{title}</h2>
+        <h2 className="cardTitle">{shortenedTitle}</h2>
       </article>
     </Link>
   )
