@@ -126,7 +126,7 @@ export default function Home({ posts, getAllPosts }) {
           <p>Vegan Plus Butter started out as a place for me to write Vegan recipes, but then morphed into adding butter to recipes because I enjoy the depth of flavour it can add to certain dishes. Everything on this website can be made vegan though without sacrificing the taste in any way. I hope you enjoy using it as much as I do!</p>
         </div>
       </section>
-      <section className='featuredSection highlight'>
+      <section className='featuredSection highlight' >
         <h2 className='subTitle'>Featured Recipes</h2>
         <div className='horizontalSection '>
           {featuredFive.map(post => {
