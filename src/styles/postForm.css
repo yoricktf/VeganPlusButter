@@ -10,9 +10,16 @@
   margin: 10px;
 }
 
-form > fieldset:nth-child(5) > ul > li,
-form > fieldset:nth-child(6) > ol > li {
-  margin-top: 10px;
+.inputfields {
+  display: flex;
+}
+
+.inputfields > * {
+  margin: 5px;
+}
+.inputfields > textarea,
+.inputfields > input {
+  width: 100%;
 }
 
 #__next > main > section > fieldset {

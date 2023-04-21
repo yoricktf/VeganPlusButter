@@ -14,7 +14,10 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
   const [methodSteps, setMethodSteps] = useState(recipeValue ? [...recipe.method] : [''])
   // const [tags, setTags] = useState([])
   const images = []
-  const tagOptions = ['easy', 'intermediate', 'hard', 'vegan', 'vegetarian', 'healthy', 'quick', 'breakfast', 'lunch', 'snack', 'dinner', 'dessert', 'baking']
+  const postType = ['Blog Post']
+  const tagOptions = ['Vegan', 'Vegetarian', 'Healthy', 'Quick']
+  const tagDifficulty = ['Easy', 'Intermediate', 'Hard']
+  const tagMeal = ['Breakfast', 'Lunch', 'Snack', 'Dinner', 'Dessert', 'Baking']
 
   function handleImageChange(e) {
     for (const file of e.target.files) {
@@ -95,51 +98,112 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
       />
       <form className="postForm" onSubmit={e => onSubmit(e, recipe, ingredients, methodSteps, session.user.id, imageSrc)}>
         {/* <form className="postForm" onSubmit={handleSubmit}> */}
-        <label htmlFor="title">Title:</label>
-        <input type="text" name="title" id="title" value={recipe?.title} onChange={e => setRecipe(currentRecipe => ({ ...currentRecipe, title: e.target.value }))} />
-        <label htmlFor="description">Description:</label>
-        <textarea name="description" id="description" cols="30" rows="10" value={recipe?.description} onChange={e => setRecipe(currentRecipe => ({ ...currentRecipe, description: e.target.value }))}></textarea>
-        <fieldset> <legend>Ingredients</legend>
+        <fieldset className="formFeatures">
+          <legend>Post Description</legend>
+          <label htmlFor="title">Title:</label>
+          <input type="text" name="title" id="title" value={recipe?.title} onChange={e => setRecipe(currentRecipe => ({ ...currentRecipe, title: e.target.value }))} />
+          <label htmlFor="description">Description:</label>
+          <textarea name="description" id="description" cols="30" rows="10" value={recipe?.description} onChange={e => setRecipe(currentRecipe => ({ ...currentRecipe, description: e.target.value }))}></textarea>
+        </fieldset>
+        <fieldset className="formFeatures"> <legend>Ingredients</legend>
           <ul>
             {ingredients.map((input, index) => {
               return (
                 <li key={index}>
-                  <input type="text" onChange={e => updateInputList(e.target.value, index, ingredients, setIngredients)} value={input} />
-                  <p onClick={() => removeStep(index, ingredients, setIngredients)}>X</p>
+                  <div className="inputfields">
+                    <input type="text" onChange={e => updateInputList(e.target.value, index, ingredients, setIngredients)} value={input} />
+                    <p className="removeInputField" onClick={() => removeStep(index, ingredients, setIngredients)}>❌</p>
+                  </div>
                 </li>
               )
             })}
           </ul>
-          <button type="button" onClick={() => addStep(ingredients, setIngredients)}>add another ingredient</button>
+          <button className="button" type="button" onClick={() => addStep(ingredients, setIngredients)}>add another ingredient</button>
         </fieldset>
         <fieldset><legend>Method</legend>
           <ol>
             {methodSteps.map((input, index) => {
               return (
                 <li key={index}>
-                  <textarea name="method" onChange={e => updateInputList(e.target.value, index, methodSteps, setMethodSteps)} value={input} />
-                  <p onClick={() => removeStep(index, methodSteps, setMethodSteps)}>X</p>
+                  <div className="inputfields">
+                    <textarea name="method" onChange={e => updateInputList(e.target.value, index, methodSteps, setMethodSteps)} value={input} />
+                    <p className="removeInputField" onClick={() => removeStep(index, methodSteps, setMethodSteps)}>❌</p>
+
+                  </div>
                 </li>
               )
             })}
           </ol>
-          <button type="button" onClick={() => addStep(methodSteps, setMethodSteps)}>add another method step</button>
+          <button className="button" type="button" onClick={() => addStep(methodSteps, setMethodSteps)}>add another method step</button>
         </fieldset>
-        <fieldset> <legend>tags</legend>
-          {tagOptions.map((tag, index) => {
-            return (
-              <div key={index}>
-                <input
-                  // onChange={(e) => setRecipe({ ...recipe, tags: [...recipe?.tags, e.target.value] })}
-                  onChange={e => toggleTags(e)}
-                  name={tag}
-                  checked={recipe?.tags?.includes(tag) ? true : false}
-                  value={tag}
-                  type="checkbox" />
-                <label htmlFor={tag}>{tag}</label>
-              </div>
-            )
-          })}
+        <fieldset> <legend>TAGS</legend>
+          <p className="detail">Please Select at most only one in each section</p>
+          <fieldset><legend>Post Type</legend>
+            {postType.map((tag, index) => {
+              return (
+                <div key={index}>
+                  <input
+                    // onChange={(e) => setRecipe({ ...recipe, tags: [...recipe?.tags, e.target.value] })}
+                    onChange={e => toggleTags(e)}
+                    name={tag}
+                    checked={recipe?.tags?.includes(tag) ? true : false}
+                    value={tag}
+                    type="checkbox" />
+                  <label htmlFor={tag}>{tag}</label>
+                </div>
+              )
+            })}
+          </fieldset>
+          <fieldset><legend>Meal Type</legend>
+
+            {tagOptions.map((tag, index) => {
+              return (
+                <div key={index}>
+                  <input
+                    // onChange={(e) => setRecipe({ ...recipe, tags: [...recipe?.tags, e.target.value] })}
+                    onChange={e => toggleTags(e)}
+                    name={tag}
+                    checked={recipe?.tags?.includes(tag) ? true : false}
+                    value={tag}
+                    type="checkbox" />
+                  <label htmlFor={tag}>{tag}</label>
+                </div>
+              )
+            })}
+          </fieldset>
+          <fieldset><legend>Difficulty</legend>
+
+            {tagDifficulty.map((tag, index) => {
+              return (
+                <div key={index}>
+                  <input
+                    // onChange={(e) => setRecipe({ ...recipe, tags: [...recipe?.tags, e.target.value] })}
+                    onChange={e => toggleTags(e)}
+                    name={tag}
+                    checked={recipe?.tags?.includes(tag) ? true : false}
+                    value={tag}
+                    type="checkbox" />
+                  <label htmlFor={tag}>{tag}</label>
+                </div>
+              )
+            })}
+          </fieldset>
+          <fieldset><legend>Meal Type</legend>
+            {tagMeal.map((tag, index) => {
+              return (
+                <div key={index}>
+                  <input
+                    // onChange={(e) => setRecipe({ ...recipe, tags: [...recipe?.tags, e.target.value] })}
+                    onChange={e => toggleTags(e)}
+                    name={tag}
+                    checked={recipe?.tags?.includes(tag) ? true : false}
+                    value={tag}
+                    type="checkbox" />
+                  <label htmlFor={tag}>{tag}</label>
+                </div>
+              )
+            })}
+          </fieldset>
         </fieldset>
         <fieldset className="formFeatures"> <legend>Recipe Details</legend>
           <label htmlFor="difficulty">difficulty:</label>
@@ -164,7 +228,7 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
         </fieldset>
 
         <button className="submit button">
-          {editMode ? "Edit Recipe" : "Submit Recipe"}
+          {editMode ? "EDIT POST" : "SUBMIT POST"}
         </button>
       </form>
     </section>

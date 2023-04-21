@@ -36,6 +36,11 @@
 
 .submit {
   margin: 10px auto;
+  background-color: rgb(62, 167, 62);
+  color: white;
+  width: 100%;
+  font-weight: bolder;
+  border: 3px solid green;
 }
 
 .signIn {
@@ -50,4 +55,11 @@
 
 .commentSignIn {
   margin: 0 auto;
+}
+
+.upload {
+  background-color: red;
+  color: white;
+  width: 100%;
+  font-weight: bolder;
 }
