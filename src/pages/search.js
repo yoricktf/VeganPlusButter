@@ -1,13 +1,24 @@
 import LargeCard from "../../components/LargeCard"
 import NothingFound from "../../components/nothingFound"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const Search = ({ posts }) => {
   const [searchQuery, setSearchQuery] = useState('')
+  const [comments, setComments] = useState([])
+
+  const getComments = async () => {
+    const response = await fetch(`/api/comments`)
+    const comments = await response.json()
+    setComments(comments)
+  }
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value.toLowerCase())
   }
+
+  useEffect(() => {
+    getComments()
+  }, [])
 
   const filteredPosts = searchQuery.length > 0
     ? posts.filter(post => {
@@ -15,8 +26,6 @@ const Search = ({ posts }) => {
         || (post.tags.map(tag => tag.toLowerCase())).includes(searchQuery)
         || (post.ingredients.map(ingredient => ingredient.toLowerCase())).includes(searchQuery)
     }) : []
-
-  console.log('--------------', filteredPosts)
 
   if (!!posts) {
     return (
@@ -31,8 +40,9 @@ const Search = ({ posts }) => {
             <NothingFound />
             :
             filteredPosts.map(foundPost => {
+              const numberOfRecipeComments = (comments.filter(comment => comment.post === foundPost._id)).length
               return (
-                <LargeCard key={foundPost._id} recipeInfo={foundPost} />
+                <LargeCard key={foundPost._id} recipeInfo={foundPost} numberOfComments={numberOfRecipeComments} />
               )
             })
 

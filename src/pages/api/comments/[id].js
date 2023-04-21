@@ -7,6 +7,16 @@ export default async function handler(req, res) {
   await dbConnect()
   const session = await getServerSession(req, res, authOptions)
 
+  // if (req.method === "GET") {
+  //   const { id } = req.query
+  //   console.log('=========', id)
+  //   // const comments = await Comment.find({ post: id })
+  //   // res.status(200).json(comments)
+  // }
+
+
+
+
   if (req.method === "DELETE") {
     const commentId = req.query.id
     const { author } = await Comment.findById(commentId)

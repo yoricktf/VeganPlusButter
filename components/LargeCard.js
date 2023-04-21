@@ -2,8 +2,8 @@ import Image from "next/image"
 import Link from "next/link"
 import Tag from "./Tag"
 
-const LargeCard = ({ recipeInfo }) => {
-  const { title, images, tags, _id, numberOfComments, numberOfFavorites } = recipeInfo
+const LargeCard = ({ recipeInfo, numberOfComments }) => {
+  const { title, images, tags, _id, numberOfFavorites } = recipeInfo
 
   return (
     <Link href={`/recipe/${_id}`} className="largeCardLink">
@@ -24,10 +24,10 @@ const LargeCard = ({ recipeInfo }) => {
           <div className="largeCardTags">
             {tags.map(tag => <Tag key={tag} tag={tag} />)}
           </div>
-          {/* <div className="details">
+          <div className="details">
             <p className="detail">{numberOfComments} Comments</p>
-            <p className="detail">Favorited {numberOfFavorites} times</p>
-          </div> */}
+            {/* <p className="detail">Favorited {numberOfFavorites} times</p> */}
+          </div>
 
         </div>
       </article>
