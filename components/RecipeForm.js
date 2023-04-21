@@ -12,7 +12,7 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
   const [imageSrc, setImageSrc] = useState(recipeValue ? [...recipe.images] : []);
   const [ingredients, setIngredients] = useState(recipeValue ? [...recipe.ingredients] : [''])
   const [methodSteps, setMethodSteps] = useState(recipeValue ? [...recipe.method] : [''])
-  const [tags, setTags] = useState([])
+  // const [tags, setTags] = useState([])
   const images = []
   const tagOptions = ['easy', 'intermediate', 'hard', 'vegan', 'vegetarian', 'healthy', 'quick', 'breakfast', 'lunch', 'snack', 'dinner', 'dessert', 'baking']
 
@@ -52,24 +52,20 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
     setImageSrc(images);
   }
 
-  const addIngredient = () => {
-    setIngredients([...ingredients, ''])
+  const addStep = (state, setter) => {
+    setter([...state, ''])
   }
 
-  const addMethodStep = () => {
-    setMethodSteps([...methodSteps, ''])
+  const removeStep = (index, state, setter) => {
+    const currentArray = state.slice()
+    currentArray.splice(index, 1)
+    setter([...currentArray])
   }
 
-  const updateIngredient = (input, index) => {
-    const copy = ingredients.slice()
+  const updateInputList = (input, index, state, setter) => {
+    const copy = state.slice()
     copy[index] = input
-    setIngredients(copy)
-  }
-
-  const updateMethod = (input, index) => {
-    const copy = methodSteps.slice()
-    copy[index] = input
-    setMethodSteps(copy)
+    setter(copy)
   }
 
   const toggleTags = (event) => {
@@ -86,6 +82,7 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
       setRecipe({ ...recipe, tags: array })
     }
   }
+
 
   return (
     <section className="bodySection">
@@ -107,24 +104,26 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
             {ingredients.map((input, index) => {
               return (
                 <li key={index}>
-                  <input type="text" onChange={e => updateIngredient(e.target.value, index)} value={input} />
+                  <input type="text" onChange={e => updateInputList(e.target.value, index, ingredients, setIngredients)} value={input} />
+                  <p onClick={() => removeStep(index, ingredients, setIngredients)}>X</p>
                 </li>
               )
             })}
           </ul>
-          <button type="button" onClick={addIngredient}>add another ingredient</button>
+          <button type="button" onClick={() => addStep(ingredients, setIngredients)}>add another ingredient</button>
         </fieldset>
         <fieldset><legend>Method</legend>
           <ol>
             {methodSteps.map((input, index) => {
               return (
                 <li key={index}>
-                  <textarea name="method" onChange={e => updateMethod(e.target.value, index)} value={input} />
+                  <textarea name="method" onChange={e => updateInputList(e.target.value, index, methodSteps, setMethodSteps)} value={input} />
+                  <p onClick={() => removeStep(index, methodSteps, setMethodSteps)}>X</p>
                 </li>
               )
             })}
           </ol>
-          <button type="button" onClick={addMethodStep}>add another method step</button>
+          <button type="button" onClick={() => addStep(methodSteps, setMethodSteps)}>add another method step</button>
         </fieldset>
         <fieldset> <legend>tags</legend>
           {tagOptions.map((tag, index) => {
