@@ -44,38 +44,38 @@ const Index = (
     fetchUsersComments()
   }, [id])
 
-  if (!!specificUser) {
-    if (status === 'authenticated') {
-      return (
-        <section className='profilePage bodySection'>
-          <div className='profileData'>
-            <Image className='largeProfile' src={specificUser.image} width={96} height={96} alt={`${specificUser.name}'s profile picture`} />
-            <div>
-              <h1>{specificUser.name}&apos;s Profile</h1>
-              <p>Bio: {specificUser.bio}</p>
-            </div>
+
+  if (status === 'authenticated') {
+    return (
+      <section className='profilePage bodySection'>
+        <div className='profileData'>
+          <Image className='largeProfile' src={specificUser?.image} width={96} height={96} alt={`${specificUser?.name}'s profile picture`} />
+          <div>
+            <h1>{specificUser?.name}&apos;s Profile</h1>
+            <p>Bio: {specificUser?.bio}</p>
           </div>
-          {specificUser.email === session.user.email ? <Link className='button' href={`/profile/${specificUser._id}/edit`}>Edit your Profile</Link> : ''}
-          <section className='usersFavorites'>
-            <h2>{specificUser.name}&apos;s Favorites</h2>
-            {specificUser.favorites?.map((favoritedRecipe, index) => {
-              return (
-                <LargeCard key={index} recipeInfo={favoritedRecipe} />
-              )
-            })}
-          </section>
-          <section className='comments'>
-            <h2>Comments</h2>
-            {filteredComments.map((comment, index) => <Comment key={index} userComment={comment} fetchUsersComments={fetchUsersComments} />)}
-          </section>
+        </div>
+        {specificUser?.email === session.user.email ? <Link className='button' href={`/profile/${specificUser._id}/edit`}>Edit your Profile</Link> : ''}
+        <section className='usersFavorites'>
+          <h2>{specificUser?.name}&apos;s Favorites</h2>
+          {specificUser?.favorites?.map((favoritedRecipe, index) => {
+            return (
+              <LargeCard key={index} recipeInfo={favoritedRecipe} />
+            )
+          })}
         </section>
-      )
-    } else {
-      return (
-        <NotAuthorized />
-      )
-    }
+        <section className='comments'>
+          <h2>Comments</h2>
+          {filteredComments.map((comment, index) => <Comment key={index} userComment={comment} fetchUsersComments={fetchUsersComments} />)}
+        </section>
+      </section>
+    )
+  } else {
+    return (
+      <NotAuthorized />
+    )
   }
+
   return (
     <h1>Loading...</h1>
   )
