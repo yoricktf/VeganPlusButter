@@ -8,6 +8,7 @@ import LargeCard from '../../../../components/LargeCard';
 import Comment from '../../../../components/Comment';
 
 const Index = (
+  { comments }
   // { handleFetchSpecificUser }
 ) => {
   const { data: session, status } = useSession()
@@ -64,7 +65,7 @@ const Index = (
           <h2>{specificUser?.name}&apos;s Favorites</h2>
           {specificUser?.favorites?.map((favoritedRecipe, index) => {
             return (
-              <LargeCard key={index} recipeInfo={favoritedRecipe} />
+              <LargeCard key={index} recipeInfo={favoritedRecipe} comments={comments} />
             )
           })}
         </section>
