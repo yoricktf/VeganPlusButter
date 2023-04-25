@@ -49,7 +49,11 @@ const Index = (
     return (
       <section className='profilePage bodySection'>
         <div className='profileData'>
-          <Image className='largeProfile' src={specificUser?.image} width={96} height={96} alt={`${specificUser?.name}'s profile picture`} />
+          {!!specificUser ?
+            <Image className='largeProfile' src={specificUser?.image} width={96} height={96} alt={`${specificUser?.name}'s profile picture`} />
+            :
+            null
+          }
           <div>
             <h1>{specificUser?.name}&apos;s Profile</h1>
             <p>Bio: {specificUser?.bio}</p>
