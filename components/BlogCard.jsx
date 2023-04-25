@@ -8,21 +8,23 @@ const BlogCard = ({ blogPost }) => {
   const shortenedDescription = description.slice(0, 150)
 
   return (
-    <article>
-      <Image
-        className="profile"
-        src={author?.image}
-        height={30}
-        width={30}
-        alt={`profile picture for ${author?.name}`}
-      />
-
-
+    <article className='blogCard'>
       <Link href={`/recipe/${_id}`}>
         <h1>{title}</h1>
       </Link>
-      <p className='detail'>{date}</p>
-      <p>{shortenedDescription}...</p>
+      <Link href={`/profile/${author._id}`} className='authorDetails'>
+        <Image
+          className="profile"
+          src={author?.image}
+          height={30}
+          width={30}
+          alt={`profile picture for ${author?.name}`}
+        />
+        <p className='detail'>by {author.name} </p>
+        <p className='detail'>{date}</p>
+      </Link>
+
+      <p>{shortenedDescription}...</p><Link href={`/recipe/${_id}`}><p className='readMore'>Read more</p></Link>
     </article>
   )
 }

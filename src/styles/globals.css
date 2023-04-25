@@ -9,6 +9,7 @@
 @import './button.css';
 @import './HomePage.css';
 @import './nothingFound.css';
+@import './blogCard.css';
 
 body {
   padding-top: 50px;
