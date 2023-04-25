@@ -97,17 +97,22 @@ const ShowPage = () => {
     const { title, method, ingredients, date, description, prepTime, cookTime, tags, images, servingSize } = specficPost
     return (
       <section className="bodySection">
-        <div id='recipeShowImageContainer'>
-          {/* <h1>{title}</h1> */}
-          <Image
-            id='recipeShowImage'
-            src={images[0]}
-            alt={`image of ${title}`}
-            fill
-            sizes="100%"
-            style={{ objectFit: 'cover' }}
-          />
-        </div>
+
+        {images.length > 0 ?
+          <div id='recipeShowImageContainer'>
+            {/* <h1>{title}</h1> */}
+            <Image
+              id='recipeShowImage'
+              src={images[0]}
+              alt={`image of ${title}`}
+              fill
+              sizes="100%"
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
+          :
+          null
+        }
         <section id='showPageBody'>
           <h1>{title}</h1>
           <div className='tags'>
@@ -131,20 +136,29 @@ const ShowPage = () => {
               <Image className='favoriteIcon' src={starFilled} width={30} height={30} alt='filled star' />
               <p>sign in to save favorites</p>
             </div>}
-
           <p>{description}</p>
-          <h2>Ingredients</h2>
-          <ul>
-            {ingredients.map((ingredient, index) => {
-              return <li key={index}>{ingredient}</li>
-            })}
-          </ul>
-          <h2>Method</h2>
-          <ol>
-            {method.map((step, index) => {
-              return <li key={index}>{step}</li>
-            })}
-          </ol>
+          {ingredients.length > 0 ?
+            <>
+              <h2>Ingredients</h2>
+              <ul>
+                {ingredients.map((ingredient, index) => {
+                  return <li key={index}>{ingredient}</li>
+                })}
+              </ul>
+            </>
+            :
+            null}
+          {method.length > 0 ?
+            <>
+              <h2>Method</h2>
+              <ol>
+                {method.map((step, index) => {
+                  return <li key={index}>{step}</li>
+                })}
+              </ol>
+            </>
+            :
+            null}
         </section>
 
         {status === 'authenticated' ?
@@ -167,7 +181,7 @@ const ShowPage = () => {
 
   return (
     <>
-      <h1>Loading</h1>
+      <h1>Loading...</h1>
     </>
   )
 }

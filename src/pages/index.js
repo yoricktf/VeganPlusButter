@@ -49,19 +49,17 @@ export default function Home({ posts, getAllPosts }) {
     }
   }
 
-
-
-
   useEffect(() => {
     getAllPosts()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
-    const sortedPosts = posts.sort(function (a, b) {
+    const recipes = posts.filter(post => post.tags.includes('Blog Post') === false)
+    const sortedRecipes = recipes.sort(function (a, b) {
       return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
     });
-    const threeNewestPosts = sortedPosts.slice(0, 3)
+    const threeNewestPosts = sortedRecipes.slice(0, 3)
     setNewestPosts(threeNewestPosts)
 
     fiveRandomFeaturedPosts()

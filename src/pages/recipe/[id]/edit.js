@@ -38,7 +38,7 @@ const Edit = () => {
       <RecipeForm editMode={editMode} recipeValue={specificPost} onSubmit={editRecipe} />
     )
   }
-  return <h1>Loading</h1>
+  return <h1>Loading...</h1>
 
 }
 

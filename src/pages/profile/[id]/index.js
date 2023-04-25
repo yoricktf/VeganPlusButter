@@ -8,6 +8,7 @@ import LargeCard from '../../../../components/LargeCard';
 import Comment from '../../../../components/Comment';
 
 const Index = (
+  { comments }
   // { handleFetchSpecificUser }
 ) => {
   const { data: session, status } = useSession()
@@ -49,7 +50,11 @@ const Index = (
     return (
       <section className='profilePage bodySection'>
         <div className='profileData'>
-          <Image className='largeProfile' src={specificUser?.image} width={96} height={96} alt={`${specificUser?.name}'s profile picture`} />
+          {!!specificUser ?
+            <Image className='largeProfile' src={specificUser?.image} width={96} height={96} alt={`${specificUser?.name}'s profile picture`} />
+            :
+            null
+          }
           <div>
             <h1>{specificUser?.name}&apos;s Profile</h1>
             <p>Bio: {specificUser?.bio}</p>
@@ -60,7 +65,7 @@ const Index = (
           <h2>{specificUser?.name}&apos;s Favorites</h2>
           {specificUser?.favorites?.map((favoritedRecipe, index) => {
             return (
-              <LargeCard key={index} recipeInfo={favoritedRecipe} />
+              <LargeCard key={index} recipeInfo={favoritedRecipe} comments={comments} />
             )
           })}
         </section>

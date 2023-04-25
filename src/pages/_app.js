@@ -9,11 +9,18 @@ const openSans = Open_Sans({ subsets: ['latin'], weight: ['400', '700'] })
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const [posts, setPosts] = useState([])
   const [specificUser, setSpecificUser] = useState()
+  const [comments, setComments] = useState([])
 
   const getAllPosts = async () => {
     const response = await fetch('/api')
     const allPosts = await response.json()
     setPosts(allPosts)
+  }
+
+  const getComments = async () => {
+    const response = await fetch(`/api/comments`)
+    const comments = await response.json()
+    setComments(comments)
   }
 
   const fetchSpecficUser = async (id) => {
@@ -25,6 +32,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
 
   useEffect(() => {
     getAllPosts()
+    getComments()
   }, [])
 
 
@@ -37,6 +45,8 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
           <Component
             {...pageProps}
             posts={posts}
+            comments={comments}
+            getComments={getComments}
             getAllPosts={getAllPosts}
             handleFetchSpecificUser={fetchSpecficUser} />
         </Layout>
