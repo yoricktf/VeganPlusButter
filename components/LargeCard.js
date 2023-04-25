@@ -8,9 +8,9 @@ const LargeCard = ({ recipeInfo, numberOfComments }) => {
   return (
     <Link href={`/recipe/${_id}`} className="largeCardLink">
       <article className="largeCard">
-        <div className="largeCardImage">
+        {images.length < 1 ? <div className="largeCardImage">
           <Image
-            src={images[0]}
+            src='https://res.cloudinary.com/yozzza/image/upload/v1682416352/veganPlusButter/blogpost_cwdhxu.avif'
             alt={`image of ${title}`}
             // width={150}
             // height={150}
@@ -18,7 +18,19 @@ const LargeCard = ({ recipeInfo, numberOfComments }) => {
             sizes="100%"
             style={{ objectFit: 'cover' }}
           />
-        </div>
+        </div> :
+          <div className="largeCardImage">
+            <Image
+              src={images[0]}
+              alt={`image of ${title}`}
+              // width={150}
+              // height={150}
+              fill
+              sizes="100%"
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
+        }
         <div className="largeCardDetails">
           <h2>{title}</h2>
           <div className="largeCardTags">
