@@ -4,9 +4,6 @@ import Tag from "./Tag"
 
 const LargeCard = ({ recipeInfo, numberOfComments, comments }) => {
   const { title, images, tags, _id, numberOfFavorites } = recipeInfo
-
-  console.log('--------------', comments)
-
   const numberOfRecipeComments = (comments?.filter(comment => comment.post === _id)).length
   return (
     <Link href={`/recipe/${_id}`} className="largeCardLink">
