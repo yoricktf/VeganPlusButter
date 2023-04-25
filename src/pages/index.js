@@ -5,12 +5,14 @@ import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import Image from 'next/image'
+import BlogCard from '../../components/BlogCard'
 
 export default function Home({ posts, getAllPosts }) {
   const [confirmedUser, setConfirmedUser] = useState()
   const [newestPosts, setNewestPosts] = useState([])
   const [featuredFive, setFeaturedFive] = useState([])
   const [timeRelevantPosts, setTimeRelevantPosts] = useState([])
+  const [blogPosts, setBlogPosts] = useState([])
   const [tagSlogan, setTagSlogan] = useState('')
   const { data: session, status } = useSession()
 
@@ -56,11 +58,13 @@ export default function Home({ posts, getAllPosts }) {
 
   useEffect(() => {
     const recipes = posts.filter(post => post.tags.includes('Blog Post') === false)
+    const blogPosts = posts.filter(post => post.tags.includes('Blog Post') === true)
     const sortedRecipes = recipes.sort(function (a, b) {
       return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
     });
     const threeNewestPosts = sortedRecipes.slice(0, 3)
     setNewestPosts(threeNewestPosts)
+    setBlogPosts(blogPosts)
 
     fiveRandomFeaturedPosts()
     timeOfDayRecipes()
@@ -132,6 +136,21 @@ export default function Home({ posts, getAllPosts }) {
           })}
         </div>
       </section>
+      <section className="bodySection">
+        <h1 className='subTitle'>BlogPosts</h1>
+        <div className='blogPosts'>
+          {blogPosts.map(blogPost => {
+            return (
+              <BlogCard key={blogPost._id} blogPost={blogPost} />
+            )
+          })}
+
+        </div>
+      </section>
+
+
+
+
       <section className='timeOfDaySection highlight'>
         <h2 className='subTitle'>{tagSlogan}</h2>
         <div className='horizontalSection '>

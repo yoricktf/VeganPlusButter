@@ -2,8 +2,8 @@ import Image from "next/image"
 import Link from "next/link"
 import Tag from "./Tag"
 
-const LargeCard = ({ recipeInfo, numberOfComments, comments }) => {
-  const { title, images, tags, _id, numberOfFavorites } = recipeInfo
+const LargeCard = ({ recipeInfo, comments }) => {
+  const { title, images, tags, _id } = recipeInfo
   const numberOfRecipeComments = (comments?.filter(comment => comment.post === _id)).length
   return (
     <Link href={`/recipe/${_id}`} className="largeCardLink">
@@ -12,8 +12,6 @@ const LargeCard = ({ recipeInfo, numberOfComments, comments }) => {
           <Image
             src='https://res.cloudinary.com/yozzza/image/upload/v1682416352/veganPlusButter/blogpost_cwdhxu.avif'
             alt={`image of ${title}`}
-            // width={150}
-            // height={150}
             fill
             sizes="100%"
             style={{ objectFit: 'cover' }}
@@ -23,8 +21,6 @@ const LargeCard = ({ recipeInfo, numberOfComments, comments }) => {
             <Image
               src={images[0]}
               alt={`image of ${title}`}
-              // width={150}
-              // height={150}
               fill
               sizes="100%"
               style={{ objectFit: 'cover' }}

@@ -1,0 +1,41 @@
+.blogPosts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blogCard {
+  border: solid 0.5px black;
+  border-radius: 5px;
+  margin: 0.5%;
+  padding: 10px;
+  width: 48%;
+  display: inline-block;
+  box-sizing: border-box;
+  min-height: 210px;
+  position: relative;
+}
+
+.blogCard h1 {
+  text-align: center;
+  margin: 0;
+  font-size: 2rem;
+}
+
+.blogCard .profile {
+  position: absolute;
+  margin: 0;
+  right: 10px;
+  top: 10px;
+}
+
+.authorDetails p {
+  text-align: center;
+  margin: -2px;
+}
+
+.readMore {
+  position: absolute;
+  bottom: 8px;
+  margin: 0;
+}
