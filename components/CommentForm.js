@@ -25,7 +25,7 @@ const CommentForm = ({ recipeId, userId, fetchComments }) => {
   return (
     <form className='commentForm' onSubmit={addComment}>
       <label htmlFor="">Leave a comment:</label>
-      <textarea name="comment" id="commentInput" cols="50" rows="5"></textarea>
+      <textarea name="comment" id="commentInput" cols="5" rows="5"></textarea>
       <button className="commentButton button">Submit Your Comment</button>
     </form>
   )

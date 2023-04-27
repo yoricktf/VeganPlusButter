@@ -1,0 +1,14 @@
+footer {
+  background-color: black;
+  margin-top: auto;
+}
+
+footer * {
+  color: white;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 50px);
+}
