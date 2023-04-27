@@ -139,13 +139,18 @@ export default function Home({ posts, getAllPosts }) {
         </div>
       </section>
       <section className="bodySection blogSection">
-        <h1 className='subTitle'>BlogPosts</h1>
+        <h1 className='subTitle'>Blog Posts</h1>
         <div className='blogPosts'>
           {blogPosts.map(blogPost => {
             return (
               <BlogCard key={blogPost._id} blogPost={blogPost} />
             )
           })}
+          <Link href={`/about`}>
+            <article className='blogCard blogLink'>
+              <h2 className='subTitle'>See All Blog Posts</h2>
+            </article>
+          </Link>
 
         </div>
       </section>
