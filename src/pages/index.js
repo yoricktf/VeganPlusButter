@@ -59,18 +59,20 @@ export default function Home({ posts, getAllPosts }) {
   useEffect(() => {
     const recipes = posts.filter(post => post.tags.includes('Blog Post') === false)
     const blogPosts = posts.filter(post => post.tags.includes('Blog Post') === true)
-    const sortedRecipes = recipes.sort(function (a, b) {
-      return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
-    });
-    const threeNewestPosts = sortedRecipes.slice(0, 3)
-    setNewestPosts(threeNewestPosts)
-    setBlogPosts(blogPosts)
-
+    setNewestPosts(sortAndSlice(recipes, 3))
+    setBlogPosts(sortAndSlice(blogPosts, 5))
     fiveRandomFeaturedPosts()
     timeOfDayRecipes()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [posts])
 
+  const sortAndSlice = (ArrayToSort, numberOfItems) => {
+    const sortedArray = ArrayToSort.sort(function (a, b) {
+      return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
+    });
+    const NewestPosts = sortedArray.slice(0, numberOfItems)
+    return NewestPosts
+  }
 
   useEffect(() => {
     try {
