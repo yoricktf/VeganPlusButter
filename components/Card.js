@@ -16,6 +16,7 @@ const Card = ({ title, image, tags, postId }) => {
             fill
             sizes="100%"
             style={{ objectFit: 'cover' }}
+
           />
           <div className="cardTags">
             {tags.map(tag => <Tag key={tag} tag={tag} />)}

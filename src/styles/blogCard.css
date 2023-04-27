@@ -2,18 +2,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .blogCard {
-  border: solid 0.5px black;
+  /* border: solid 0.5px black; */
   border-radius: 5px;
   margin: 0.5%;
   padding: 10px;
   width: 48%;
+  width: 350px;
   display: inline-block;
   box-sizing: border-box;
   min-height: 210px;
   position: relative;
+  background-color: #fff;
 }
 
 .blogCard h1 {
@@ -21,13 +24,13 @@
   margin: 0;
   font-size: 2rem;
 }
-
+/*
 .blogCard .profile {
   position: absolute;
   margin: 0;
-  right: 10px;
-  top: 10px;
-}
+  right: 5px;
+  top: 5px;
+} */
 
 .authorDetails p {
   text-align: center;
