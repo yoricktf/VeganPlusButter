@@ -13,13 +13,13 @@ const BlogCard = ({ blogPost }) => {
         <h1>{title}</h1>
       </Link>
       <Link href={`/profile/${author._id}`} className='authorDetails'>
-        <Image
+        {/* <Image
           className="profile"
           src={author?.image}
-          height={30}
-          width={30}
+          height={20}
+          width={20}
           alt={`profile picture for ${author?.name}`}
-        />
+        /> */}
         <p className='detail'>by {author.name} </p>
         <p className='detail'>{date}</p>
       </Link>

@@ -59,18 +59,20 @@ export default function Home({ posts, getAllPosts }) {
   useEffect(() => {
     const recipes = posts.filter(post => post.tags.includes('Blog Post') === false)
     const blogPosts = posts.filter(post => post.tags.includes('Blog Post') === true)
-    const sortedRecipes = recipes.sort(function (a, b) {
-      return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
-    });
-    const threeNewestPosts = sortedRecipes.slice(0, 3)
-    setNewestPosts(threeNewestPosts)
-    setBlogPosts(blogPosts)
-
+    setNewestPosts(sortAndSlice(recipes, 3))
+    setBlogPosts(sortAndSlice(blogPosts, 5))
     fiveRandomFeaturedPosts()
     timeOfDayRecipes()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [posts])
 
+  const sortAndSlice = (ArrayToSort, numberOfItems) => {
+    const sortedArray = ArrayToSort.sort(function (a, b) {
+      return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
+    });
+    const NewestPosts = sortedArray.slice(0, numberOfItems)
+    return NewestPosts
+  }
 
   useEffect(() => {
     try {
@@ -128,7 +130,7 @@ export default function Home({ posts, getAllPosts }) {
           <p>Vegan Plus Butter started out as a place for me to write Vegan recipes, but then morphed into adding butter to recipes because I enjoy the depth of flavour it can add to certain dishes. Everything on this website can be made vegan though without sacrificing the taste in any way. I hope you enjoy using it as much as I do!</p>
         </div>
       </section>
-      <section className='featuredSection highlight' >
+      <section>
         <h2 className='subTitle'>Featured Recipes</h2>
         <div className='horizontalSection '>
           {featuredFive.map(post => {
@@ -136,22 +138,24 @@ export default function Home({ posts, getAllPosts }) {
           })}
         </div>
       </section>
-      <section className="bodySection">
-        <h1 className='subTitle'>BlogPosts</h1>
+      <section className="bodySection blogSection">
+        <h1 className='subTitle'>Blog Posts</h1>
         <div className='blogPosts'>
           {blogPosts.map(blogPost => {
             return (
               <BlogCard key={blogPost._id} blogPost={blogPost} />
             )
           })}
+          <Link href={`/about`}>
+            <article className='blogCard blogLink'>
+              <h2 className='subTitle'>See All Blog Posts</h2>
+            </article>
+          </Link>
 
         </div>
       </section>
 
-
-
-
-      <section className='timeOfDaySection highlight'>
+      <section>
         <h2 className='subTitle'>{tagSlogan}</h2>
         <div className='horizontalSection '>
           {timeRelevantPosts.map(post => {

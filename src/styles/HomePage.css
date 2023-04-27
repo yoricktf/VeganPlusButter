@@ -54,17 +54,13 @@
   top: 10px;
 }
 
-.highlight {
-  /* width: fit-content; */
+.blogSection {
+  width: fit-content;
   max-width: 1445px;
+  width: 100%;
   margin: 0 auto;
   border-radius: 20px;
-}
-
-.timeOfDaySection {
-  background-color: rgb(211, 255, 211);
-}
-
-.featuredSection {
-  background-color: rgb(254, 252, 193);
+  background-color: rgb(241, 241, 241);
+  padding: 0 20px 20px;
+  box-sizing: border-box;
 }
