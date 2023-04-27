@@ -10,6 +10,7 @@
 @import './HomePage.css';
 @import './nothingFound.css';
 @import './blogCard.css';
+@import './footer.css';
 
 body {
   padding-top: 50px;
