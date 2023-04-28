@@ -12,6 +12,10 @@
 @import './blogCard.css';
 @import './footer.css';
 
+:root {
+  --highlight-color: rgb(255, 222, 57);
+}
+
 body {
   padding-top: 50px;
   margin: 0;

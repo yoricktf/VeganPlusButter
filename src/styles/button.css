@@ -11,7 +11,7 @@
 }
 
 .new {
-  background-color: rgb(255, 222, 57);
+  background-color: var(--highlight-color);
   position: fixed;
   bottom: 10px;
   border-radius: 50%;
