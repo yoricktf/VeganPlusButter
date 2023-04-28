@@ -54,7 +54,7 @@ const EditProfile = (
           <label htmlFor="name">Name:</label>
           <input type="text" id='name' name='name' onChange={(e) => setSpecificUser({ ...specificUser, name: e.target.value })} value={specificUser.name} />
           <label htmlFor="bio">Bio:</label>
-          <textarea placeholder='Enter your Bio here' name="bio" id="bio" cols="30" rows="10" onChange={(e) => setSpecificUser({ ...specificUser, bio: e.target.value })} value={specificUser.bio}></textarea>
+          <textarea placeholder='Enter your Bio here' name="bio" id="bio" cols="5" rows="10" onChange={(e) => setSpecificUser({ ...specificUser, bio: e.target.value })} value={specificUser.bio}></textarea>
           <button className='button'>Edit Your Profile</button>
         </form>
       </section>
