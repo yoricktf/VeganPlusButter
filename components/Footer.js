@@ -26,9 +26,9 @@ const Footer = () => {
         <section className='footerContact'>
           <Link className='socialLink' href='mailto:yorick.tenfeld@gmail.com'>
             <Image
-              className='socialLogo'
+              className='socialLogo arrowRight'
               src='/arrowDiagonalRight.svg'
-              alt='instagram'
+              alt='contact email'
               height={25}
               width={25}
               color='white'
@@ -52,7 +52,7 @@ const Footer = () => {
             <Image
               className='socialLogo'
               src='/dog.svg'
-              alt='instagram'
+              alt='Pepper&apos;s instagram page'
               height={25}
               width={25}
               color='white'
