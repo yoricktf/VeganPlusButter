@@ -11,6 +11,7 @@
 @import './nothingFound.css';
 @import './blogCard.css';
 @import './footer.css';
+@import './aboutPage.css';
 
 :root {
   --highlight-color: rgb(255, 222, 57);
