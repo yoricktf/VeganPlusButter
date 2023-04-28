@@ -17,7 +17,14 @@ body {
   margin: 0;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 50px);
+}
+
 .bodySection {
+  width: 100vw;
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -31,4 +38,10 @@ textarea {
 * {
   text-decoration: none;
   color: black;
+}
+
+.detail {
+  color: rgb(138, 138, 138);
+  font-size: 0.7rem;
+  margin: 5px;
 }
