@@ -6,7 +6,6 @@ const Footer = () => {
     <footer>
       <div className='footerBody'>
         <div>
-
           <a href="#top">
             <Image
               className='socialLogo arrowUp'
@@ -20,7 +19,7 @@ const Footer = () => {
             <ul>
               <li><h3 className='vAndBText'>VEGAN PLUS BUTTER</h3></li>
               <li><Link href='/'>Home</Link></li>
-              <li><Link href='/'>About</Link></li>
+              <li><Link href='/about'>About</Link></li>
             </ul>
           </section>
         </div>
@@ -49,7 +48,7 @@ const Footer = () => {
             />
             <p>Instagram</p>
           </Link>
-          <Link className='socialLink' href={`https://www.instagram.com/yoricktf88/`}>
+          <Link className='socialLink' href={`https://www.instagram.com/pepper.the.havi/`}>
             <Image
               className='socialLogo'
               src='/dog.svg'
