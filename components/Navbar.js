@@ -8,8 +8,7 @@ const Navbar = () => {
       <div id="navContent">
         <div className="navButtons">
           <Link href='/' >
-            {/* <Image src={logo} alt="Logo" width={30} height={30}></Image> */}
-            <Image src='/logo.svg' alt="Logo" width={30} height={30}></Image>
+            <Image className="vAndBLogo" src='/logo.svg' alt="Logo" width={30} height={30} />
           </Link>
           <Link href='/search' >Search</Link>
         </div>
