@@ -16,6 +16,14 @@
   --highlight-color: rgb(255, 222, 57);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+#top {
+  scroll-margin-top: 50px;
+}
+
 body {
   padding-top: 50px;
   margin: 0;

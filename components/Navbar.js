@@ -1,6 +1,5 @@
 import Link from "next/link"
 import LoginComponent from "./Login-btn"
-import logo from '../public/logo.png'
 import Image from "next/image"
 
 const Navbar = () => {
@@ -9,7 +8,8 @@ const Navbar = () => {
       <div id="navContent">
         <div className="navButtons">
           <Link href='/' >
-            <Image src={logo} alt="Logo" width={30} height={30}></Image>
+            {/* <Image src={logo} alt="Logo" width={30} height={30}></Image> */}
+            <Image src='/logo.svg' alt="Logo" width={30} height={30}></Image>
           </Link>
           <Link href='/search' >Search</Link>
         </div>
