@@ -11,10 +11,5 @@
 #search {
   width: 90%;
   text-align: center;
-}
-
-.detail {
-  color: rgb(138, 138, 138);
-  font-size: 0.7rem;
-  margin: 5px;
+  padding: 5px;
 }

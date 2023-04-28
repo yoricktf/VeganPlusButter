@@ -53,7 +53,7 @@
 .tag {
   margin: 4px;
   color: #000;
-  background-color: rgb(255, 222, 57);
+  background-color: var(--highlight-color);
   padding: 5px 10px;
   border-radius: 14px;
   font-size: 0.7rem;
