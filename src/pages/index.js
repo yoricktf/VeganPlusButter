@@ -146,11 +146,11 @@ export default function Home({ posts, getAllPosts }) {
               <BlogCard key={blogPost._id} blogPost={blogPost} />
             )
           })}
-          <Link href={`/about`}>
-            <article className='blogCard blogLink'>
+          <article className='blogCard blogLink'>
+            <Link href={`/about`}>
               <h2 className='subTitle'>See All Blog Posts</h2>
-            </article>
-          </Link>
+            </Link>
+          </article>
 
         </div>
       </section>

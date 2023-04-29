@@ -17,6 +17,32 @@
   min-height: 210px;
   position: relative;
   background-color: #fff;
+  opacity: 0;
+  transition: all 0.5s;
+  filter: blur(50px);
+  /* transform: translateY(100%); */
+}
+
+.blogCard:nth-child(2) {
+  transition-delay: 100ms;
+}
+.blogCard:nth-child(3) {
+  transition-delay: 200ms;
+}
+.blogCard:nth-child(4) {
+  transition-delay: 300ms;
+}
+.blogCard:nth-child(5) {
+  transition-delay: 400ms;
+}
+.blogCard:nth-child(6) {
+  transition-delay: 500ms;
+}
+
+.show {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0);
 }
 
 .blogCard h1 {
@@ -51,4 +77,10 @@
 .blogLink h2 {
   margin: 0;
   font-size: 3rem;
+}
+
+@media (prefers-reduced-motion) {
+  .hidden {
+    transition: none;
+  }
 }
