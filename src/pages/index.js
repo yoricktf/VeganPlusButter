@@ -35,7 +35,6 @@ export default function Home({ posts, getAllPosts }) {
     const lunchRecipes = posts.filter(post => post.tags.includes('lunch'))
     const dinnerRecipes = posts.filter(post => post.tags.includes('dinner'))
     const snackRecipes = posts.filter(post => post.tags.includes('snack'))
-
     if (hour > 5 && hour < 10) {
       setTimeRelevantPosts(breakfastRecipes)
       setTagSlogan('Breakfast Recipes')
@@ -49,6 +48,14 @@ export default function Home({ posts, getAllPosts }) {
       setTimeRelevantPosts(snackRecipes)
       setTagSlogan('Feeling Snackish?')
     }
+  }
+
+  const sortAndSlice = (ArrayToSort, numberOfItems) => {
+    const sortedArray = ArrayToSort.sort(function (a, b) {
+      return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
+    });
+    const NewestPosts = sortedArray.slice(0, numberOfItems)
+    return NewestPosts
   }
 
   useEffect(() => {
@@ -66,13 +73,7 @@ export default function Home({ posts, getAllPosts }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [posts])
 
-  const sortAndSlice = (ArrayToSort, numberOfItems) => {
-    const sortedArray = ArrayToSort.sort(function (a, b) {
-      return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
-    });
-    const NewestPosts = sortedArray.slice(0, numberOfItems)
-    return NewestPosts
-  }
+
 
   useEffect(() => {
     try {

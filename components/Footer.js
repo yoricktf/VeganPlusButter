@@ -24,7 +24,7 @@ const Footer = () => {
           </section>
         </div>
         <section className='footerContact'>
-          <Link className='socialLink' href='mailto:yorick.tenfeld@gmail.com'>
+          <a target='_blank' className='socialLink' href='mailto:yorick.tenfeld@gmail.com'>
             <Image
               className='socialLogo arrowRight'
               src='/arrowDiagonalRight.svg'
@@ -36,8 +36,8 @@ const Footer = () => {
             <p>
               emailAddress@link.com
             </p>
-          </Link>
-          <Link className='socialLink' href={`https://www.instagram.com/yoricktf88/`}>
+          </a>
+          <a target='_blank' className='socialLink' href={`https://www.instagram.com/yoricktf88/`}>
             <Image
               className='socialLogo'
               src='/instagram.svg'
@@ -47,8 +47,8 @@ const Footer = () => {
               color='white'
             />
             <p>Instagram</p>
-          </Link>
-          <Link className='socialLink' href={`https://www.instagram.com/pepper.the.havi/`}>
+          </a>
+          <a target='_blank' className='socialLink' href={`https://www.instagram.com/pepper.the.havi/`}>
             <Image
               className='socialLogo'
               src='/dog.svg'
@@ -58,7 +58,7 @@ const Footer = () => {
               color='white'
             />
             <p>Pepper the dog</p>
-          </Link>
+          </a>
         </section>
 
 
