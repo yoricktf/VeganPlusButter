@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import BlogCard from '../../components/BlogCard'
 
-export default function Home({ posts, getAllPosts }) {
+export default function Home({ posts, getAllPosts, sortAndSlice }) {
   const [confirmedUser, setConfirmedUser] = useState()
   const [newestPosts, setNewestPosts] = useState([])
   const [featuredFive, setFeaturedFive] = useState([])
@@ -50,13 +50,13 @@ export default function Home({ posts, getAllPosts }) {
     }
   }
 
-  const sortAndSlice = (ArrayToSort, numberOfItems) => {
-    const sortedArray = ArrayToSort.sort(function (a, b) {
-      return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
-    });
-    const NewestPosts = sortedArray.slice(0, numberOfItems)
-    return NewestPosts
-  }
+  // const sortAndSlice = (ArrayToSort, startingPoint, numberOfItems) => {
+  //   const sortedArray = ArrayToSort.sort(function (a, b) {
+  //     return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
+  //   });
+  //   const NewestPosts = sortedArray.slice(0, numberOfItems)
+  //   return NewestPosts
+  // }
 
   useEffect(() => {
     getAllPosts()
@@ -66,8 +66,8 @@ export default function Home({ posts, getAllPosts }) {
   useEffect(() => {
     const recipes = posts.filter(post => post.tags.includes('Blog Post') === false)
     const blogPosts = posts.filter(post => post.tags.includes('Blog Post') === true)
-    setNewestPosts(sortAndSlice(recipes, 3))
-    setBlogPosts(sortAndSlice(blogPosts, 5))
+    setNewestPosts(sortAndSlice(recipes, 0, 3))
+    setBlogPosts(sortAndSlice(blogPosts, 0, 5))
     fiveRandomFeaturedPosts()
     timeOfDayRecipes()
     // eslint-disable-next-line react-hooks/exhaustive-deps
