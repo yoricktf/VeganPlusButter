@@ -16,17 +16,17 @@ const BlogPosts = ({ posts, sortAndSlice, getAllPosts }) => {
     const blogs = posts.filter(post => post.tags.includes('Blog Post') === true)
     setBlogPosts(blogs)
     setCounter(0)
-    setCurrentBlogPosts(sortAndSlice(blogs, counter, counter + 2))
+    setCurrentBlogPosts(sortAndSlice(blogs, counter, counter + 5))
   }, [posts])
 
   useEffect(() => {
-    setCurrentBlogPosts(sortAndSlice(blogPosts, counter, counter + 2))
+    setCurrentBlogPosts(sortAndSlice(blogPosts, counter, counter + 5))
   }, [counter])
 
   const changePage = (direction) => {
     if (direction === 'positive') {
-      if (counter !== blogPosts.length - 2) {
-        setCounter((count) => count + 2)
+      if (counter !== blogPosts.length - 5) {
+        setCounter((count) => count + 5)
       } else {
         setCounter((count) => count)
       }
@@ -34,7 +34,7 @@ const BlogPosts = ({ posts, sortAndSlice, getAllPosts }) => {
       if (counter === 0) {
         setCounter(0)
       } else {
-        setCounter((count) => count - 2)
+        setCounter((count) => count - 5)
       }
     }
   }
