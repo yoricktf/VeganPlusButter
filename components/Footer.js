@@ -20,6 +20,7 @@ const Footer = () => {
               <li><h3 className='vAndBText'>VEGAN PLUS BUTTER</h3></li>
               <li><Link href='/'>Home</Link></li>
               <li><Link href='/about'>About</Link></li>
+              <li><Link href='/blogs'>BlogPosts</Link></li>
             </ul>
           </section>
         </div>

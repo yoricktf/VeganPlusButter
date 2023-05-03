@@ -12,6 +12,7 @@
 @import './blogCard.css';
 @import './footer.css';
 @import './aboutPage.css';
+@import './BlogsPage.css';
 
 :root {
   --highlight-color: rgb(255, 222, 57);
