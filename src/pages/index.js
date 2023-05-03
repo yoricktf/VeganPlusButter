@@ -50,14 +50,6 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
     }
   }
 
-  // const sortAndSlice = (ArrayToSort, startingPoint, numberOfItems) => {
-  //   const sortedArray = ArrayToSort.sort(function (a, b) {
-  //     return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
-  //   });
-  //   const NewestPosts = sortedArray.slice(0, numberOfItems)
-  //   return NewestPosts
-  // }
-
   useEffect(() => {
     getAllPosts()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,8 +64,6 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
     timeOfDayRecipes()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [posts])
-
-
 
   useEffect(() => {
     try {
@@ -148,14 +138,12 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
             )
           })}
           <article className='blogCard blogLink'>
-            <Link href={`/about`}>
+            <Link href={`/blogs`}>
               <h2 className='subTitle'>See All Blog Posts</h2>
             </Link>
           </article>
-
         </div>
       </section>
-
       <section>
         <h2 className='subTitle'>{tagSlogan}</h2>
         <div className='horizontalSection '>

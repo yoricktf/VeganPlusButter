@@ -1,18 +1,29 @@
+import Link from 'next/link'
 import React from 'react'
 import { useState, useEffect } from 'react'
+import LargeBlogCard from '../../components/LargeBlogCard'
 
-const BlogPosts = ({ posts, sortAndSlice }) => {
+const BlogPosts = ({ posts, sortAndSlice, getAllPosts }) => {
   const [blogPosts, setBlogPosts] = useState([])
   const [currentBlogPosts, setCurrentBlogPosts] = useState([])
   const [counter, setCounter] = useState(0)
 
   useEffect(() => {
+    getAllPosts()
+  }, [])
+
+  useEffect(() => {
     const blogs = posts.filter(post => post.tags.includes('Blog Post') === true)
     setBlogPosts(blogs)
+    setCounter(0)
     setCurrentBlogPosts(sortAndSlice(blogs, counter, counter + 2))
   }, [posts])
 
-  const changePage = (direction, startingPoint) => {
+  useEffect(() => {
+    setCurrentBlogPosts(sortAndSlice(blogPosts, counter, counter + 2))
+  }, [counter])
+
+  const changePage = (direction) => {
     if (direction === 'positive') {
       if (counter !== blogPosts.length - 2) {
         setCounter((count) => count + 2)
@@ -28,24 +39,21 @@ const BlogPosts = ({ posts, sortAndSlice }) => {
     }
   }
 
-  useEffect(() => {
-    setCurrentBlogPosts(sortAndSlice(blogPosts, counter, counter + 2))
-  }, [counter])
-
   return (
     <div className='bodySection'>
       <h1 className='subTitle'>BlogPosts</h1>
       {
-        currentBlogPosts?.map((post, index) => {
+        currentBlogPosts?.map((blogPost, index) => {
           return (
-            <div key={post._id}>
-              <h2>{post.title}</h2>
-            </div>
+            <LargeBlogCard key={blogPost._id} blogPost={blogPost} />
           )
         })
       }
-      <div onClick={() => changePage('negative')}>prev</div>
-      <div onClick={() => changePage('positive')}>next</div>
+      <section className='paginationControls'>
+        <div className='button' onClick={() => changePage('negative')}>prev</div>
+        <p>{counter + 1} to {counter + 5} of {blogPosts.length}</p>
+        <div className='button' onClick={() => changePage('positive')}>next</div>
+      </section>
     </div>
   )
 }
