@@ -10,6 +10,7 @@ const BlogPosts = ({ posts, sortAndSlice, getAllPosts }) => {
 
   useEffect(() => {
     getAllPosts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -17,10 +18,12 @@ const BlogPosts = ({ posts, sortAndSlice, getAllPosts }) => {
     setBlogPosts(blogs)
     setCounter(0)
     setCurrentBlogPosts(sortAndSlice(blogs, counter, counter + 5))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [posts])
 
   useEffect(() => {
     setCurrentBlogPosts(sortAndSlice(blogPosts, counter, counter + 5))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [counter])
 
   const changePage = (direction) => {
