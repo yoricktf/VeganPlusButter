@@ -51,7 +51,7 @@ const BlogPosts = ({ posts, sortAndSlice, getAllPosts }) => {
       }
       <section className='paginationControls'>
         <div className='button' onClick={() => changePage('negative')}>prev</div>
-        <p>{counter + 1} to {counter + 5} of {blogPosts.length}</p>
+        <p>{counter + 1} to {counter + currentBlogPosts.length} of {blogPosts.length}</p>
         <div className='button' onClick={() => changePage('positive')}>next</div>
       </section>
     </div>
