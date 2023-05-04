@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import BlogCard from '../../components/BlogCard'
 
-export default function Home({ posts, getAllPosts }) {
+export default function Home({ posts, getAllPosts, sortAndSlice }) {
   const [confirmedUser, setConfirmedUser] = useState()
   const [newestPosts, setNewestPosts] = useState([])
   const [featuredFive, setFeaturedFive] = useState([])
@@ -35,7 +35,6 @@ export default function Home({ posts, getAllPosts }) {
     const lunchRecipes = posts.filter(post => post.tags.includes('lunch'))
     const dinnerRecipes = posts.filter(post => post.tags.includes('dinner'))
     const snackRecipes = posts.filter(post => post.tags.includes('snack'))
-
     if (hour > 5 && hour < 10) {
       setTimeRelevantPosts(breakfastRecipes)
       setTagSlogan('Breakfast Recipes')
@@ -59,20 +58,12 @@ export default function Home({ posts, getAllPosts }) {
   useEffect(() => {
     const recipes = posts.filter(post => post.tags.includes('Blog Post') === false)
     const blogPosts = posts.filter(post => post.tags.includes('Blog Post') === true)
-    setNewestPosts(sortAndSlice(recipes, 3))
-    setBlogPosts(sortAndSlice(blogPosts, 5))
+    setNewestPosts(sortAndSlice(recipes, 0, 3))
+    setBlogPosts(sortAndSlice(blogPosts, 0, 5))
     fiveRandomFeaturedPosts()
     timeOfDayRecipes()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [posts])
-
-  const sortAndSlice = (ArrayToSort, numberOfItems) => {
-    const sortedArray = ArrayToSort.sort(function (a, b) {
-      return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
-    });
-    const NewestPosts = sortedArray.slice(0, numberOfItems)
-    return NewestPosts
-  }
 
   useEffect(() => {
     try {
@@ -147,14 +138,12 @@ export default function Home({ posts, getAllPosts }) {
             )
           })}
           <article className='blogCard blogLink'>
-            <Link href={`/about`}>
+            <Link href={`/blogs`}>
               <h2 className='subTitle'>See All Blog Posts</h2>
             </Link>
           </article>
-
         </div>
       </section>
-
       <section>
         <h2 className='subTitle'>{tagSlogan}</h2>
         <div className='horizontalSection '>

@@ -30,6 +30,14 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
     return user
   }
 
+  const sortAndSlice = (ArrayToSort, startingPoint, numberOfItems) => {
+    const sortedArray = ArrayToSort.sort(function (a, b) {
+      return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
+    });
+    const NewestPosts = sortedArray.slice(startingPoint, numberOfItems)
+    return NewestPosts
+  }
+
   useEffect(() => {
     getAllPosts()
     getComments()
@@ -48,7 +56,9 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
             comments={comments}
             getComments={getComments}
             getAllPosts={getAllPosts}
-            handleFetchSpecificUser={fetchSpecficUser} />
+            handleFetchSpecificUser={fetchSpecficUser}
+            sortAndSlice={sortAndSlice}
+          />
         </Layout>
       </main>
     </SessionProvider>

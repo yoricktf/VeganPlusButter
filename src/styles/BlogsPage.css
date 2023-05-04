@@ -1,0 +1,19 @@
+.paginationControls {
+  display: flex;
+  margin: 10px auto;
+  width: fit-content;
+  align-items: center;
+}
+
+.paginationControls > * {
+  margin: 0 10px;
+}
+
+.paginationControls > p {
+  height: fit-content;
+}
+
+.paginationControls > .button {
+  width: 100px;
+  text-align: center;
+}
