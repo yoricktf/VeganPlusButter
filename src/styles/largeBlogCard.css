@@ -1,0 +1,16 @@
+.largeBlogCard {
+  /* border: solid red 1px; */
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: var(--large-card-shadow);
+  margin: 30px 10px;
+}
+
+.largeBlogCard h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.largeBlogCard .detail {
+  margin: -2px 0;
+}

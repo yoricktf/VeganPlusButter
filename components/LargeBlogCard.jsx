@@ -8,7 +8,7 @@ const LargeBlogCard = ({ blogPost }) => {
   const shortenedDescription = description.slice(0, 150)
 
   return (
-    <article className='LargeBlogCard'>
+    <article className='largeBlogCard'>
       <Link href={`/recipe/${blogPost._id}`}>
         <h2>{title}</h2>
       </Link>
