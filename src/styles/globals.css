@@ -13,9 +13,11 @@
 @import './footer.css';
 @import './aboutPage.css';
 @import './BlogsPage.css';
+@import './largeBlogCard.css';
 
 :root {
   --highlight-color: rgb(255, 222, 57);
+  --large-card-shadow: 0px 0px 25px -20px rgb(0, 0, 0);
 }
 
 html {
