@@ -27,16 +27,16 @@
   transition-delay: 100ms;
 }
 .blogCard:nth-child(3) {
-  transition-delay: 200ms;
+  transition-delay: 150ms;
 }
 .blogCard:nth-child(4) {
-  transition-delay: 300ms;
+  transition-delay: 200ms;
 }
 .blogCard:nth-child(5) {
-  transition-delay: 400ms;
+  transition-delay: 250ms;
 }
 .blogCard:nth-child(6) {
-  transition-delay: 500ms;
+  transition-delay: 300ms;
 }
 
 .show {
