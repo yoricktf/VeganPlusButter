@@ -5,18 +5,18 @@ const LargeBlogCard = ({ blogPost }) => {
   const { title, description, date } = blogPost
   const shortenedDescription = description.slice(0, 150)
 
-  const observer = new IntersectionObserver((blogPosts) => {
-    blogPosts.forEach((blogPost) => {
-      if (blogPost.isIntersecting) {
-        blogPost.target.classList.add('show');
-      } else {
-        blogPost.target.classList.remove('show');
-      }
-    });
-  });
+  // const observer = new IntersectionObserver((blogPosts) => {
+  //   blogPosts.forEach((blogPost) => {
+  //     if (blogPost.isIntersecting) {
+  //       blogPost.target.classList.add('show');
+  //     } else {
+  //       blogPost.target.classList.remove('show');
+  //     }
+  //   });
+  // });
 
-  const hiddenBlogPosts = document.querySelectorAll('.largeBlogCard');
-  hiddenBlogPosts.forEach((blogpost) => observer.observe(blogpost));
+  // const hiddenBlogPosts = document.querySelectorAll('.largeBlogCard');
+  // hiddenBlogPosts.forEach((blogpost) => observer.observe(blogpost));
 
   return (
     <article className='largeBlogCard'>
