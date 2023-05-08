@@ -161,7 +161,7 @@ export default function Home({ serverSidePosts, posts, getAllPosts, sortAndSlice
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:3000/api`)
+  const res = await fetch(`https://vegan-plus-butter.vercel.app/api`)
   const posts = await res.json()
   return {
     props: {
