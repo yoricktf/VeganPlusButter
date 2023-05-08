@@ -8,14 +8,14 @@ import LargeCard from '../../../../components/LargeCard';
 import Comment from '../../../../components/Comment';
 
 const Index = (
-  { comments }
+  { specificUser, filteredComments, comments }
   // { handleFetchSpecificUser }
 ) => {
   const { data: session, status } = useSession()
   const router = useRouter()
   const { id } = router.query;
-  const [specificUser, setSpecificUser] = useState()
-  const [filteredComments, setFilteredComments] = useState([])
+  // const [specificUser, setSpecificUser] = useState(user)
+  // const [filteredComments, setFilteredComments] = useState([])
 
   // useEffect(() => {
   // setSpecificUser(handleFetchSpecificUser(id))
@@ -32,18 +32,18 @@ const Index = (
     }
   }
 
-  const fetchSpecficUser = async () => {
-    if (id) {
-      const response = await fetch(`/api/user/${id}`)
-      const user = await response.json()
-      setSpecificUser(user)
-    }
-  }
+  // const fetchSpecficUser = async () => {
+  //   if (id) {
+  //     const response = await fetch(`/api/user/${id}`)
+  //     const user = await response.json()
+  //     setSpecificUser(user)
+  //   }
+  // }
 
-  useEffect(() => {
-    fetchSpecficUser()
-    fetchUsersComments()
-  }, [id])
+  // useEffect(() => {
+  // fetchSpecficUser()
+  // fetchUsersComments()
+  // }, [id])
 
 
   if (status === 'authenticated') {
@@ -71,7 +71,7 @@ const Index = (
         </section>
         <section className='comments'>
           <h2>Comments</h2>
-          {filteredComments.map((comment, index) => <Comment key={index} userComment={comment} fetchUsersComments={fetchUsersComments} />)}
+          {filteredComments?.map((comment, index) => <Comment key={index} userComment={comment} fetchUsersComments={fetchUsersComments} />)}
         </section>
       </section>
     )
@@ -87,3 +87,22 @@ const Index = (
 }
 
 export default Index
+
+export async function getServerSideProps(context) {
+  const { id } = context.query
+  const response = await fetch(`https://vegan-plus-butter.vercel.app/api/user/${id}`)
+  const user = await response.json()
+
+  const response2 = await fetch(`https://vegan-plus-butter.vercel.app/api/comments`)
+  const comments = await response2.json()
+  const filteredComments = comments.filter(comment => comment.author._id === id)
+  const sortedUsersComments = filteredComments.sort(function (a, b) {
+    return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
+  });
+  return {
+    props: {
+      specificUser: user,
+      filteredComments: sortedUsersComments
+    }
+  }
+}

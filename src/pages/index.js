@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import BlogCard from '../../components/BlogCard'
 
-export default function Home({ posts, getAllPosts, sortAndSlice }) {
+export default function Home({ serverSidePosts, posts, getAllPosts, sortAndSlice }) {
   const [confirmedUser, setConfirmedUser] = useState()
   const [newestPosts, setNewestPosts] = useState([])
   const [featuredFive, setFeaturedFive] = useState([])
@@ -17,7 +17,7 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
   const { data: session, status } = useSession()
 
   const fiveRandomFeaturedPosts = () => {
-    const featuredPosts = posts.filter(post => post.featured === true)
+    const featuredPosts = serverSidePosts.filter(post => post.featured === true)
     let featured5 = []
 
     for (let index = 0; index < 5; index++) {
@@ -31,10 +31,10 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
   const timeOfDayRecipes = () => {
     let date = new Date
     let hour = date.getHours()
-    const breakfastRecipes = posts.filter(post => post.tags.includes('breakfast'))
-    const lunchRecipes = posts.filter(post => post.tags.includes('lunch'))
-    const dinnerRecipes = posts.filter(post => post.tags.includes('dinner'))
-    const snackRecipes = posts.filter(post => post.tags.includes('snack'))
+    const breakfastRecipes = serverSidePosts.filter(post => post.tags.includes('breakfast'))
+    const lunchRecipes = serverSidePosts.filter(post => post.tags.includes('lunch'))
+    const dinnerRecipes = serverSidePosts.filter(post => post.tags.includes('dinner'))
+    const snackRecipes = serverSidePosts.filter(post => post.tags.includes('snack'))
     if (hour > 5 && hour < 10) {
       setTimeRelevantPosts(breakfastRecipes)
       setTagSlogan('Breakfast Recipes')
@@ -56,14 +56,14 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
   }, [])
 
   useEffect(() => {
-    const recipes = posts.filter(post => post.tags.includes('Blog Post') === false)
-    const blogPosts = posts.filter(post => post.tags.includes('Blog Post') === true)
+    const recipes = serverSidePosts.filter(post => post.tags.includes('Blog Post') === false)
+    const blogPosts = serverSidePosts.filter(post => post.tags.includes('Blog Post') === true)
     setNewestPosts(sortAndSlice(recipes, 0, 3))
     setBlogPosts(sortAndSlice(blogPosts, 0, 5))
     fiveRandomFeaturedPosts()
     timeOfDayRecipes()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [posts])
+  }, [serverSidePosts])
 
   useEffect(() => {
     try {
@@ -155,4 +155,15 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
       {status === 'authenticated' && confirmedUser && confirmedUser.admin === true ? <Link className='new button' href={'/recipe/new'}>➕</Link> : ''}
     </>
   )
+}
+
+
+export async function getServerSideProps() {
+  const res = await fetch(`https://vegan-plus-butter.vercel.app/api`)
+  const posts = await res.json()
+  return {
+    props: {
+      serverSidePosts: posts,
+    }
+  }
 }
