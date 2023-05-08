@@ -16,6 +16,11 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
   const [tagSlogan, setTagSlogan] = useState('')
   const { data: session, status } = useSession()
 
+  useEffect(() => {
+    getAllPosts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const fiveRandomFeaturedPosts = () => {
     const featuredPosts = posts.filter(post => post.featured === true)
     let featured5 = []
@@ -50,14 +55,10 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
     }
   }
 
-  useEffect(() => {
-    getAllPosts()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   useEffect(() => {
-    const recipes = posts.filter(post => post.tags.includes('Blog Post') === false)
-    const blogPosts = posts.filter(post => post.tags.includes('Blog Post') === true)
+    const recipes = posts?.filter(post => post.tags.includes('Blog Post') === false)
+    const blogPosts = posts?.filter(post => post.tags.includes('Blog Post') === true)
     setNewestPosts(sortAndSlice(recipes, 0, 3))
     setBlogPosts(sortAndSlice(blogPosts, 0, 5))
     fiveRandomFeaturedPosts()
@@ -124,7 +125,7 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
       <section>
         <h2 className='subTitle'>Featured Recipes</h2>
         <div className='horizontalSection '>
-          {featuredFive.map(post => {
+          {featuredFive?.map(post => {
             return <Card key={post._id} title={post.title} image={post.images[0]} tags={post.tags} postId={post._id} />
           })}
         </div>
@@ -132,7 +133,7 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
       <section className="bodySection blogSection">
         <h1 className='subTitle'>Blog Posts</h1>
         <div className='blogPosts'>
-          {blogPosts.map(blogPost => {
+          {blogPosts?.map(blogPost => {
             return (
               <BlogCard key={blogPost._id} blogPost={blogPost} />
             )
@@ -147,7 +148,7 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
       <section>
         <h2 className='subTitle'>{tagSlogan}</h2>
         <div className='horizontalSection '>
-          {timeRelevantPosts.map(post => {
+          {timeRelevantPosts?.map(post => {
             return <Card key={post._id} title={post.title} image={post.images[0]} tags={post.tags} postId={post._id} />
           })}
         </div>

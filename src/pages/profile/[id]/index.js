@@ -20,6 +20,14 @@ const Index = (
   // useEffect(() => {
   // setSpecificUser(handleFetchSpecificUser(id))
   // }, [id])
+  const fetchSpecficUser = async () => {
+    if (id) {
+      const response = await fetch(`/api/user/${id}`)
+      const user = await response.json()
+      setSpecificUser(user)
+    }
+  }
+
   const fetchUsersComments = async () => {
     if (id) {
       const response = await fetch('/api/comments')
@@ -32,13 +40,6 @@ const Index = (
     }
   }
 
-  const fetchSpecficUser = async () => {
-    if (id) {
-      const response = await fetch(`/api/user/${id}`)
-      const user = await response.json()
-      setSpecificUser(user)
-    }
-  }
 
   useEffect(() => {
     fetchSpecficUser()
