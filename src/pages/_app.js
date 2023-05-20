@@ -1,50 +1,58 @@
-import '@/styles/globals.css'
-import { SessionProvider } from "next-auth/react"
-import { useEffect, useState } from 'react'
-import Layout from "../../components/Layout"
-import { Open_Sans } from 'next/font/google'
+import '@/styles/globals.css';
+import { SessionProvider } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import Layout from '../../components/Layout';
+import { Open_Sans } from 'next/font/google';
 
-const openSans = Open_Sans({ subsets: ['latin'], weight: ['400', '700'] })
+const openSans = Open_Sans({ subsets: ['latin'], weight: ['400', '700'] });
 
-export default function App({ Component, pageProps: { session, ...pageProps } }) {
-  const [posts, setPosts] = useState([])
-  const [specificUser, setSpecificUser] = useState()
-  const [comments, setComments] = useState([])
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
+  const [posts, setPosts] = useState([]);
+  const [specificUser, setSpecificUser] = useState();
+  const [comments, setComments] = useState([]);
+  const [admins, setAdmins] = useState();
 
   const getAllPosts = async () => {
-    const response = await fetch('/api')
-    const allPosts = await response.json()
-    setPosts(allPosts)
-  }
+    const response = await fetch('/api');
+    const allPosts = await response.json();
+    setPosts(allPosts);
+  };
 
   const getComments = async () => {
-    const response = await fetch(`/api/comments`)
-    const comments = await response.json()
-    setComments(comments)
-  }
+    const response = await fetch(`/api/comments`);
+    const comments = await response.json();
+    setComments(comments);
+  };
+
+  const getAdmins = async () => {
+    const response = await fetch(`/api/users`);
+    const users = await response.json();
+    setAdmins(users);
+  };
 
   const fetchSpecficUser = async (id) => {
-    const response = await fetch(`/api/user/${id}`)
-    const user = await response.json()
+    const response = await fetch(`/api/user/${id}`);
+    const user = await response.json();
     // setSpecificUser(user)
-    return user
-  }
+    return user;
+  };
 
   const sortAndSlice = (ArrayToSort, startingPoint, numberOfItems) => {
     const sortedArray = ArrayToSort.sort(function (a, b) {
-      return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
+      return a.createdAt > b.createdAt ? -1 : a.createdAt < b.createdAt ? 1 : 0;
     });
-    const NewestPosts = sortedArray.slice(startingPoint, numberOfItems)
-    return NewestPosts
-  }
+    const NewestPosts = sortedArray.slice(startingPoint, numberOfItems);
+    return NewestPosts;
+  };
 
   useEffect(() => {
-    getAllPosts()
-    getComments()
-  }, [])
-
-
-
+    getAdmins();
+    getAllPosts();
+    getComments();
+  }, []);
 
   return (
     <SessionProvider session={session}>
@@ -62,5 +70,5 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         </Layout>
       </main>
     </SessionProvider>
-  )
+  );
 }
