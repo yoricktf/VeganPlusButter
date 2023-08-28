@@ -88,13 +88,10 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
-  console.log('before=====', posts);
-  console.log('status', !!posts);
 
-  // if (posts.length === 0) {
-  //   console.log('AFTER----', posts);
-  //   return <h1>Loading</h1>;
-  // }
+  if (posts.length === 0) {
+    return <h1>Loading</h1>;
+  }
 
   return (
     <>
