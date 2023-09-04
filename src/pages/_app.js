@@ -18,6 +18,11 @@ export default function App({
   const getAllPosts = async () => {
     const response = await fetch('/api');
     const allPosts = await response.json();
+
+    if (!response.ok) {
+      console.log(response.error);
+    }
+
     setPosts(allPosts);
   };
 

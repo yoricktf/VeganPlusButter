@@ -88,10 +88,13 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
+<<<<<<< HEAD
+=======
 
   if (posts.length === 0) {
     return <h1>Loading</h1>;
   }
+>>>>>>> 48bce716d57f0ac296a33e2b35f94e6804770da4
 
   return (
     <>
@@ -107,7 +110,10 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
                   fill
                   sizes='60%'
                   style={{ objectFit: 'cover' }}
+<<<<<<< HEAD
                   priority
+=======
+>>>>>>> 48bce716d57f0ac296a33e2b35f94e6804770da4
                 />
               </Link>
             </div>
@@ -120,7 +126,10 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
                     fill
                     sizes='60%'
                     style={{ objectFit: 'cover' }}
+<<<<<<< HEAD
                     priority
+=======
+>>>>>>> 48bce716d57f0ac296a33e2b35f94e6804770da4
                   />
                 </Link>
               </div>
@@ -132,7 +141,10 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
                     fill
                     sizes='60%'
                     style={{ objectFit: 'cover' }}
+<<<<<<< HEAD
                     priority
+=======
+>>>>>>> 48bce716d57f0ac296a33e2b35f94e6804770da4
                   />
                 </Link>
               </div>

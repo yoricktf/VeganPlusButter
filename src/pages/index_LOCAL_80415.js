@@ -89,10 +89,6 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
-  if (posts.length === 0) {
-    return <h1>Loading</h1>;
-  }
-
   return (
     <>
       <section className='bodySection'>

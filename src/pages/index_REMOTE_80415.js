@@ -107,7 +107,6 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
                   fill
                   sizes='60%'
                   style={{ objectFit: 'cover' }}
-                  priority
                 />
               </Link>
             </div>
@@ -120,7 +119,6 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
                     fill
                     sizes='60%'
                     style={{ objectFit: 'cover' }}
-                    priority
                   />
                 </Link>
               </div>
@@ -132,7 +130,6 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
                     fill
                     sizes='60%'
                     style={{ objectFit: 'cover' }}
-                    priority
                   />
                 </Link>
               </div>
