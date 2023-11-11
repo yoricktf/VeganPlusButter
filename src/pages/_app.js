@@ -3,6 +3,7 @@ import { SessionProvider } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import { Open_Sans } from 'next/font/google';
+import useSWR, { SWRConfig } from 'swr';
 
 const openSans = Open_Sans({ subsets: ['latin'], weight: ['400', '700'] });
 
@@ -60,20 +61,28 @@ export default function App({
   }, []);
 
   return (
-    <SessionProvider session={session}>
-      <main className={openSans.className}>
-        <Layout>
-          <Component
-            {...pageProps}
-            posts={posts}
-            comments={comments}
-            getComments={getComments}
-            getAllPosts={getAllPosts}
-            handleFetchSpecificUser={fetchSpecficUser}
-            sortAndSlice={sortAndSlice}
-          />
-        </Layout>
-      </main>
-    </SessionProvider>
+    <SWRConfig
+      value={{
+        // refreshInterval: 3000,
+        fetcher: (resource, init) =>
+          fetch(resource, init).then((res) => res.json()),
+      }}
+    >
+      <SessionProvider session={session}>
+        <main className={openSans.className}>
+          <Layout>
+            <Component
+              {...pageProps}
+              posts={posts}
+              comments={comments}
+              getComments={getComments}
+              getAllPosts={getAllPosts}
+              handleFetchSpecificUser={fetchSpecficUser}
+              sortAndSlice={sortAndSlice}
+            />
+          </Layout>
+        </main>
+      </SessionProvider>
+    </SWRConfig>
   );
 }

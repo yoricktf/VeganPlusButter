@@ -5,92 +5,68 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 import BlogCard from '../../components/BlogCard';
+import useSWR from 'swr';
 
-export default function Home({ posts, getAllPosts, sortAndSlice }) {
+export default function Home() {
   const [confirmedUser, setConfirmedUser] = useState();
-  const [newestPosts, setNewestPosts] = useState([]);
-  const [featuredFive, setFeaturedFive] = useState([]);
-  const [timeRelevantPosts, setTimeRelevantPosts] = useState([]);
-  const [blogPosts, setBlogPosts] = useState([]);
-  const [tagSlogan, setTagSlogan] = useState('');
   const { data: session, status } = useSession();
 
-  const fiveRandomFeaturedPosts = () => {
-    const featuredPosts = posts.filter((post) => post.featured === true);
-    let featured5 = [];
-
-    for (let index = 0; index < 5; index++) {
-      let randomNumber = Math.floor(Math.random() * featuredPosts.length);
-      let randomRecipe = featuredPosts.splice(randomNumber, 1);
-      featured5.push(...randomRecipe);
-    }
-    setFeaturedFive(featured5);
-  };
-
-  const timeOfDayRecipes = () => {
-    let date = new Date();
-    let hour = date.getHours();
-    const breakfastRecipes = posts.filter((post) =>
-      post.tags.includes('breakfast')
-    );
-    const lunchRecipes = posts.filter((post) => post.tags.includes('lunch'));
-    const dinnerRecipes = posts.filter((post) => post.tags.includes('dinner'));
-    const snackRecipes = posts.filter((post) => post.tags.includes('snack'));
-    if (hour > 5 && hour < 10) {
-      setTimeRelevantPosts(breakfastRecipes);
-      setTagSlogan('Breakfast Recipes');
-    } else if (hour < 14) {
-      setTimeRelevantPosts(lunchRecipes);
-      setTagSlogan('Lunch time!');
-    } else if (hour < 20) {
-      setTimeRelevantPosts(dinnerRecipes);
-      setTagSlogan('Dinner Recipes');
-    } else {
-      setTimeRelevantPosts(snackRecipes);
-      setTagSlogan('Feeling Snackish?');
-    }
-  };
+  const {
+    data: newestPosts,
+    error: errorNewestPosts,
+    isLoading: loadingNewestPosts,
+  } = useSWR('/api?type=Newest Post');
+  const {
+    data: blogPosts,
+    error: errorBlogPosts,
+    isLoading: loadingBlogPosts,
+  } = useSWR('/api?type=Blog Post');
+  const {
+    data: featuredFive,
+    error: errorFeatured,
+    isLoading: loadingFeatured,
+  } = useSWR('/api?type=Featured');
+  const {
+    data: timeRelevantInfo,
+    error: errorTimeRelevant,
+    isLoading: loadingTimeRelevant,
+  } = useSWR('/api?type=Daytime');
 
   useEffect(() => {
-    getAllPosts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    const recipes = posts.filter(
-      (post) => post.tags.includes('Blog Post') === false
-    );
-    const blogPosts = posts.filter(
-      (post) => post.tags.includes('Blog Post') === true
-    );
-    setNewestPosts(sortAndSlice(recipes, 0, 3));
-    setBlogPosts(sortAndSlice(blogPosts, 0, 5));
-    fiveRandomFeaturedPosts();
-    timeOfDayRecipes();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [posts]);
-
-  useEffect(() => {
-    try {
+    if (session) {
       const checkIfAdmin = async () => {
-        if (session) {
+        try {
           const response = await fetch('/api/users', {
             method: 'POST',
             body: JSON.stringify(session.user),
           });
           const user = await response.json();
           setConfirmedUser(user[0]);
+        } catch (error) {
+          console.log(error);
         }
       };
+
       checkIfAdmin();
-    } catch (error) {
-      console.log(error);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
-  if (posts.length === 0) {
-    return <h1>Loading</h1>;
+  if (
+    errorBlogPosts ||
+    errorFeatured ||
+    errorNewestPosts ||
+    errorTimeRelevant
+  ) {
+    return <div>failed to load</div>;
+  }
+
+  if (
+    loadingNewestPosts ||
+    loadingFeatured ||
+    loadingBlogPosts ||
+    loadingTimeRelevant
+  ) {
+    return <div>loading...</div>;
   }
 
   return (
@@ -180,9 +156,9 @@ export default function Home({ posts, getAllPosts, sortAndSlice }) {
         </div>
       </section>
       <section>
-        <h2 className='subTitle'>{tagSlogan}</h2>
+        <h2 className='subTitle'>{timeRelevantInfo.slogan}</h2>
         <div className='horizontalSection '>
-          {timeRelevantPosts.map((post) => {
+          {timeRelevantInfo.posts.map((post) => {
             return (
               <Card
                 key={post._id}
