@@ -14,6 +14,7 @@
 @import './aboutPage.css';
 @import './BlogsPage.css';
 @import './largeBlogCard.css';
+@import './loading.css';
 
 :root {
   --highlight-color: rgb(255, 222, 57);

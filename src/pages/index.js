@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import BlogCard from '../../components/BlogCard';
 import useSWR from 'swr';
+import Loading from '../../components/Loading';
 
 export default function Home() {
   const [confirmedUser, setConfirmedUser] = useState();
@@ -66,7 +67,7 @@ export default function Home() {
     loadingBlogPosts ||
     loadingTimeRelevant
   ) {
-    return <div>loading...</div>;
+    return <Loading />;
   }
 
   return (
