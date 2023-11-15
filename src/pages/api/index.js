@@ -16,7 +16,19 @@ export default async function handler(req, res) {
     if (req.query.type === 'Blog Post') {
       posts = await Post.find({ tags: 'Blog Post' })
         .sort({ createdAt: -1 }) //ascending, newest first
-        .limit(5);
+        .limit(5)
+        .populate('author');
+    }
+
+    if (req.query.type === 'All Blogs') {
+      let page = parseInt(req.query.page);
+      let skipAmount = (page - 1) * 5;
+      console.log(typeof limit);
+      posts = await Post.find({ tags: 'Blog Post' })
+        .sort({ createdAt: -1 }) //ascending, newest first
+        .skip(skipAmount)
+        .limit(5)
+        .populate('author');
     }
 
     if (req.query.type === 'Newest Post') {
@@ -29,7 +41,6 @@ export default async function handler(req, res) {
       let slogan = '';
       let tag = '';
       let hour = new Date().getHours();
-      console.log('===================HOUR HOUR HOUR::::', hour);
       if (hour > 5 && hour < 10) {
         tag = 'breakfast';
         slogan = 'Time For Breakfast';
@@ -53,18 +64,11 @@ export default async function handler(req, res) {
     if (req.query.type === 'Populated') {
       try {
         posts = await Post.find().populate('author');
-        console.log('blog only************', posts);
         res.status(200).json(posts);
       } catch (error) {
-        console.log('ERROR MESSAGES=========', error);
         res.status(500).json({ error: error.message });
       }
     }
-
     res.status(200).json(posts);
   }
 }
-
-// fetch 5 random time of day recipes
-
-// fetch blog posts only

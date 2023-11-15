@@ -1,11 +1,11 @@
-import React from 'react'
-import Link from 'next/link'
-import { useState, useEffect } from 'react'
-import Image from 'next/image'
+import React from 'react';
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const BlogCard = ({ blogPost }) => {
-  const { title, description, date, author, _id } = blogPost
-  const shortenedDescription = description.slice(0, 150)
+  const { title, description, date, author, _id } = blogPost;
+  const shortenedDescription = description.slice(0, 150);
 
   const observer = new IntersectionObserver((blogPosts) => {
     blogPosts.forEach((blogPost) => {
@@ -37,9 +37,12 @@ const BlogCard = ({ blogPost }) => {
         <p className='detail'>{date}</p>
       </Link>
 
-      <p>{shortenedDescription}...</p><Link href={`/recipe/${_id}`}><p className='readMore'>Read more</p></Link>
+      <p>{shortenedDescription}...</p>
+      <Link href={`/recipe/${_id}`}>
+        <p className='readMore'>Read more</p>
+      </Link>
     </article>
-  )
-}
+  );
+};
 
-export default BlogCard
+export default BlogCard;

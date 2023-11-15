@@ -1,4 +1,5 @@
 import LargeCard from '../../components/LargeCard';
+import Loading from '../../components/Loading';
 import NothingFound from '../../components/nothingFound';
 import { useState, useEffect } from 'react';
 import useSWR from 'swr';
@@ -14,18 +15,17 @@ const Search = ({ comments }) => {
   // }
   const { data: posts, error, isLoading } = useSWR('/api?type=Populated');
 
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value.toLowerCase());
+  };
+
   if (error) {
     return <div>failed to load</div>;
   }
 
   if (isLoading) {
-    return <div>loading...</div>;
+    return <Loading />;
   }
-
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value.toLowerCase());
-  };
-
   // useEffect(() => {
   //   getComments()
   // }, [])
