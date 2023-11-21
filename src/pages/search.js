@@ -43,44 +43,37 @@ const Search = ({ comments }) => {
         })
       : [];
 
-  if (!!posts) {
-    return (
-      <>
-        <div className='bodySection'>
-          <section id='searchSection'>
-            <h1>Search</h1>
-            <input
-              type='text'
-              id='search'
-              onChange={handleSearch}
-              placeholder='cookies, healthy, butter'
-              autoFocus
-            />
-            <p className='detail'>
-              Search through recipe titles, tags or ingredients
-            </p>
-          </section>
-          {filteredPosts.length === 0 && searchQuery.length ? (
-            <NothingFound />
-          ) : (
-            filteredPosts.map((foundPost) => {
+  return (
+    <>
+      <div className='bodySection'>
+        <section id='searchSection'>
+          <h1>Search</h1>
+          <input
+            type='text'
+            id='search'
+            onChange={handleSearch}
+            placeholder='cookies, healthy, butter'
+            autoFocus
+          />
+          <p className='detail'>
+            Search through recipe titles, tags or ingredients
+          </p>
+        </section>
+        {filteredPosts.length === 0 && searchQuery.length ? (
+          <NothingFound />
+        ) : (
+          filteredPosts.map((foundPost) => {
+            {
               {
-                /* const numberOfRecipeComments = (comments.filter(comment => comment.post === foundPost._id)).length */
+                /* const numberOfRecipeComments = (comments.filter(comment => comment.post === foundPost._id)).length  */
               }
-              return (
-                <LargeCard
-                  key={foundPost._id}
-                  recipeInfo={foundPost}
-                  comments={comments}
-                />
-              );
-            })
-          )}
-        </div>
-      </>
-    );
-  }
-  return <h1>Loading...</h1>;
+            }
+            return <LargeCard key={foundPost._id} recipeInfo={foundPost} />;
+          })
+        )}
+      </div>
+    </>
+  );
 };
 
 export default Search;

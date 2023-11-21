@@ -70,6 +70,8 @@ export default function Home() {
     return <Loading />;
   }
 
+  console.log('blogposts==================================', blogPosts);
+
   return (
     <>
       <section className='bodySection'>
