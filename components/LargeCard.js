@@ -4,10 +4,7 @@ import Tag from './Tag';
 
 const LargeCard = ({ recipeInfo }) => {
   const { title, images, tags, _id, numberOfComments } = recipeInfo;
-  console.log(
-    '**********************recipeInfo*************************',
-    recipeInfo
-  );
+
   return (
     <Link href={`/recipe/${_id}`} className='largeCardLink'>
       <article className='largeCard'>

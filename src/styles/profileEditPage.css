@@ -5,6 +5,7 @@
 .profileData {
   display: flex;
   margin-bottom: 10px;
+  position: relative;
 }
 
 .profileData > div > h1 {
