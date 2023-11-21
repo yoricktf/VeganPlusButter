@@ -12,8 +12,8 @@ export default function App({
   pageProps: { session, ...pageProps },
 }) {
   const [posts, setPosts] = useState([]);
-  const [specificUser, setSpecificUser] = useState();
-  const [comments, setComments] = useState([]);
+  // const [specificUser, setSpecificUser] = useState();
+  // const [comments, setComments] = useState([]);
   const [admins, setAdmins] = useState();
 
   const getAllPosts = async () => {
@@ -27,11 +27,11 @@ export default function App({
     setPosts(allPosts);
   };
 
-  const getComments = async () => {
-    const response = await fetch(`/api/comments`);
-    const comments = await response.json();
-    setComments(comments);
-  };
+  // const getComments = async () => {
+  //   const response = await fetch(`/api/comments`);
+  //   const comments = await response.json();
+  //   setComments(comments);
+  // };
 
   const getAdmins = async () => {
     const response = await fetch(`/api/users`);
@@ -57,7 +57,7 @@ export default function App({
   useEffect(() => {
     getAdmins();
     getAllPosts();
-    getComments();
+    // getComments();
   }, []);
 
   return (
@@ -74,8 +74,8 @@ export default function App({
             <Component
               {...pageProps}
               posts={posts}
-              comments={comments}
-              getComments={getComments}
+              // comments={comments}
+              // getComments={getComments}
               getAllPosts={getAllPosts}
               handleFetchSpecificUser={fetchSpecficUser}
               sortAndSlice={sortAndSlice}

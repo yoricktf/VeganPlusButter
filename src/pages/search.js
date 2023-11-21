@@ -1,4 +1,5 @@
 import LargeCard from '../../components/LargeCard';
+import Loading from '../../components/Loading';
 import NothingFound from '../../components/nothingFound';
 import { useState, useEffect } from 'react';
 import useSWR from 'swr';
@@ -14,18 +15,17 @@ const Search = ({ comments }) => {
   // }
   const { data: posts, error, isLoading } = useSWR('/api?type=Populated');
 
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value.toLowerCase());
+  };
+
   if (error) {
     return <div>failed to load</div>;
   }
 
   if (isLoading) {
-    return <div>loading...</div>;
+    return <Loading />;
   }
-
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value.toLowerCase());
-  };
-
   // useEffect(() => {
   //   getComments()
   // }, [])
@@ -43,44 +43,37 @@ const Search = ({ comments }) => {
         })
       : [];
 
-  if (!!posts) {
-    return (
-      <>
-        <div className='bodySection'>
-          <section id='searchSection'>
-            <h1>Search</h1>
-            <input
-              type='text'
-              id='search'
-              onChange={handleSearch}
-              placeholder='cookies, healthy, butter'
-              autoFocus
-            />
-            <p className='detail'>
-              Search through recipe titles, tags or ingredients
-            </p>
-          </section>
-          {filteredPosts.length === 0 && searchQuery.length ? (
-            <NothingFound />
-          ) : (
-            filteredPosts.map((foundPost) => {
+  return (
+    <>
+      <div className='bodySection'>
+        <section id='searchSection'>
+          <h1>Search</h1>
+          <input
+            type='text'
+            id='search'
+            onChange={handleSearch}
+            placeholder='cookies, healthy, butter'
+            autoFocus
+          />
+          <p className='detail'>
+            Search through recipe titles, tags or ingredients
+          </p>
+        </section>
+        {filteredPosts.length === 0 && searchQuery.length ? (
+          <NothingFound />
+        ) : (
+          filteredPosts.map((foundPost) => {
+            {
               {
-                /* const numberOfRecipeComments = (comments.filter(comment => comment.post === foundPost._id)).length */
+                /* const numberOfRecipeComments = (comments.filter(comment => comment.post === foundPost._id)).length  */
               }
-              return (
-                <LargeCard
-                  key={foundPost._id}
-                  recipeInfo={foundPost}
-                  comments={comments}
-                />
-              );
-            })
-          )}
-        </div>
-      </>
-    );
-  }
-  return <h1>Loading...</h1>;
+            }
+            return <LargeCard key={foundPost._id} recipeInfo={foundPost} />;
+          })
+        )}
+      </div>
+    </>
+  );
 };
 
 export default Search;
