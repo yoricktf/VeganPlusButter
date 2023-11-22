@@ -11,21 +11,21 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }) {
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
   // const [specificUser, setSpecificUser] = useState();
   // const [comments, setComments] = useState([]);
-  const [admins, setAdmins] = useState();
+  // const [admins, setAdmins] = useState();
 
-  const getAllPosts = async () => {
-    const response = await fetch('/api');
-    const allPosts = await response.json();
+  // const getAllPosts = async () => {
+  //   const response = await fetch('/api');
+  //   const allPosts = await response.json();
 
-    if (!response.ok) {
-      console.log(response.error);
-    }
+  //   if (!response.ok) {
+  //     console.log(response.error);
+  //   }
 
-    setPosts(allPosts);
-  };
+  //   setPosts(allPosts);
+  // };
 
   // const getComments = async () => {
   //   const response = await fetch(`/api/comments`);
@@ -33,32 +33,24 @@ export default function App({
   //   setComments(comments);
   // };
 
-  const getAdmins = async () => {
-    const response = await fetch(`/api/users`);
-    const users = await response.json();
-    setAdmins(users);
-  };
+  // const getAdmins = async () => {
+  //   const response = await fetch(`/api/users`);
+  //   const users = await response.json();
+  //   setAdmins(users);
+  // };
 
-  const fetchSpecficUser = async (id) => {
-    const response = await fetch(`/api/user/${id}`);
-    const user = await response.json();
-    // setSpecificUser(user)
-    return user;
-  };
+  // const fetchSpecficUser = async (id) => {
+  //   const response = await fetch(`/api/user/${id}`);
+  //   const user = await response.json();
+  //   // setSpecificUser(user)
+  //   return user;
+  // };
 
-  const sortAndSlice = (ArrayToSort, startingPoint, numberOfItems) => {
-    const sortedArray = ArrayToSort.sort(function (a, b) {
-      return a.createdAt > b.createdAt ? -1 : a.createdAt < b.createdAt ? 1 : 0;
-    });
-    const NewestPosts = sortedArray.slice(startingPoint, numberOfItems);
-    return NewestPosts;
-  };
-
-  useEffect(() => {
-    getAdmins();
-    getAllPosts();
-    // getComments();
-  }, []);
+  // useEffect(() => {
+  //   getAdmins();
+  //   getAllPosts();
+  //   getComments();
+  // }, []);
 
   return (
     <SWRConfig
@@ -73,12 +65,11 @@ export default function App({
           <Layout>
             <Component
               {...pageProps}
-              posts={posts}
+              // posts={posts}
               // comments={comments}
               // getComments={getComments}
-              getAllPosts={getAllPosts}
-              handleFetchSpecificUser={fetchSpecficUser}
-              sortAndSlice={sortAndSlice}
+              // getAllPosts={getAllPosts}
+              // handleFetchSpecificUser={fetchSpecficUser}
             />
           </Layout>
         </main>

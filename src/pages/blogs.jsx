@@ -5,16 +5,8 @@ import LargeBlogCard from '../../components/LargeBlogCard';
 import useSWR from 'swr';
 import Loading from '../../components/Loading';
 
-const BlogPosts = ({ sortAndSlice, getAllPosts }) => {
-  // const [blogPosts, setBlogPosts] = useState([]);
-  // const [currentBlogPosts, setCurrentBlogPosts] = useState([]);
-  // const [counter, setCounter] = useState(0);
+const BlogPosts = ({}) => {
   const [page, setPage] = useState(1);
-
-  // useEffect(() => {
-  //   getAllPosts()
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
 
   const {
     data: blogPosts,

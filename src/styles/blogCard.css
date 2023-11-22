@@ -18,12 +18,12 @@
   position: relative;
   background-color: #fff;
   opacity: 0;
-  transition: all 0.5s;
+  /* transition: all 0.5s;
   filter: blur(50px);
-  transform: translateY(100%);
+  transform: translateY(100%); */
 }
 
-.blogCard:nth-child(2) {
+/* .blogCard:nth-child(2) {
   transition-delay: 100ms;
 }
 .blogCard:nth-child(3) {
@@ -37,7 +37,7 @@
 }
 .blogCard:nth-child(6) {
   transition-delay: 300ms;
-}
+} */
 
 .show {
   opacity: 1;
