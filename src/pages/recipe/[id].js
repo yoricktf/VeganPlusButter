@@ -190,7 +190,7 @@ const ShowPage = () => {
                 height={30}
                 alt='filled star'
               />
-              <p>sign in to save favorites</p>
+              <p onClick={() => signIn('google')}>sign in to save favorites</p>
             </div>
           )}
           <p>{description}</p>
@@ -223,7 +223,7 @@ const ShowPage = () => {
             // fetchComments={fetchComments}
           />
         ) : (
-          <p className='commentSignIn button' onClick={() => signIn()}>
+          <p className='commentSignIn button' onClick={() => signIn('google')}>
             Sign in to leave comments
           </p>
         )}

@@ -1,19 +1,22 @@
-import { useSession, signIn, signOut } from "next-auth/react"
-import Link from "next/link"
+import { useSession, signIn, signOut } from 'next-auth/react';
+import Link from 'next/link';
 
 const NotAuthorized = () => {
-  const { data: session, status } = useSession()
+  const { data: session, status } = useSession();
 
   return (
-
-    <div className="card">
+    <div className='card'>
       <h1>Whoops!</h1>
       <p>Sadly You can not be on this page, feel free to </p>
-      <button className="button" onClick={() => signIn()}>Sign in</button>
+      <button className='button' onClick={() => signIn('google')}>
+        Sign in
+      </button>
       <p>or you can go back</p>
-      <Link className='button' href={'/'}>Home</Link>
+      <Link className='button' href={'/'}>
+        Home
+      </Link>
     </div>
-  )
-}
+  );
+};
 
-export default NotAuthorized
+export default NotAuthorized;
