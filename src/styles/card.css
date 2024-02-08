@@ -64,13 +64,13 @@
   overflow: auto;
   padding: 0px 10px 20px 0;
 
-  -ms-overflow-style: none;
+  /* -ms-overflow-style: none;
   scrollbar-width: none;
   overflow-y: scroll;
   margin: 0 auto;
   scroll-snap-type: x mandatory;
   scroll-padding: 0 24px;
-  scroll-snap-align: start;
+  scroll-snap-align: start; */
 }
 
 .horizontalSection::-webkit-scrollbar {

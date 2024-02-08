@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
+
 const postSchema = new Schema(
   {
     title: { type: String, required: true },
@@ -9,7 +10,7 @@ const postSchema = new Schema(
     featured: Boolean,
     images: Array,
     date: String,
-    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    author: { type: Schema.Types.ObjectId, ref: 'User' },
     tags: Array,
     difficulty: { type: Number, default: 0 },
     cookTime: String,

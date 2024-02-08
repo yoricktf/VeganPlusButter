@@ -7,21 +7,21 @@ const BlogCard = ({ blogPost }) => {
   const { title, description, date, author, _id } = blogPost;
   const shortenedDescription = description.slice(0, 150);
 
-  const observer = new IntersectionObserver((blogPosts) => {
-    blogPosts.forEach((blogPost) => {
-      if (blogPost.isIntersecting) {
-        blogPost.target.classList.add('show');
-      } else {
-        blogPost.target.classList.remove('show');
-      }
-    });
-  });
+  // const observer = new IntersectionObserver((blogPosts) => {
+  //   blogPosts.forEach((blogPost) => {
+  //     if (blogPost.isIntersecting) {
+  //       blogPost.target.classList.add('show');
+  //     } else {
+  //       blogPost.target.classList.remove('show');
+  //     }
+  //   });
+  // });
 
-  const hiddenBlogPosts = document.querySelectorAll('.blogCard');
-  hiddenBlogPosts.forEach((blogpost) => observer.observe(blogpost));
+  // const hiddenBlogPosts = document.querySelectorAll('.blogCard');
+  // hiddenBlogPosts.forEach((blogpost) => observer.observe(blogpost));
 
   return (
-    <article className='blogCard'>
+    <article className='blogCard show'>
       <Link href={`/recipe/${_id}`}>
         <h1>{title}</h1>
       </Link>
