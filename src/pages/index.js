@@ -9,7 +9,7 @@ import useSWR from 'swr';
 import Loading from '../../components/Loading';
 
 export default function Home() {
-  const [confirmedUser, setConfirmedUser] = useState();
+  const [confirmedUser, setConfirmedUser] = useState(false);
   const { data: session, status } = useSession();
 
   const {
@@ -69,8 +69,6 @@ export default function Home() {
   ) {
     return <Loading />;
   }
-
-  console.log('blogposts==================================', blogPosts);
 
   return (
     <>
@@ -151,7 +149,7 @@ export default function Home() {
           {blogPosts.map((blogPost) => {
             return <BlogCard key={blogPost._id} blogPost={blogPost} />;
           })}
-          <article className='blogCard blogLink'>
+          <article className='blogCard blogLink show'>
             <Link href={`/blogs`}>
               <h2 className='subTitle'>See All Blog Posts</h2>
             </Link>
@@ -174,15 +172,13 @@ export default function Home() {
           })}
         </div>
       </section>
-      {status === 'authenticated' &&
-      confirmedUser &&
+      {confirmedUser &&
+      status === 'authenticated' &&
       confirmedUser.admin === true ? (
         <Link className='new button' href={'/recipe/new'}>
           ➕
         </Link>
-      ) : (
-        ''
-      )}
+      ) : null}
     </>
   );
 }
