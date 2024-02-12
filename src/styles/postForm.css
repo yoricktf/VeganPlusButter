@@ -35,3 +35,16 @@
   margin: 10px;
   margin-left: 0;
 }
+
+.descriptionControls > button {
+  border-radius: 5px;
+  padding: 4px 6px;
+  margin: 4px;
+  font-size: 1rem;
+  background-color: #fff;
+  border: solid 1px #000;
+}
+
+.descriptionInput {
+  border: 1px solid black;
+}

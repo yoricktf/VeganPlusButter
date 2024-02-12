@@ -4,12 +4,19 @@ import Paragraph from '@tiptap/extension-paragraph';
 import Text from '@tiptap/extension-text';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import TextAlign from '@tiptap/extension-text-align';
 import React, { useEffect } from 'react';
 
 export default function Tiptap({ description, setRecipe }) {
   const editor = useEditor({
     // extensions: [Document, Paragraph, Text, Bold],
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+    ],
+
     content: `
        ${description}
       `,
@@ -27,7 +34,9 @@ export default function Tiptap({ description, setRecipe }) {
 
   return (
     <>
+      <EditorContent className='descriptionInput' editor={editor} />
       <section className='descriptionControls'>
+        <p>Description formatting controls</p>
         <button
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 2 }).run()
@@ -38,6 +47,13 @@ export default function Tiptap({ description, setRecipe }) {
           type='button'
         >
           heading
+        </button>
+        <button
+          onClick={() => editor.chain().focus().setParagraph().run()}
+          className={editor.isActive('paragraph') ? 'is-active' : ''}
+          type='button'
+        >
+          paragraph
         </button>
         <button
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -55,20 +71,42 @@ export default function Tiptap({ description, setRecipe }) {
           italic
         </button>
         <button
-          onClick={() => editor.chain().focus().setParagraph().run()}
-          className={editor.isActive('paragraph') ? 'is-active' : ''}
-          type='button'
-        >
-          paragraph
-        </button>
-        <button
           onClick={() => editor.chain().focus().setHorizontalRule().run()}
           type='button'
         >
           horizontal rule
         </button>
+        <button
+          onClick={() => editor.chain().focus().toggleBulletList().run()}
+          className={editor.isActive('bulletList') ? 'is-active' : ''}
+          type='button'
+        >
+          bullet list
+        </button>
+        <button
+          onClick={() => editor.chain().focus().toggleBlockquote().run()}
+          className={editor.isActive('blockquote') ? 'is-active' : ''}
+          type='button'
+        >
+          blockquote
+        </button>
+        <button
+          onClick={() => editor.chain().focus().setTextAlign('left').run()}
+          className={editor.isActive({ textAlign: 'left' }) ? 'is-active' : ''}
+          type='button'
+        >
+          left
+        </button>
+        <button
+          onClick={() => editor.chain().focus().setTextAlign('center').run()}
+          className={
+            editor.isActive({ textAlign: 'center' }) ? 'is-active' : ''
+          }
+          type='button'
+        >
+          center
+        </button>
       </section>
-      <EditorContent editor={editor} />
     </>
   );
 }
