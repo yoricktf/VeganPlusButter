@@ -1,9 +1,9 @@
-import Link from 'next/link'
-import React from 'react'
+import Link from 'next/link';
+import React from 'react';
 
 const LargeBlogCard = ({ blogPost }) => {
-  const { title, description, date } = blogPost
-  const shortenedDescription = description.slice(0, 150)
+  const { title, description, date } = blogPost;
+  const shortenedDescription = description.slice(0, 150);
 
   // const observer = new IntersectionObserver((blogPosts) => {
   //   blogPosts.forEach((blogPost) => {
@@ -28,11 +28,11 @@ const LargeBlogCard = ({ blogPost }) => {
       </Link>
       <p className='detail'>{date}</p>
       <Link href={`/recipe/${blogPost._id}`}>
-        <p>{shortenedDescription}...</p>
+        <div dangerouslySetInnerHTML={{ __html: shortenedDescription }}></div>
         Read More
       </Link>
     </article>
-  )
-}
+  );
+};
 
-export default LargeBlogCard
+export default LargeBlogCard;

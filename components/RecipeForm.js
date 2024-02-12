@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import NotAuthorized from './NotAuthorized';
 import ImageUpload from './ImageUpload';
+import Tiptap from './Tiptap';
 
 const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
   const { data: session, status } = useSession();
@@ -110,6 +111,8 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
     }
   };
 
+  // console.log('------------recipe: ', recipe);
+
   return (
     <section className='bodySection'>
       <h1 id='formTitle'>{!!editMode ? 'EditRecipe' : 'NewRecipe'}</h1>
@@ -136,6 +139,7 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
         <fieldset className='formFeatures'>
           <legend>Post Description</legend>
           <label htmlFor='title'>Title:</label>
+
           <input
             type='text'
             name='title'
@@ -149,7 +153,8 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
             }
           />
           <label htmlFor='description'>Description:</label>
-          <textarea
+          <Tiptap description={recipe?.description} setRecipe={setRecipe} />
+          {/* <textarea
             name='description'
             id='description'
             cols='30'
@@ -161,7 +166,7 @@ const RecipeForm = ({ onSubmit, recipeValue, editMode }) => {
                 description: e.target.value,
               }))
             }
-          ></textarea>
+          ></textarea> */}
         </fieldset>
         <fieldset className='formFeatures'>
           {' '}

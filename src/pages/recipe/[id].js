@@ -193,7 +193,7 @@ const ShowPage = () => {
               <p onClick={() => signIn('google')}>sign in to save favorites</p>
             </div>
           )}
-          <p>{description}</p>
+          <div dangerouslySetInnerHTML={{ __html: description }}></div>
           {ingredients.length > 0 ? (
             <>
               <h2>Ingredients</h2>
