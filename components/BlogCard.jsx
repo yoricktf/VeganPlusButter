@@ -37,7 +37,7 @@ const BlogCard = ({ blogPost }) => {
         <p className='detail'>{date}</p>
       </Link>
 
-      <p>{shortenedDescription}...</p>
+      <div dangerouslySetInnerHTML={{ __html: shortenedDescription }}></div>
       <Link href={`/recipe/${_id}`}>
         <p className='readMore'>Read more</p>
       </Link>
